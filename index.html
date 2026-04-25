@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Evolution 2026 — Model Nexus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tunnel.css?v=21">
+</head>
+<body>
+
+<!-- ============ FIXED 3D VIEWPORT ============ -->
+<div class="viewport">
+
+  <!-- Starfield (parallax layers, populated by JS) -->
+  <div class="starfield" id="starfield"></div>
+
+  <!-- Tunnel — everything that moves along Z lives here -->
+  <div class="tunnel-space" id="tunnel">
+
+    <!-- Depth cue: grid floor + ceiling -->
+    <div class="grid-plane grid-floor"></div>
+    <div class="grid-plane grid-ceil"></div>
+
+    <!-- Tunnel rings for depth sensation (populated by JS) -->
+    <div id="rings"></div>
+
+    <!-- =========== SCENE 1 — HERO (Z=0) =========== -->
+    <div class="scene hero-scene" data-z="0">
+      <div class="hero-aura"></div>
+      <div class="hero-portal" id="heroPortal">
+        <div class="portal-ring-outer"></div>
+        <div class="portal-ring-mid"></div>
+        <div class="portal-glass">
+          <h1 class="hero-title">
+            <span class="line-2" style="color: rgb(3, 3, 3)">The Year Machines</span>
+            <span class="line-3">Stopped Answering.</span>
+            <span class="line-4">And Began to <em>Think.</em></span>
+          </h1>
+        </div>
+      </div>
+      <p class="hero-sub">
+        A journey through the frontiers of machine intelligence —
+        from language to vision, from code to the physical world.
+      </p>
+      <div class="scroll-cue">
+        <span>Scroll to Engage</span>
+        <span class="line"></span>
+      </div>
+    </div>
+
+    <!-- =========== SCENE 2 — EXECUTIVE SUMMARY (Z=-1800) =========== -->
+    <div class="scene exec-scene" data-z="-1800" dir="rtl">
+      <!-- Full-screen looping video background -->
+      <div class="exec-bridge">
+        <video class="exec-bridge-video" autoplay loop muted playsinline preload="auto"
+               src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_055001_8e16d972-3b2b-441c-86ad-2901a54682f9.mp4"></video>
+        <div class="exec-bridge-fade"></div>
+      </div>
+
+      <div class="exec-glass liquid-glass">
+        <p class="exec-line exec-line-1">
+          מודלי AI עוברים משלב של <em>"תשובה מהירה"</em> לשלב של <em>"חשיבה לפני פעולה"</em>.
+        </p>
+        <p class="exec-line exec-line-2">
+          במקום לירות תגובה, הם עוצרים, מנתחים, מתכננים ובודקים את עצמם תוך כדי תנועה.
+        </p>
+        <p class="exec-line exec-line-3">
+          זה הרגע שבו AI מפסיק להיות רק כלי שמחזיר תשובה — והופך למערכת שמסוגלת לפתור בעיות מורכבות באמת.
+        </p>
+      </div>
+    </div>
+
+    <!-- =========== SCENE 3 — MODEL NEXUS / ORRERY (Z=-3800) =========== -->
+    <div class="scene nexus-scene" data-z="-3800" dir="rtl">
+      <div class="nexus-eyebrow">02 / THE MODEL NEXUS</div>
+      <h2 class="nexus-title">
+        מערכת <em>הכוכבים</em> של AI 2026.
+      </h2>
+      <p class="nexus-intro">
+        כדור הארץ הנוירוני במרכז. שישה עולמות מקיפים אותו — כל אחד שולט בחזית אחרת.
+      </p>
+
+      <div class="orrery" id="orrery">
+        <!-- Central Earth with neural mesh — clickable Orchestration Hub -->
+        <div class="earth-stage" id="earthHub" role="button" tabindex="0" aria-label="Open Agent Orchestration Hub">
+          <div class="earth-halo"></div>
+          <div class="earth">
+            <div class="earth-surface"></div>
+            <div class="earth-mesh"></div>
+            <div class="earth-atmosphere"></div>
+          </div>
+          <div class="earth-hint" dir="rtl">לחץ למרכז הבקרה</div>
+        </div>
+
+        <!-- Orbit rings + satellite worlds populated by JS -->
+        <div class="orrery-scene" id="orreryScene"></div>
+
+      </div>
+    </div>
+
+    <!-- =========== SCENE 4 — AGENT ARCHITECTURE / PILLARS (Z=-6200) =========== -->
+    <div class="scene pillars-scene" data-z="-6200" dir="rtl">
+      <div class="pillars-eyebrow">03 / THE ENGINE ROOM</div>
+      <h2 class="pillars-title">
+        אדריכלות הסוכנים:<br><em>שלוש העמודות של 2026</em>
+      </h2>
+      <p class="pillars-intro">
+        כל סוכן אוטונומי בנוי משלושה רבדים. מוח שמחליט. ספר שמלמד. פרוטוקול שמחבר.
+      </p>
+
+      <div class="pillars-grid">
+        <article class="pillar" data-color="violet" style="--p-glow:#a78bfa;--p-soft:rgba(167,139,250,0.55);--p-deep:rgba(76,29,149,0.5)" tabindex="0">
+          <div class="pillar-media">
+            <video class="pillar-video" autoplay loop muted playsinline preload="auto" data-src="uploads/1.mp4"></video>
+            <div class="pillar-fallback pillar-fallback-violet is-visible" aria-hidden="true">
+              <span class="pf-orb"></span><span class="pf-orb"></span><span class="pf-orb"></span>
+              <span class="pf-line"></span><span class="pf-line"></span><span class="pf-line"></span>
+            </div>
+          </div>
+          <div class="pillar-glass"></div>
+          <div class="pillar-body">
+            <div class="pillar-num">01</div>
+            <h3 class="pillar-title-text">הסוכנים <span class="pt-en">(AI Agents)</span></h3>
+            <div class="pillar-sub">"השף במטבח"</div>
+            <p class="pillar-desc">
+              הישות האוטונומית השולטת. מוח מחשובי שמקבל יעד, מנתח את מצב הסביבה, ובוחר אילו כלים להפעיל בסדרת פעולות סיקוונסיאלית כדי להשלים משימות מורכבות ללא מגע אדם.
+            </p>
+            <div class="pillar-cta">לחץ להעמקה</div>
+          </div>
+        </article>
+
+        <article class="pillar" data-color="gold" style="--p-glow:#fbbf24;--p-soft:rgba(251,191,36,0.55);--p-deep:rgba(120,53,15,0.55)" tabindex="0">
+          <div class="pillar-media">
+            <video class="pillar-video" autoplay loop muted playsinline preload="auto" data-src="uploads/2.mp4"></video>
+            <div class="pillar-fallback pillar-fallback-gold is-visible" aria-hidden="true">
+              <span class="pf-page"></span><span class="pf-page"></span><span class="pf-page"></span>
+              <span class="pf-spark"></span><span class="pf-spark"></span><span class="pf-spark"></span><span class="pf-spark"></span>
+            </div>
+          </div>
+          <div class="pillar-glass"></div>
+          <div class="pillar-body">
+            <div class="pillar-num">02</div>
+            <h3 class="pillar-title-text">הכישורים <span class="pt-en">(Agent Skills)</span></h3>
+            <div class="pillar-sub">"ספר המתכונים"</div>
+            <p class="pillar-desc">
+              קבצי הנחיות ולוגיקה (Markdown) המלמדים את הסוכן איך לבצע משימות ספציפיות תוך עמידה מוחלטת בסטנדרטים וברגולציות של הארגון.
+            </p>
+            <div class="pillar-cta">לחץ להעמקה</div>
+          </div>
+        </article>
+
+        <article class="pillar" data-color="teal" style="--p-glow:#5eead4;--p-soft:rgba(94,234,212,0.55);--p-deep:rgba(19,78,74,0.55)" tabindex="0">
+          <div class="pillar-media">
+            <video class="pillar-video" autoplay loop muted playsinline preload="auto" data-src="uploads/3.mp4"></video>
+            <div class="pillar-fallback pillar-fallback-teal is-visible" aria-hidden="true">
+              <span class="pf-fiber"></span><span class="pf-fiber"></span><span class="pf-fiber"></span><span class="pf-fiber"></span><span class="pf-fiber"></span>
+            </div>
+          </div>
+          <div class="pillar-glass"></div>
+          <div class="pillar-body">
+            <div class="pillar-num">03</div>
+            <h3 class="pillar-title-text">פרוטוקול MCP</h3>
+            <div class="pillar-sub">"חומרי הגלם"</div>
+            <p class="pillar-desc">
+              ה-USB-C של עולם ה-AI. סטנדרט אוניברסלי (Model Context Protocol) המאפשר לסוכנים למשוך נתונים בזמן אמת ממערכות ארגוניות, שירותי ענן ומסדי נתונים חיצוניים.
+            </p>
+            <div class="pillar-cta">לחץ להעמקה</div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- =========== SCENE 5 — BIO-FOUNDATION HORIZON (Z=-8600) =========== -->
+    <div class="scene bio-scene" data-z="-8600" dir="rtl">
+      <!-- Cinematic bio-hoops background (full-bleed, custom JS fade loop) -->
+      <div class="bio-bg">
+        <video class="bio-video bio-video-a" autoplay loop muted playsinline preload="auto" data-src="uploads/bio-hoops.mp4"></video>
+        <video class="bio-video bio-video-b" autoplay loop muted playsinline preload="auto" data-src="uploads/bio-hoops.mp4"></video>
+        <div class="bio-vignette"></div>
+        <div class="bio-grain"></div>
+      </div>
+
+      <div class="bio-eyebrow">04 / BIO-FOUNDATION HORIZON</div>
+      <h2 class="bio-title">
+        <span class="bio-title-en">Built for the Curious.</span>
+        <em>הגבול הבא:<br>בינה ביולוגית.</em>
+      </h2>
+      <p class="bio-intro">
+        ארבעה מודלי יסוד שמסיטים את חזית המדע — מקיפול חלבונים ועד יצירת גנומים חדשים.
+      </p>
+
+      <!-- Orbit stage: 4 revolving glass cards aligned to the video's hoops -->
+      <div class="bio-stage" id="bioStage">
+        <div class="bio-orbit" id="bioOrbit"></div>
+      </div>
+    </div>
+
+    <!-- =========== SCENE 6 — CLOSING (Z=-10400) =========== -->
+    <div class="scene closing-scene" data-z="-10400">
+      <div class="chapter-label" style="justify-content:center;">03 / Outlook</div>
+      <h2 class="scene-title">
+        Next: <em>durable autonomy.</em>
+      </h2>
+      <p>
+        Not cleverer answers — longer, safer, more accountable work.
+        The winners of 2027 will treat their agents like engineers:
+        hired, trained, supervised, measured.
+      </p>
+      <div class="closing-meta">End of Transmission · AI Evolution 2026</div>
+    </div>
+
+  </div><!-- /tunnel -->
+</div><!-- /viewport -->
+
+<!-- ============ SCROLL BODY ============ -->
+<div id="tunnel-scroll"></div>
+
+<!-- ============ ORRERY OVERLAYS — moved OUT of 3D context so they sit above 3D-transformed orbs ============ -->
+<div class="orrery-dim" id="orreryDim"></div>
+
+<aside class="world-panel" id="worldPanel" dir="rtl" aria-hidden="true">
+  <button class="wp-close" id="wpClose" aria-label="Close">×</button>
+  <div class="wp-inner" id="wpInner"></div>
+</aside>
+
+<div class="hub-overlay" id="hubOverlay" aria-hidden="true">
+  <div class="hub-card" dir="rtl">
+    <button class="hub-close" id="hubClose" aria-label="סגור">×</button>
+    <div class="hub-eyebrow">CORE / ORCHESTRATION</div>
+    <h2 class="hub-title">ניהול ואורקסטרציה:<br><em>המוח מאחורי המכונה</em></h2>
+    <p class="hub-lede">שלוש שכבות שמרכיבות את ארכיטקטורת הסוכנים של 2026 — מהשולחני, דרך הסביבתי, ועד התשתית הרב-סוכנית.</p>
+
+    <div class="hub-grid">
+      <article class="hub-cell" style="--c-glow:#60a5fa;--c-soft:rgba(96,165,250,0.4)">
+        <div class="hub-num">01</div>
+        <h3 class="hub-h">Claude Cowork</h3>
+        <div class="hub-sub">העמית השולחני</div>
+        <p class="hub-body">סוכן מבוסס Workflows לניהול מסמכים וקבצים בסביבה מאובטחת (Sandbox). דגש על שמישות גבוהה וניהול טקטי תחת פיקוח אנושי.</p>
+        <div class="hub-tags">
+          <span>Workflows</span><span>Sandbox</span><span>Human-in-loop</span>
+        </div>
+      </article>
+
+      <article class="hub-cell" style="--c-glow:#a78bfa;--c-soft:rgba(167,139,250,0.4)">
+        <div class="hub-num">02</div>
+        <h3 class="hub-h">OpenClaw</h3>
+        <div class="hub-sub">האוטומציה הסביבתית</div>
+        <p class="hub-body">סוכן שירות הפועל ברקע 24/7. בעל זיכרון מתמשך (Persistent Memory), מסוגל לנטר שרתים, Slack ואירועים באופן פרואקטיבי ללא התערבות אנושית.</p>
+        <div class="hub-tags">
+          <span>24/7</span><span>Persistent Memory</span><span>Proactive</span>
+        </div>
+      </article>
+
+      <article class="hub-cell" style="--c-glow:#f59e0b;--c-soft:rgba(245,158,11,0.4)">
+        <div class="hub-num">03</div>
+        <h3 class="hub-h">תשתיות אורקסטרציה</h3>
+        <div class="hub-sub">Multi-Agent Systems (MAS)</div>
+        <p class="hub-body">שילוב מערכות מרובות סוכנים באמצעות LangGraph (שליטה אבסולוטית), CrewAI (ניהול תפקידים) ו-AutoGen (פתרון בעיות מורכבות).</p>
+        <div class="hub-tags">
+          <span>LangGraph</span><span>CrewAI</span><span>AutoGen</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FIXED UI ============ -->
+<nav class="nav" style="display:none;">
+  <div class="nav-brand">
+    <span class="nav-dot"></span>
+    <span>AI EVOLUTION / 2026</span>
+  </div>
+  <div class="nav-meta">VOL.04 · Q2</div>
+</nav>
+
+<!-- velocity readout removed per feedback -->
+
+<!-- HUD removed per feedback -->
+
+
+
+<!-- ============ JS — TUNNEL ENGINE + ORBS ============ -->
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   1. STARFIELD
+═══════════════════════════════════════════════════════════════ */
+const starfield = document.getElementById('starfield');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const depth = Math.random(); // 0..1
+  s.style.left = (Math.random() * 100) + '%';
+  s.style.top = (Math.random() * 100) + '%';
+  const size = 1 + depth * 2;
+  s.style.width = size + 'px';
+  s.style.height = size + 'px';
+  s.style.opacity = 0.3 + depth * 0.7;
+  s.dataset.depth = depth;
+  starfield.appendChild(s);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   2. TUNNEL RINGS — depth cues at progressive Z
+═══════════════════════════════════════════════════════════════ */
+const ringsEl = document.getElementById('rings');
+for (let i = 0; i < 22; i++) {
+  const r = document.createElement('div');
+  r.className = 'ring' + (i % 3 === 0 ? ' glow' : '');
+  const z = -300 * i - 100;
+  const scale = 1 + (i * 0.18);
+  r.style.transform = `translateZ(${z}px) scale(${scale})`;
+  ringsEl.appendChild(r);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3. DOMAIN DATA — six satellite worlds orbiting central Earth
+═══════════════════════════════════════════════════════════════ */
+const CATEGORIES = [
+  {
+    id: 'llm', num: '01', label: 'מודלי שפה',
+    tag: 'Language Models',
+    glow: '#3b82f6', glowSoft: 'rgba(59,130,246,0.55)',
+    texture: 'brain',
+    desc: 'חזית השפה עברה מזרימה לחשיבה מתמשכת — חשיבה רב-שלבית, הקשר של מיליונים, ואמינות ארגונית בסדרי גודל חדשים.',
+    achievement: 'GPT-5.5 חוצה 82% ב-MMLU-Pro. Gemini 3 מחזיק 2M טוקנים של הקשר חי.',
+    models: ['GPT-5.5', 'Gemini 3', 'Claude 4.7', 'Grok', 'DeepSeek', 'Perplexity', 'Mistral'],
+  },
+  {
+    id: 'vibe', num: '02', label: 'Vibe Coding',
+    tag: 'Autonomous Engineering',
+    glow: '#5eead4', glowSoft: 'rgba(94,234,212,0.55)',
+    texture: 'grid',
+    desc: 'סוכני קוד אוטונומיים — ענף, קוד, בדיקה, PR. המפתח בודק דיפים בלבד, לא כותב לולאות.',
+    achievement: 'סוכנים סוגרים כרטיסים מרובי-קבצים בממוצע 6 שעות ללא פיקוח אנושי.',
+    models: ['Cursor', 'Claude Code', 'Lovable', 'Base 44', 'Codex', 'AntiGravity'],
+  },
+  {
+    id: 'image', num: '03', label: 'מודלי תמונה',
+    tag: 'Generative Imagery',
+    glow: '#f472b6', glowSoft: 'rgba(244,114,182,0.55)',
+    texture: 'fractal',
+    desc: 'דור חדש של דיפוזיה: אותיות קריאות, עקביות דמויות, עריכה סמנטית מדויקת ברמת פיקסל.',
+    achievement: 'FLUX.2 מייצרת טקסט קריא בתמונה — הבעיה הגנרטיבית של העשור נפתרה.',
+    models: ['FLUX.2', 'Midjourney v7', 'GPT Image', 'Ideogram V3'],
+  },
+  {
+    id: 'music', num: '04', label: 'מודלי מוזיקה',
+    tag: 'Generative Audio',
+    glow: '#fbbf24', glowSoft: 'rgba(251,191,36,0.55)',
+    texture: 'wave',
+    desc: 'מודלים שמלחינים שירים שלמים — לחן, הרמוניה, ליריקה, ושירה באיכות סטודיו.',
+    achievement: 'Suno v4 מייצרת שיר מלא באיכות סטודיו מ-prompt בודד תוך 30 שניות.',
+    models: ['suno v4', 'Lyria 3', 'Udio', 'ElevenLabs'],
+  },
+  {
+    id: 'video', num: '05', label: 'מודלי וידאו',
+    tag: 'Cinematic Generation',
+    glow: '#ef4444', glowSoft: 'rgba(239,68,68,0.55)',
+    texture: 'film',
+    desc: 'וידאו גנרטיבי של עד דקה, 4K, עם סאונד מסונכרן, עקביות דמויות ופיזיקה אמינה.',
+    achievement: 'Veo 3 מפיקה 60 שניות של וידאו עם סאונד וסנכרון שפתיים מושלם.',
+    models: ['Veo 3', 'KLING 3.0', 'Runway Gen-4.5', 'Sora נסגר'],
+  },
+  {
+    id: 'oss', num: '06', label: 'קוד פתוח',
+    tag: 'Open Weights',
+    glow: '#fb923c', glowSoft: 'rgba(251,146,60,0.55)',
+    texture: 'swarm',
+    desc: 'משקולות פתוחות צמצמו את הפער מול החזית הסגורה — שחרורי MoE בקנה מידה של טריליון.',
+    achievement: 'DeepSeek-V4 Pro משחררת 1.6T פרמטרים פתוחים ברמת חזית, בעלות שבר.',
+    models: ['DeepSeek-V4 Pro', 'LLaMA 4', 'Falcon', 'Gamma 4'],
+  },
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   4. ORRERY — 6 worlds on elliptical paths around central Earth
+═══════════════════════════════════════════════════════════════ */
+const orreryScene = document.getElementById('orreryScene');
+const worldPanel = document.getElementById('worldPanel');
+const wpInner    = document.getElementById('wpInner');
+const wpClose    = document.getElementById('wpClose');
+const orreryDim  = document.getElementById('orreryDim');
+const orreryEl   = document.getElementById('orrery');
+let selectedIdx  = null;
+
+// Each satellite gets a true 3D orbit on the x/z plane (horizontal),
+// with a small tilt around the X axis so the orbit rings have visual variety.
+// rx = horizontal radius, rz = depth radius, tiltX = orbit-plane tilt (deg).
+const ORBIT_CONFIGS = [
+  { rx: 260, rz: 260, tiltX: 68 },
+  { rx: 320, rz: 320, tiltX: 72 },
+  { rx: 380, rz: 380, tiltX: 65 },
+  { rx: 440, rz: 440, tiltX: 76 },
+  { rx: 500, rz: 500, tiltX: 70 },
+  { rx: 560, rz: 560, tiltX: 74 },
+];
+
+const worlds = [];
+CATEGORIES.forEach((cat, i) => {
+  const cfg = ORBIT_CONFIGS[i];
+
+  // Orbit path — an ellipse div rotated into 3D space so it lies on the orbital plane.
+  // rotateX(90°) lays it flat (horizontal); we tilt back slightly so it reads as a 3D ring.
+  const path = document.createElement('div');
+  path.className = 'orbit-path';
+  path.style.width  = (cfg.rx * 2) + 'px';
+  path.style.height = (cfg.rz * 2) + 'px';
+  path.style.transform =
+    `translate3d(-50%,-50%,0) rotateX(${cfg.tiltX}deg)`;
+  orreryScene.appendChild(path);
+
+  // Satellite world
+  const world = document.createElement('div');
+  world.className = `world world-${cat.texture}`;
+  world.style.setProperty('--w-glow', cat.glow);
+  world.style.setProperty('--w-glow-soft', cat.glowSoft);
+  world.innerHTML = `
+    <div class="world-sphere">
+      <div class="world-texture tx-${cat.texture}"></div>
+      <div class="world-terminator"></div>
+      <div class="world-shine"></div>
+    </div>
+    <div class="world-ring"></div>
+    <div class="world-label">
+      <span class="wl-num">${cat.num}</span>
+      <span class="wl-name">${cat.label}</span>
+    </div>
+  `;
+  world.addEventListener('click', () => openWorldPanel(i));
+  orreryScene.appendChild(world);
+
+  worlds.push({ el: world, path, cat, cfg });
+});
+
+/* Click a world: fly to center, scale up, slide right-side panel in */
+function openWorldPanel(i) {
+  selectedIdx = i;
+  const cat = CATEGORIES[i];
+  worldPanel.style.setProperty('--w-glow', cat.glow);
+  worldPanel.style.setProperty('--w-glow-soft', cat.glowSoft);
+  wpInner.innerHTML = `
+    <div class="wp-head">
+      <div class="wp-num">${cat.num} / ${cat.tag}</div>
+      <h3 class="wp-title">${cat.label}</h3>
+    </div>
+    <p class="wp-achieve">${cat.achievement}</p>
+    <p class="wp-desc">${cat.desc}</p>
+    <div class="wp-models-head">מודלים מובילים</div>
+    <div class="wp-models">
+      ${cat.models.map(m => `<div class="wp-pill">${m}</div>`).join('')}
+    </div>
+  `;
+  orreryEl.classList.add('has-selection');
+  worldPanel.classList.add('is-active');
+  orreryDim.classList.add('is-active');
+  worldPanel.setAttribute('aria-hidden', 'false');
+}
+function closeWorldPanel() {
+  selectedIdx = null;
+  orreryEl.classList.remove('has-selection');
+  worldPanel.classList.remove('is-active');
+  orreryDim.classList.remove('is-active');
+  worldPanel.setAttribute('aria-hidden', 'true');
+}
+wpClose.addEventListener('click', closeWorldPanel);
+orreryDim.addEventListener('click', closeWorldPanel);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeWorldPanel(); closeHub(); } });
+
+/* ─── Agent Orchestration Hub (Earth click) ──────────────────── */
+const earthHub  = document.getElementById('earthHub');
+const hubOverlay = document.getElementById('hubOverlay');
+const hubClose  = document.getElementById('hubClose');
+function openHub() {
+  hubOverlay.setAttribute('aria-hidden', 'false');
+  earthHub.classList.add('is-pulsing');
+  setTimeout(() => earthHub.classList.remove('is-pulsing'), 900);
+}
+function closeHub() {
+  hubOverlay.setAttribute('aria-hidden', 'true');
+}
+earthHub.addEventListener('click', openHub);
+earthHub.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openHub(); }
+});
+hubClose.addEventListener('click', closeHub);
+hubOverlay.addEventListener('click', (e) => { if (e.target === hubOverlay) closeHub(); });
+
+/* ─── Pillars: click-to-focus, lazy-load video if file exists, else show fallback ─ */
+document.querySelectorAll('.pillar').forEach((pillar) => {
+  const video = pillar.querySelector('.pillar-video');
+  const fallback = pillar.querySelector('.pillar-fallback');
+  if (video && video.dataset.src) {
+    // Probe for the file with HEAD before assigning src to avoid a noisy 404
+    fetch(video.dataset.src, { method: 'HEAD' })
+      .then((res) => {
+        if (res.ok) {
+          video.src = video.dataset.src;
+          video.addEventListener('canplay', () => {
+            if (fallback) fallback.classList.remove('is-visible');
+          }, { once: true });
+        } else {
+          video.style.display = 'none';
+        }
+      })
+      .catch(() => { video.style.display = 'none'; });
+  }
+  pillar.addEventListener('click', () => {
+    const wasActive = pillar.classList.contains('is-active');
+    document.querySelectorAll('.pillar').forEach(p => p.classList.remove('is-active'));
+    if (!wasActive) pillar.classList.add('is-active');
+  });
+  pillar.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pillar.click(); }
+  });
+});
+
+/* ─── Bio-Foundation Horizon: orbiting glass cards + bg video ────── */
+const BIO_MODELS = [
+  {
+    title: 'AlphaFold 3',
+    org:   'Google DeepMind',
+    body:  'ניתוח קומפלקסים מרובי-מולקולות. חוזה אינטראקציות בין חלבונים, DNA וליגנדים.',
+  },
+  {
+    title: 'GPT-Rosalind',
+    org:   'OpenAI · אפריל 2026',
+    body:  'מודל חשיבה והסקה עמוקה עבור פארמה. מעבד גנומים ומייעל פיתוח תרופות.',
+  },
+  {
+    title: 'Evo 2',
+    org:   'Arc Institute · NVIDIA',
+    body:  'המודל הביולוגי של NVIDIA. הנדסת רצפי DNA ויצירת גנומים חדשים ברזולוציה אדירה.',
+  },
+  {
+    title: 'ESM Cambrian',
+    org:   'EvolutionaryScale',
+    body:  'מודל שפת החלבונים. חיזוי קשרים ביולוגיים ויצירת חלבונים שאינם קיימים בטבע.',
+  },
+];
+
+const bioOrbit = document.getElementById('bioOrbit');
+const bioCards = [];
+if (bioOrbit) {
+  BIO_MODELS.forEach((m, i) => {
+    const card = document.createElement('article');
+    card.className = 'bio-card liquid-glass';
+    card.dir = 'rtl';
+    card.innerHTML = `
+      <div class="bc-org">${m.org}</div>
+      <h3 class="bc-title">${m.title}</h3>
+      <p class="bc-body">${m.body}</p>
+    `;
+    card.addEventListener('mouseenter', () => bioOrbit.classList.add('is-paused'));
+    card.addEventListener('mouseleave', () => bioOrbit.classList.remove('is-paused'));
+    bioOrbit.appendChild(card);
+    bioCards.push(card);
+  });
+}
+
+/* Bio bg video — dual-tag custom fade loop for seamless transitions */
+(() => {
+  const a = document.querySelector('.bio-video-a');
+  const b = document.querySelector('.bio-video-b');
+  if (!a || !b || !a.dataset.src) return;
+  const src = a.dataset.src;
+  fetch(src, { method: 'HEAD' })
+    .then(r => {
+      if (!r.ok) return;
+      a.src = src; b.src = src;
+      // remove default loop — we handle fade ourselves
+      a.loop = false; b.loop = false;
+      let active = a, idle = b;
+      const FADE = 0.9; // seconds before end to begin fade
+      const tick = () => {
+        if (!active.duration || isNaN(active.duration)) return;
+        const remaining = active.duration - active.currentTime;
+        if (remaining < FADE && idle.paused) {
+          idle.currentTime = 0;
+          idle.play().catch(()=>{});
+          // crossfade
+          idle.style.opacity = '1';
+          active.style.opacity = '0';
+          // swap
+          const prev = active;
+          active = idle;
+          idle = prev;
+          // when prev ends, reset for next cycle
+          setTimeout(() => { idle.pause(); }, FADE * 1000 + 100);
+        }
+      };
+      a.addEventListener('timeupdate', tick);
+      b.addEventListener('timeupdate', tick);
+      // start: only A visible
+      a.style.opacity = '1';
+      b.style.opacity = '0';
+      a.play().catch(()=>{});
+    })
+    .catch(() => {});
+})();
+
+/* Orbit clock — synced to hoop RPM, paused on hover */
+let bioOrbitT = 0;
+let bioLast = performance.now();
+function tickBioOrbit(now) {
+  const dt = Math.min(50, now - bioLast); bioLast = now;
+  if (bioOrbit && !bioOrbit.classList.contains('is-paused')) {
+    // ~14s per full revolution to match hoop RPM in the video
+    bioOrbitT += dt * 0.00045;
+  }
+  const N = bioCards.length;
+  if (N) {
+    // Horizontal ellipse hugging the outer hoop trajectory
+    const RX = 460, RZ = 140;
+    for (let i = 0; i < N; i++) {
+      const phase = bioOrbitT + (i / N) * Math.PI * 2;
+      const x  = Math.sin(phase) * RX;
+      const z  = Math.cos(phase) * RZ;
+      const frontness = (z + RZ) / (2 * RZ);
+      const scale = 0.62 + frontness * 0.62;        // 0.62..1.24
+      const opacity = 0.18 + frontness * 0.82;      // 0.18..1
+      const c = bioCards[i];
+      c.style.transform = `translate3d(${x.toFixed(1)}px, 0, ${z.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+      c.style.opacity = opacity.toFixed(3);
+      c.style.zIndex = Math.round(100 + z);
+      c.classList.toggle('is-front', frontness > 0.85);
+      c.classList.toggle('is-back', frontness < 0.15);
+    }
+  }
+  requestAnimationFrame(tickBioOrbit);
+}
+requestAnimationFrame(tickBioOrbit);
+
+/* Exec bridge video probe (bio-hoops peek for scene 01) */
+(() => {
+  const v = document.querySelector('.exec-bridge-video');
+  if (!v || !v.dataset.src) return;
+  fetch(v.dataset.src, { method: 'HEAD' })
+    .then(r => { if (r.ok) v.src = v.dataset.src; })
+    .catch(() => {});
+})();
+
+// Constant orbit clock — runs every frame, independent of scroll.
+// Scroll *influences* speed (faster while scrolling), but never stops it.
+let orbitClock = 0;          // accumulated radians
+let lastFrameTs = performance.now();
+let lastScrollY = window.scrollY;
+let scrollBoost = 0;         // 0..1, decays each frame
+
+function renderOrrery() {
+  const now = performance.now();
+  const dt = Math.min(0.05, (now - lastFrameTs) / 1000); // seconds, clamped
+  lastFrameTs = now;
+
+  // Detect scroll velocity → temporarily boost orbit speed
+  const dy = Math.abs(window.scrollY - lastScrollY);
+  lastScrollY = window.scrollY;
+  if (dy > 0) scrollBoost = Math.min(1, scrollBoost + dy * 0.004);
+  scrollBoost *= 0.92; // decay
+
+  // Slow down (but DON'T stop) when a panel is open
+  const panelOpen = selectedIdx !== null;
+  const baseRPS = panelOpen ? 0.012 : 0.045;   // radians/sec base
+  const boostRPS = scrollBoost * 0.35;         // scroll adds rotation speed
+  orbitClock += (baseRPS + boostRPS) * dt * Math.PI * 2;
+
+  // Scroll progress still picks the "focus" world for chromatic-aberration cue
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+  const nexusStart = 0.50;
+  const nexusEnd   = 0.90;
+  const local = Math.max(0, Math.min(1, (progress - nexusStart) / (nexusEnd - nexusStart)));
+  const focusIdx = Math.round(local * CATEGORIES.length) % CATEGORIES.length;
+
+  worlds.forEach((w, i) => {
+    const baseAngle = (i / CATEGORIES.length) * Math.PI * 2;
+    const angle = baseAngle - orbitClock;
+
+    // Position on the orbit's local plane (x_local, z_local)
+    const xLocal = Math.cos(angle) * w.cfg.rx;
+    const zLocal = Math.sin(angle) * w.cfg.rz;
+
+    // Rotate that plane around the X axis by tiltX → world (x, y, z)
+    const t = w.cfg.tiltX * Math.PI / 180;
+    const x =  xLocal;
+    const y = -zLocal * Math.sin(t);
+    const z =  zLocal * Math.cos(t);
+
+    // Depth cue: z>0 = in front of Earth, z<0 = behind
+    // Map z from [-rz..+rz] to [0..1] where 1 = closest
+    const depth = (z / w.cfg.rz + 1) / 2;     // 0=back, 1=front
+    const scale = 0.55 + depth * 0.85;        // back 0.55 → front 1.4
+    const brightness = 0.4 + depth * 0.6;     // back dim, front bright
+    const blur = (1 - depth) * 1.8;           // back slightly soft
+
+    const isFocus = i === focusIdx;
+    const isSelected = i === selectedIdx;
+    const focusBoost = isFocus && !isSelected ? 1.15 : 1;
+    const finalScale = isSelected ? 1.8 : scale * focusBoost;
+    const opacity = isSelected ? 1 : Math.max(0.4, brightness);
+
+    if (isSelected) {
+      // Fly to dead center (Earth's position) and pop forward in Z
+      w.el.style.transform =
+        `translate3d(-50%,-50%,0) translate3d(0px, 0px, 400px) scale(${finalScale})`;
+      w.el.style.filter = 'none';
+      w.el.style.zIndex = 9999;
+    } else {
+      w.el.style.transform =
+        `translate3d(-50%,-50%,0) translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) scale(${finalScale.toFixed(3)})`;
+      w.el.style.filter = `brightness(${brightness.toFixed(2)}) blur(${blur.toFixed(2)}px)`;
+      // Manual depth-sort fallback: closer = higher z-index
+      // (browsers using preserve-3d will also sort by Z naturally; this is belt-and-braces)
+      w.el.style.zIndex = Math.round(1000 + z);
+    }
+    w.el.style.opacity = opacity.toFixed(3);
+    w.el.classList.toggle('is-focus', isFocus && !isSelected);
+    w.el.classList.toggle('is-selected', isSelected);
+  });
+}
+
+/* Bento modal removed — replaced by right-side glass panel */
+
+/* ═══════════════════════════════════════════════════════════════
+   6. TUNNEL ENGINE — Z-axis scroll with spring smoothing
+═══════════════════════════════════════════════════════════════ */
+const tunnel = document.getElementById('tunnel');
+const scenes = [...document.querySelectorAll('.scene')];
+// Apply each scene's Z position in 3D space at init
+scenes.forEach(s => {
+  const z = parseFloat(s.dataset.z);
+  s.dataset.baseTransform = `translateZ(${z}px)`;
+  s.style.transform = s.dataset.baseTransform;
+});
+const scrollEl = document.getElementById('tunnel-scroll');
+
+// Total Z distance traveled through tunnel (px in 3D space)
+const TOTAL_Z = 11000;
+
+// Spring-smoothed scroll progress (damped, with tiny overshoot)
+let targetZ = 0;     // current raw scroll target
+let currentZ = 0;    // spring-smoothed Z
+let velocity = 0;
+const STIFF = 0.085;  // spring stiffness
+const DAMP  = 0.78;   // damping factor
+
+function onScroll() {
+  const max = scrollEl.scrollHeight - window.innerHeight;
+  const progress = Math.max(0, Math.min(1, window.scrollY / max));
+  targetZ = progress * TOTAL_Z;
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* Spring physics loop + render */
+function tick() {
+  // Damped spring toward target (tweakable)
+  const stiff = (window.__TUNNEL && window.__TUNNEL.STIFF) || STIFF;
+  const damp  = (window.__TUNNEL && window.__TUNNEL.DAMP)  || DAMP;
+  const dz = targetZ - currentZ;
+  velocity += dz * stiff;
+  velocity *= damp;
+  currentZ += velocity;
+
+  // Clamp currentZ to avoid flicker past the ends
+  const MAX_Z = TOTAL_Z + 200;
+  if (currentZ < -50) currentZ = -50;
+  if (currentZ > MAX_Z) currentZ = MAX_Z;
+
+  // Move the whole tunnel toward the camera
+  tunnel.style.transform = `translateZ(${currentZ}px)`;
+
+  // Fade and scale each scene based on distance from the camera
+  scenes.forEach(scene => {
+    const sceneZ = parseFloat(scene.dataset.z);
+    const distance = -sceneZ - currentZ;
+    const absD = Math.abs(distance);
+    let op = 1 - Math.min(1, absD / 1100);
+    op = Math.pow(op, 1.5);
+    // Clamp opacity to prevent sub-pixel flicker at edges
+    op = op < 0.02 ? 0 : op;
+    scene.style.opacity = op;
+    scene.style.visibility = op < 0.01 ? 'hidden' : 'visible';
+    // Trigger one-shot scroll-in animations once the scene is reasonably present
+    scene.classList.toggle('is-active', op > 0.55);
+  });
+
+  // Hero portal Z-axis zoom: as we scroll, the portal (and title inside)
+  // scales up toward the camera for the "urban jungle" effect.
+  // Clamp max scale so text never pixelates / breaks.
+  const heroPortal = document.getElementById('heroPortal');
+  if (heroPortal) {
+    // currentZ goes 0 -> TOTAL_Z; remap early window to a 1 -> ~2.2 scale
+    const zoomProgress = Math.max(0, Math.min(1, currentZ / 1400));
+    // ease out so it feels cinematic
+    const eased = 1 - Math.pow(1 - zoomProgress, 2.2);
+    const MAX_SCALE = 2.2;      // clamp to prevent pixelation
+    const scale = 1 + eased * (MAX_SCALE - 1);
+    // Fade the portal out as it passes the camera
+    const portalOp = 1 - Math.pow(zoomProgress, 2.4);
+    heroPortal.style.transform = `scale(${scale.toFixed(4)})`;
+    heroPortal.style.opacity = portalOp.toFixed(3);
+    // Stop the breathing animation once the scroll-zoom takes over
+    heroPortal.style.animationPlayState = zoomProgress > 0.02 ? 'paused' : 'running';
+  }
+
+  // Orrery: central Earth fixed; 6 worlds orbit on elliptical paths
+  // with camera rotation driven by scroll progress.
+  renderOrrery();
+
+  // Starfield parallax (slow drift based on currentZ)
+  const stars = starfield.children;
+  for (let s of stars) {
+    const d = parseFloat(s.dataset.depth);
+    const y = (currentZ * 0.02 * d) % 100;
+    s.style.transform = `translateY(${-y}px)`;
+  }
+
+
+  requestAnimationFrame(tick);
+}
+function easeOutBack(x) {
+  const c1 = 1.70158, c3 = c1 + 1;
+  return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+}
+requestAnimationFrame(tick);
+</script>
+
+<!-- Tweaks -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks.jsx"></script>
+
+</body>
+</html>
