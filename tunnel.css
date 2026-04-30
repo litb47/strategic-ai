@@ -132,9 +132,11 @@ html, body {
   will-change: transform, opacity;
 }
 
-/* Hero scene */
+/* Hero scene — vertical centering uses vh so the portal isn't clipped at
+   the top regardless of its rendered size. (-340px was hardcoded for an
+   assumed 680px portal; the portal can now scale up to 820px / 80vh.) */
 .hero-scene {
-  margin: -340px 0 0 -600px;
+  margin: -45vh 0 0 -600px;
   text-align: center;
 }
 
@@ -193,8 +195,8 @@ html, body {
   z-index: 2;
 }
 /* Looping background video — fills the portal's circular interior.
-   top:0/left:0 + width/height:100% (rather than `inset:0`) renders
-   correctly across all browsers when nested in a 3D-transformed scene. */
+   Light filter only — keep the sphere's color vivid; readability comes
+   from a dedicated tablet behind the title (see .hero-title below). */
 .portal-bg-video {
   position: absolute;
   top: 0; left: 0;
@@ -204,17 +206,13 @@ html, body {
   object-position: center;
   border-radius: 50%;
   z-index: 0;
-  filter: brightness(0.5) saturate(1.2) contrast(1.05);
+  filter: saturate(1.1) contrast(1.04);
   pointer-events: none;
-  /* Belt-and-braces clip in case parent overflow:hidden gets bypassed
-     by transform-style:preserve-3d in some browsers. */
   -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 99%, transparent 100%);
           mask-image: radial-gradient(circle at 50% 50%, #000 99%, transparent 100%);
 }
-/* Strong central scrim — guarantees the metallic title gradient stays
-   legible regardless of which frame of the video is showing. Two layers:
-   • a deep central spotlight for the title area
-   • a softer outer ring so the video's edges still bleed visible */
+/* Subtle vignette only — preserves the sphere's beauty, lightly darkens
+   the rim so the portal feels framed but doesn't kill the colors. */
 .portal-bg-scrim {
   position: absolute;
   top: 0; left: 0;
@@ -223,15 +221,9 @@ html, body {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 65% 38% at 50% 50%,
-      rgba(2,6,23,0.78) 0%,
-      rgba(2,6,23,0.55) 65%,
-      rgba(2,6,23,0.2) 100%),
-    linear-gradient(180deg,
-      rgba(2,6,23,0.25) 0%,
-      rgba(2,6,23,0) 30%,
-      rgba(2,6,23,0) 70%,
-      rgba(2,6,23,0.45) 100%);
+    radial-gradient(circle at 50% 50%,
+      transparent 55%,
+      rgba(2,6,23,0.35) 100%);
 }
 .portal-ring-outer,
 .portal-ring-mid {
@@ -249,6 +241,9 @@ html, body {
   border: 1px solid rgba(255,255,255,0.10);
 }
 
+/* Wrapper around the title — provides the frosted-glass "tablet" backdrop
+   only where the text sits, so the colorful sphere video stays visible
+   everywhere else inside the portal. */
 h1.hero-title {
   font-family: 'Geist', 'Inter Tight', 'Inter', system-ui, sans-serif;
   font-size: 54px;
@@ -256,16 +251,16 @@ h1.hero-title {
   line-height: 1.06;
   letter-spacing: -0.045em;
   text-align: center;
-  width: 100%;
-  max-width: 620px;
+  width: auto;
+  max-width: 75%;
   margin: 0 auto;
-  padding: 0 70px;
+  padding: 22px 36px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  /* Metallic gradient: white to silver-grey */
+  /* Metallic gradient on the text itself */
   background: linear-gradient(
     180deg,
     #ffffff 0%,
@@ -277,13 +272,33 @@ h1.hero-title {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  /* Deep shadow so letters "pop" out of darkness */
+  /* Drop shadow keeps the letters legible right up to the tablet edges. */
   filter:
     drop-shadow(0 2px 0 rgba(0,0,0,0.6))
-    drop-shadow(0 8px 24px rgba(0,0,0,0.85))
-    drop-shadow(0 0 60px rgba(0,0,0,0.7));
+    drop-shadow(0 8px 24px rgba(0,0,0,0.9))
+    drop-shadow(0 0 40px rgba(0,0,0,0.7));
   position: relative;
   z-index: 2;
+  isolation: isolate;
+}
+/* Frosted-glass tablet drawn behind the text only. Sits over the video
+   in the central title band; sphere colors visible above + below. */
+h1.hero-title::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg,
+      rgba(8,14,30,0.55) 0%,
+      rgba(2,6,23,0.65) 100%);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 h1.hero-title .line-2,
 h1.hero-title .line-3,
