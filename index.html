@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=22">
+<link rel="stylesheet" href="tunnel.css?v=23">
 </head>
 <body>
 
@@ -318,6 +318,52 @@ for (let i = 0; i < 22; i++) {
 /* ═══════════════════════════════════════════════════════════════
    3. DOMAIN DATA — six satellite worlds orbiting central Earth
 ═══════════════════════════════════════════════════════════════ */
+
+// Literal SVG icons keyed by the texture name on each category.
+// All paths designed inside viewBox 0 0 120 120, using currentColor
+// so the world's --w-glow controls the fill via inline style.
+const ICON_PATHS = {
+  // LLM — chat bubble with three dots (universal "AI conversation" glyph)
+  brain: `
+    <path d="M25 32 Q25 22 35 22 L85 22 Q95 22 95 32 L95 68 Q95 78 85 78 L66 78 L55 92 L55 78 L35 78 Q25 78 25 68 Z" fill="currentColor"/>
+    <circle cx="45" cy="50" r="4.5" fill="#0a0e1f"/>
+    <circle cx="60" cy="50" r="4.5" fill="#0a0e1f"/>
+    <circle cx="75" cy="50" r="4.5" fill="#0a0e1f"/>
+  `,
+  // Vibe Coding — < /> brackets
+  grid: `
+    <path d="M32 38 L18 60 L32 82" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M88 38 L102 60 L88 82" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M68 28 L52 92" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+  `,
+  // Image — Polaroid frame with mountains and sun
+  fractal: `
+    <rect x="14" y="24" width="92" height="72" rx="8" fill="none" stroke="currentColor" stroke-width="6"/>
+    <circle cx="82" cy="44" r="6" fill="currentColor"/>
+    <path d="M20 90 L42 60 L58 76 L74 56 L100 90 Z" fill="currentColor"/>
+  `,
+  // Music — eighth note (head + stem + flag)
+  wave: `
+    <ellipse cx="40" cy="82" rx="14" ry="10" transform="rotate(-22 40 82)" fill="currentColor"/>
+    <rect x="51" y="22" width="6" height="62" fill="currentColor"/>
+    <path d="M57 22 Q57 32 70 38 Q82 44 80 60 Q76 50 64 48 Q57 46 57 42 Z" fill="currentColor"/>
+  `,
+  // Video — play triangle inside rounded frame
+  film: `
+    <rect x="14" y="22" width="92" height="76" rx="10" fill="none" stroke="currentColor" stroke-width="6"/>
+    <path d="M50 42 L50 78 L82 60 Z" fill="currentColor"/>
+  `,
+  // OSS — 3-node connected graph
+  swarm: `
+    <line x1="35" y1="38" x2="85" y2="38" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+    <line x1="35" y1="38" x2="60" y2="88" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+    <line x1="85" y1="38" x2="60" y2="88" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="35" cy="38" r="10" fill="currentColor"/>
+    <circle cx="85" cy="38" r="10" fill="currentColor"/>
+    <circle cx="60" cy="88" r="10" fill="currentColor"/>
+  `,
+};
+
 const CATEGORIES = [
   {
     id: 'llm', num: '01', label: 'מודלי שפה',
@@ -386,16 +432,17 @@ const orreryDim  = document.getElementById('orreryDim');
 const orreryEl   = document.getElementById('orrery');
 let selectedIdx  = null;
 
-// Each satellite gets a true 3D orbit on the x/z plane (horizontal),
-// with a small tilt around the X axis so the orbit rings have visual variety.
-// rx = horizontal radius, rz = depth radius, tiltX = orbit-plane tilt (deg).
+// Each satellite gets a true 3D orbit. Solar-system look:
+// shallow shared tilt (~16°) so worlds travel mostly horizontally,
+// per-orbit Y-rotation jitter so concentric rings don't visually stack,
+// per-orbit speed multiplier so outer worlds drift slower (Kepler-ish).
 const ORBIT_CONFIGS = [
-  { rx: 260, rz: 260, tiltX: 68 },
-  { rx: 320, rz: 320, tiltX: 72 },
-  { rx: 380, rz: 380, tiltX: 65 },
-  { rx: 440, rz: 440, tiltX: 76 },
-  { rx: 500, rz: 500, tiltX: 70 },
-  { rx: 560, rz: 560, tiltX: 74 },
+  { rx: 260, rz: 260, tiltX: 14, tiltY:  0, speed: 1.00 },
+  { rx: 320, rz: 320, tiltX: 17, tiltY: -6, speed: 0.78 },
+  { rx: 380, rz: 380, tiltX: 15, tiltY:  4, speed: 0.62 },
+  { rx: 440, rz: 440, tiltX: 18, tiltY: -3, speed: 0.50 },
+  { rx: 500, rz: 500, tiltX: 16, tiltY:  7, speed: 0.42 },
+  { rx: 560, rz: 560, tiltX: 19, tiltY: -5, speed: 0.36 },
 ];
 
 const worlds = [];
@@ -403,27 +450,25 @@ CATEGORIES.forEach((cat, i) => {
   const cfg = ORBIT_CONFIGS[i];
 
   // Orbit path — an ellipse div rotated into 3D space so it lies on the orbital plane.
-  // rotateX(90°) lays it flat (horizontal); we tilt back slightly so it reads as a 3D ring.
+  // We apply rotateY (per-orbit jitter) and rotateX (shared shallow tilt) in that order
+  // to match the math in renderOrrery().
   const path = document.createElement('div');
   path.className = 'orbit-path';
   path.style.width  = (cfg.rx * 2) + 'px';
   path.style.height = (cfg.rz * 2) + 'px';
   path.style.transform =
-    `translate3d(-50%,-50%,0) rotateX(${cfg.tiltX}deg)`;
+    `translate3d(-50%,-50%,0) rotateY(${cfg.tiltY}deg) rotateX(${cfg.tiltX}deg)`;
   orreryScene.appendChild(path);
 
-  // Satellite world
+  // Satellite world — literal SVG icon themed per category
   const world = document.createElement('div');
   world.className = `world world-${cat.texture}`;
-  world.style.setProperty('--w-glow', cat.glow);
-  world.style.setProperty('--w-glow-soft', cat.glowSoft);
+  world.setAttribute('style',
+    `--w-glow: ${cat.glow}; --w-glow-soft: ${cat.glowSoft}; color: var(--w-glow);`);
   world.innerHTML = `
-    <div class="world-sphere">
-      <div class="world-texture tx-${cat.texture}"></div>
-      <div class="world-terminator"></div>
-      <div class="world-shine"></div>
-    </div>
-    <div class="world-ring"></div>
+    <svg class="world-icon" viewBox="0 0 120 120" aria-hidden="true">
+      ${ICON_PATHS[cat.texture]}
+    </svg>
     <div class="world-label">
       <span class="wl-num">${cat.num}</span>
       <span class="wl-name">${cat.label}</span>
@@ -679,17 +724,25 @@ function renderOrrery() {
 
   worlds.forEach((w, i) => {
     const baseAngle = (i / CATEGORIES.length) * Math.PI * 2;
-    const angle = baseAngle - orbitClock;
+    // Per-orbit speed multiplier — outer worlds drift slower (Kepler-ish)
+    const angle = baseAngle - orbitClock * w.cfg.speed;
 
     // Position on the orbit's local plane (x_local, z_local)
     const xLocal = Math.cos(angle) * w.cfg.rx;
     const zLocal = Math.sin(angle) * w.cfg.rz;
 
-    // Rotate that plane around the X axis by tiltX → world (x, y, z)
-    const t = w.cfg.tiltX * Math.PI / 180;
-    const x =  xLocal;
-    const y = -zLocal * Math.sin(t);
-    const z =  zLocal * Math.cos(t);
+    // Rotate that plane around the X axis by tiltX → (x1, y1, z1)
+    const tx = w.cfg.tiltX * Math.PI / 180;
+    const x1 =  xLocal;
+    const y1 = -zLocal * Math.sin(tx);
+    const z1 =  zLocal * Math.cos(tx);
+
+    // Rotate around the Y axis by tiltY → final world (x, y, z)
+    // (de-stacks concentric rings so they don't visually merge into one line)
+    const ty = w.cfg.tiltY * Math.PI / 180;
+    const x  =  x1 * Math.cos(ty) + z1 * Math.sin(ty);
+    const z  = -x1 * Math.sin(ty) + z1 * Math.cos(ty);
+    const y  =  y1;
 
     // Depth cue: z>0 = in front of Earth, z<0 = behind
     // Map z from [-rz..+rz] to [0..1] where 1 = closest

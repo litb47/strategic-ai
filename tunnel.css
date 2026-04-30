@@ -405,9 +405,11 @@ h2.scene-title em {
 .earth-stage {
   position: absolute;
   top: 50%; left: 50%;
-  transform: translate3d(-50%,-50%, 0);
+  /* Pushed back into Z so the orbit field reads as a wide solar-system view.
+     Width bump from 280→320 compensates for foreshortening at Z=-180. */
+  transform: translate3d(-50%,-50%, -180px);
   transform-style: preserve-3d;
-  width: 280px; height: 280px;
+  width: 320px; height: 320px;
   cursor: pointer;
   transition: filter 0.4s ease;
 }
@@ -542,52 +544,26 @@ h2.scene-title em {
   --w-glow: #3b82f6;
   --w-glow-soft: rgba(59,130,246,0.55);
 }
-.world-sphere {
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow:
-    inset -18px -20px 40px rgba(0,0,0,0.85),
-    inset 12px 10px 30px rgba(255,255,255,0.12),
-    0 0 40px var(--w-glow-soft),
-    0 0 80px var(--w-glow-soft);
-}
-/* Terminator/shadow pass */
-.world-terminator {
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%,
-    transparent 0%,
-    transparent 45%,
-    rgba(0,0,0,0.55) 85%,
-    rgba(0,0,0,0.85) 100%);
-  pointer-events: none;
-}
-/* Specular shine */
-.world-shine {
+/* Literal SVG icon per category — replaces the old gradient sphere.
+   Glow is shaped by the icon's silhouette (drop-shadow), not a circle. */
+.world-icon {
   position: absolute;
-  top: 14%; left: 22%;
-  width: 28%; height: 22%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse,
-    rgba(255,255,255,0.7) 0%,
-    rgba(255,255,255,0.18) 45%,
-    transparent 80%);
-  filter: blur(3px);
+  inset: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  filter:
+    drop-shadow(0 0 6px var(--w-glow))
+    drop-shadow(0 0 16px var(--w-glow-soft))
+    drop-shadow(0 0 32px var(--w-glow-soft));
+  transition: filter 0.25s ease, transform 0.25s ease;
   pointer-events: none;
 }
-/* Outer aura ring */
-.world-ring {
-  position: absolute; inset: -12px;
-  border-radius: 50%;
-  border: 1px solid var(--w-glow-soft);
-  opacity: 0.4;
-  animation: world-ring-pulse 3.2s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes world-ring-pulse {
-  0%,100% { transform: scale(1);   opacity: 0.45; }
-  50%     { transform: scale(1.08); opacity: 0.15; }
+.world:hover .world-icon {
+  transform: scale(1.06);
+  filter:
+    drop-shadow(0 0 8px var(--w-glow))
+    drop-shadow(0 0 24px var(--w-glow-soft))
+    drop-shadow(0 0 48px var(--w-glow-soft));
 }
 /* Label under world — hidden by request; kept tiny for a11y */
 .world-label {
@@ -613,150 +589,14 @@ h2.scene-title em {
   color: #fff;
   letter-spacing: -0.01em;
 }
-/* Focus boost — chromatic aberration on foreground world */
-.world.is-focus .world-sphere {
-  box-shadow:
-    inset -18px -20px 40px rgba(0,0,0,0.85),
-    inset 12px 10px 30px rgba(255,255,255,0.15),
-    0 0 60px var(--w-glow-soft),
-    0 0 140px var(--w-glow-soft),
-    2px 0 0 rgba(255,40,80,0.35),
-    -2px 0 0 rgba(40,120,255,0.35);
+/* Focus boost — stronger glow on the scroll-driven foreground world */
+.world.is-focus .world-icon {
+  filter:
+    drop-shadow(0 0 10px var(--w-glow))
+    drop-shadow(0 0 28px var(--w-glow-soft))
+    drop-shadow(0 0 56px var(--w-glow-soft));
 }
 .world.is-focus .world-label .wl-name { font-size: 18px; }
-
-/* ─── WORLD TEXTURES ──────────────────────────────────────────── */
-/* Blue brain — LLMs */
-.world-brain .world-texture {
-  position: absolute; inset: 0; border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 28%, #60a5fa 0%, #2563eb 35%, #0a1f46 85%),
-    linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
-}
-.world-brain .world-texture::before {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background-image:
-    radial-gradient(circle at 50% 50%,
-      transparent 35%, rgba(147,197,253,0.5) 36%, transparent 37%),
-    radial-gradient(circle at 30% 40%,
-      transparent 25%, rgba(147,197,253,0.4) 26%, transparent 27%),
-    radial-gradient(circle at 70% 60%,
-      transparent 28%, rgba(147,197,253,0.35) 29%, transparent 30%),
-    radial-gradient(circle at 55% 75%,
-      transparent 20%, rgba(147,197,253,0.4) 21%, transparent 22%);
-  mix-blend-mode: screen;
-}
-
-/* Green code grid — Vibe Coding */
-.world-grid .world-texture {
-  position: absolute; inset: 0; border-radius: 50%;
-  background:
-    radial-gradient(circle at 35% 30%, #6ee7b7 0%, #059669 40%, #064e3b 88%),
-    #064e3b;
-}
-.world-grid .world-texture::before {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background-image:
-    repeating-linear-gradient(0deg, transparent 0 11px, rgba(110,231,183,0.55) 11px 12px),
-    repeating-linear-gradient(90deg, transparent 0 11px, rgba(110,231,183,0.55) 11px 12px);
-  mix-blend-mode: screen;
-  opacity: 0.7;
-}
-
-/* Pink fractals — Image */
-.world-fractal .world-texture {
-  position: absolute; inset: 0; border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 28%, #fbcfe8 0%, #ec4899 35%, #831843 85%),
-    conic-gradient(from 0deg, #be185d, #db2777, #f472b6, #ec4899, #be185d);
-}
-.world-fractal .world-texture::before {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background-image:
-    conic-gradient(from 45deg at 50% 50%,
-      transparent 0deg, rgba(253,186,219,0.6) 8deg, transparent 16deg,
-      transparent 30deg, rgba(253,186,219,0.4) 38deg, transparent 46deg,
-      transparent 90deg, rgba(253,186,219,0.5) 98deg, transparent 106deg,
-      transparent 180deg, rgba(253,186,219,0.4) 188deg, transparent 196deg,
-      transparent 270deg, rgba(253,186,219,0.5) 278deg, transparent 286deg);
-  mix-blend-mode: screen;
-  opacity: 0.75;
-}
-
-/* Gold waves — Music */
-.world-wave .world-texture {
-  position: absolute; inset: 0; border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 28%, #fde68a 0%, #f59e0b 35%, #78350f 88%),
-    #78350f;
-}
-.world-wave .world-texture::before {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background-image:
-    repeating-radial-gradient(circle at 50% 50%,
-      transparent 0 8px,
-      rgba(253,224,71,0.55) 8px 9px,
-      transparent 9px 14px);
-  mix-blend-mode: screen;
-  opacity: 0.7;
-}
-
-/* Red film — Video */
-.world-film .world-texture {
-  position: absolute; inset: 0; border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 28%, #fca5a5 0%, #dc2626 35%, #450a0a 88%),
-    #450a0a;
-}
-.world-film .world-texture::before {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background-image:
-    repeating-linear-gradient(90deg,
-      transparent 0 14px,
-      rgba(0,0,0,0.55) 14px 22px),
-    repeating-linear-gradient(90deg,
-      transparent 0 18px,
-      rgba(252,165,165,0.4) 18px 20px);
-  mix-blend-mode: multiply;
-  opacity: 0.55;
-}
-
-/* Orange data swarm — Open Source */
-.world-swarm .world-texture {
-  position: absolute; inset: 0; border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 28%, #fdba74 0%, #ea580c 35%, #431407 88%),
-    #431407;
-}
-.world-swarm .world-texture::before {
-  content: "";
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background-image:
-    radial-gradient(circle at 22% 30%, rgba(253,186,116,0.85) 0 2px, transparent 3px),
-    radial-gradient(circle at 65% 25%, rgba(253,186,116,0.85) 0 2px, transparent 3px),
-    radial-gradient(circle at 80% 58%, rgba(253,186,116,0.75) 0 1.5px, transparent 2.5px),
-    radial-gradient(circle at 40% 60%, rgba(253,186,116,0.7)  0 2px, transparent 3px),
-    radial-gradient(circle at 55% 80%, rgba(253,186,116,0.8)  0 1.5px, transparent 2.5px),
-    radial-gradient(circle at 25% 72%, rgba(253,186,116,0.75) 0 2px, transparent 3px),
-    radial-gradient(circle at 72% 40%, rgba(253,186,116,0.8)  0 1.5px, transparent 2.5px);
-  mix-blend-mode: screen;
-  animation: swarm-drift 5s ease-in-out infinite alternate;
-}
-@keyframes swarm-drift {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(12deg); }
-}
 
 /* ─── DIM OVERLAY + RIGHT-SIDE GLASS PANEL ────────────────────── */
 .orrery-dim {
@@ -917,16 +757,12 @@ h2.scene-title em {
 /* Selected world pops above everything */
 .world.is-selected {
   z-index: 100 !important;
-  filter: drop-shadow(0 0 20px var(--w-glow-soft));
 }
-.world.is-selected .world-sphere {
-  box-shadow:
-    inset -18px -20px 40px rgba(0,0,0,0.85),
-    inset 12px 10px 30px rgba(255,255,255,0.2),
-    0 0 80px var(--w-glow-soft),
-    0 0 160px var(--w-glow-soft),
-    3px 0 0 rgba(255,40,80,0.45),
-    -3px 0 0 rgba(40,120,255,0.45);
+.world.is-selected .world-icon {
+  filter:
+    drop-shadow(0 0 14px var(--w-glow))
+    drop-shadow(0 0 36px var(--w-glow-soft))
+    drop-shadow(0 0 72px var(--w-glow-soft));
 }
 
 /* 4-card 3D grid — cards pop from deep Z with spring physics */
