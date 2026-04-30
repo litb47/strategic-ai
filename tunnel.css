@@ -570,6 +570,18 @@ h2.scene-title em {
     drop-shadow(0 0 24px var(--w-glow-soft))
     drop-shadow(0 0 48px var(--w-glow-soft));
 }
+/* Keyboard focus ring — keyboard users only (mouse focus stays clean). */
+.world:focus { outline: none; }
+.world:focus-visible .world-icon {
+  filter:
+    drop-shadow(0 0 10px var(--w-glow))
+    drop-shadow(0 0 28px var(--w-glow-soft))
+    drop-shadow(0 0 60px var(--w-glow-soft))
+    drop-shadow(0 0 0 #fff);
+  outline: 2px solid var(--w-glow);
+  outline-offset: 6px;
+  border-radius: 4px;
+}
 /* Label under world — hidden by request; kept tiny for a11y */
 .world-label {
   position: absolute;
