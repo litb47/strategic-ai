@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=29">
+<link rel="stylesheet" href="tunnel.css?v=30">
 </head>
 <body>
 
@@ -599,6 +599,30 @@ earthHub.addEventListener('click', openHub);
 earthHub.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openHub(); }
 });
+
+// Hit-test delegate: deeply nested 3D-transformed elements are sometimes
+// not reached by mouse hit-testing (Chrome quirk with chained perspective
+// + transform-style across .viewport > .tunnel-space > .scene > .orrery).
+// We listen at .viewport level and forward central-area clicks to Earth
+// when the Nexus scene is active. The 6 satellite worlds use real
+// pointer-events: auto on their .world-icon SVGs, so they win for
+// off-center clicks; this only catches clicks on Earth itself.
+document.querySelector('.viewport').addEventListener('click', (e) => {
+  const nexus = document.querySelector('.nexus-scene');
+  if (!nexus.classList.contains('is-active')) return;
+  // If a satellite or panel already handled this, bail.
+  if (e.target.closest('.world, .world-icon, .world-panel, .hub-overlay, .orrery-dim')) return;
+  const er = earthHub.getBoundingClientRect();
+  // Use a generous central hit-zone — Earth's 3D-projected bbox can be
+  // very small (sub-pixel on narrow viewports). Pad to 12% of viewport
+  // width on each side so the user has a clear, intuitive target.
+  const pad = Math.max(60, window.innerWidth * 0.12);
+  const cx = er.left + er.width / 2;
+  const cy = er.top + er.height / 2;
+  if (Math.abs(e.clientX - cx) <= pad && Math.abs(e.clientY - cy) <= pad) {
+    openHub();
+  }
+}, true); // capture phase so we run before the satellite's own click bubbles
 hubClose.addEventListener('click', closeHub);
 hubOverlay.addEventListener('click', (e) => { if (e.target === hubOverlay) closeHub(); });
 

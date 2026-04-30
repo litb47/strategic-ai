@@ -47,9 +47,17 @@ html, body {
   position: fixed; inset: 0;
   perspective: 1400px;
   perspective-origin: 50% 50%;
+  /* preserve-3d so hit-testing reaches into our 3D-transformed children
+     (Earth, orbs). Without this, elementFromPoint stops at .viewport and
+     clicks never reach #earthHub. */
+  transform-style: preserve-3d;
   z-index: 1;
   overflow: hidden;
-  contain: strict;
+  /* contain: strict blocks paint outside .viewport's box, but it ALSO
+     prevented the 3D children from being hit-tested when transform-style
+     was flat. Switching to layout+paint (no size) keeps the perf benefit
+     but unblocks hit-testing on 3D children. */
+  contain: layout paint;
   background:
     radial-gradient(ellipse at 50% 50%, #0a0a1a 0%, #000 70%);
 }
