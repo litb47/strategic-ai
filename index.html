@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=39">
+<link rel="stylesheet" href="tunnel.css?v=40">
 </head>
 <body>
 
@@ -1369,6 +1369,83 @@ const PILLAR_DETAILS = {
       }
     ]
   },
+  // ─── Bio-Foundation Horizon overlays (scene 05) ─────────────
+  'bio-alphafold3': {
+    eyebrow: 'Google DeepMind / Isomorphic Labs',
+    title: 'AlphaFold 3',
+    sub: 'מודל המבנה הביומולקולרי המוביל — חלבונים, DNA, RNA וליגנדים במודל אחד',
+    sections: [
+      {
+        h: 'המהפכה — מבנה ביומולקולרי משולב',
+        p: 'AlphaFold 3 הוא הקפיצה הגדולה אחרי AlphaFold 2. בעוד שהקודם התמקד בחלבונים בלבד, <strong>AlphaFold 3 מנבא את המבנה המשותף של קומפלקסים מולקולריים שלמים</strong> — חלבונים+DNA, חלבונים+RNA, חלבונים+ליגנדים, יונים, ושינויים פוסט-טרנסלציוניים — באותה רשת neural diffusion.'
+      },
+      {
+        h: 'דיוק כפול ויותר על אינטראקציות',
+        p: '<strong>76% דיוק על binding poses של ליגנדים</strong> — לעומת 22% של AlphaFold 2 משולב עם AutoDock. ליגנד-חלבון: דיוק שעובר משמעותית את ה-state-of-the-art של docking tools המסורתיים. חלבון-נוקלאיק אסיד: דיוק גבוה משמעותית מ-predictors ייעודיים. הקפיצה הגדולה לתעשיית הפארמה.'
+      },
+      {
+        h: 'ארכיטקטורה — Evoformer + Diffusion',
+        p: 'ה-<strong>Evoformer</strong> (הליבה של AF2) שודרג, ובסוף הצינור יושב <strong>diffusion network</strong> — אותה ארכיטקטורה שמייצרת תמונות AI. <strong>AlphaFold Server</strong> זמין חינם לאקדמיה. <strong>Isomorphic Labs</strong> (מ-Alphabet) מסחרי לפארמה.'
+      }
+    ]
+  },
+  'bio-rosalind': {
+    eyebrow: 'OpenAI · 16 באפריל 2026',
+    title: 'GPT-Rosalind',
+    sub: 'מודל reasoning frontier ייעודי למדעי החיים — קרוי על שם רוזלינד פרנקלין',
+    sections: [
+      {
+        h: 'שוחרר 16 באפריל 2026',
+        p: 'OpenAI שחררה את <strong>GPT-Rosalind</strong> ב-16 באפריל 2026 — <strong>מודל reasoning frontier</strong> ייעודי לביולוגיה, גילוי תרופות ורפואה translational. נקרא על שם <strong>רוזלינד פרנקלין</strong>, שמחקרה הקפדני סייע לחשיפת מבנה ה-DNA והניח תשתית לביולוגיה מולקולרית מודרנית.'
+      },
+      {
+        h: 'מה הוא יודע לעשות?',
+        p: 'מסיק על מולקולות, חלבונים, גנים, מסלולים מטבוליים וביולוגיה רלוונטית למחלות. שולט בשימוש ב<strong>כלים מדעיים ובסיסי נתונים</strong> בתהליכים מרובי-שלבים: <strong>סקירת ספרות, פירוש sequence-to-function, תכנון ניסויים וניתוח דאטה</strong>. מצטיין במשימות "tool-heavy" שדורשות שילוב של דיוק מדעי וחשיבה ארוכת-טווח.'
+      },
+      {
+        h: 'גישה מוגבלת — מי שותף',
+        p: 'זמין כ-<strong>research preview</strong> ב-ChatGPT, Codex ו-API ללקוחות מאומתים בתוכנית Trusted Access. <strong>השותפים הרשמיים:</strong> Amgen, Moderna, Allen Institute, Thermo Fisher Scientific. <strong>זה הראשון בסדרת מודלי GPT-Rosalind</strong> — OpenAI מתכננת להמשיך להרחיב את היכולות הביוכימיות והעבודה עם כלים בקנה מידה גדול.'
+      }
+    ]
+  },
+  'bio-evo2': {
+    eyebrow: 'Arc Institute · NVIDIA · מרץ 2026',
+    title: 'Evo 2',
+    sub: 'מודל הביולוגיה הגדול בעולם — 40B פרמטרים, 1M token context, תכנון ב-genome scale',
+    sections: [
+      {
+        h: 'המודל הגדול ביותר בביולוגיה',
+        p: '<strong>Evo 2 פורסם ב-Nature במרץ 2026</strong>. <strong>40 מיליארד פרמטרים</strong>, אומן על <strong>9.3 טריליון נוקלאוטידים</strong> מ-128,000+ גנומים שלמים — אאוקריוטים, פרוקריוטים, ומטא-גנומיקה. <strong>Context window של מיליון טוקנים</strong> מאפשר לעבד רצפי DNA ארוכים. אומן במשך חודשים על <strong>2,000+ GPUs של NVIDIA H100</strong>.'
+      },
+      {
+        h: 'תכנון של גנומים שלמים',
+        p: 'מסוגל <strong>לתכנן גנומים חדשים באורך גנום של חיידק פשוט</strong> — לא רק לחזות מבנה, אלא ליצור DNA חדש. ב-test על גן <strong>BRCA1</strong> (סרטן שד), חזה ב-<strong>90% דיוק</strong> אילו מוטציות לא מזוהות יפגעו בתפקוד הגן. שילוב חזק של זיהוי מחלות גנטיות ויכולת הנדסה גנטית — מ-end to end.'
+      },
+      {
+        h: 'שיתוף פעולה אקדמי + פתוח',
+        p: 'פיתוח של <strong>Arc Institute + NVIDIA</strong>, עם שיתופי פעולה מ-Stanford, UC Berkeley ו-UC San Francisco. <strong>הקוד פתוח ב-GitHub של Arc</strong>, וגם משולב ב-<strong>NVIDIA BioNeMo</strong>. הפרויקט שואף להיות "ה-AlphaFold של DNA" — תשתית פתוחה לקהילת המדע.'
+      }
+    ]
+  },
+  'bio-esm': {
+    eyebrow: 'EvolutionaryScale',
+    title: 'ESM Cambrian',
+    sub: 'מודל שפת חלבונים — דחוס יותר, מהיר יותר, פתוח גם למסחר',
+    sections: [
+      {
+        h: 'מודל שפה לחלבונים',
+        p: 'ESM Cambrian הוא דור חדש של <strong>protein language model</strong> מ-<strong>EvolutionaryScale</strong> — חברה שיצאה מצוות החלבונים של Meta. מתמקד ב<strong>ייצוגים של הביולוגיה התת-קרקעית של חלבונים</strong>, בניגוד ל-ESM3 (parallel) שהוא generative ומתמקד ביצירת חלבונים חדשים.'
+      },
+      {
+        h: '6B פרמטרים, מהיר יותר ממודלים גדולים יותר',
+        p: 'ה-ESM C scaled עד <strong>6 מיליארד פרמטרים</strong>. ה-family משיג <strong>שיפורי inference משמעותיים</strong> — מתחרה ולעיתים עולה על מודלים קודמים גדולים בהרבה. <strong>drop-in replacement</strong> שמספק קפיצה משמעותית גם ביכולת וגם ביעילות. אומן ב-masked language modeling על מיליוני רצפי חלבונים, מכסה מגוון ביולוגי אדיר.'
+      },
+      {
+        h: 'רישיון פתוח גם למסחר',
+        p: 'זמין מיידית גם לאקדמיה וגם <strong>לשימוש מסחרי</strong> תחת מבנה רישיון חדש שמיועד לקדם פתיחות. ESM C 6B (הגדול) זמין ב-<strong>EvolutionaryScale Forge</strong> (אקדמי) וב-<strong>AWS Sagemaker</strong> (מסחרי). מבנה רישוי שמאפשר לתעשייה לבנות עליו בלי אילוצי קוד פתוח קלאסי.'
+      }
+    ]
+  },
   // ─── Cybersecurity Frontier overlays (scene 04) ─────────────
   'cyber-anthropic': {
     eyebrow: 'Anthropic — אפריל 2026',
@@ -1543,21 +1620,33 @@ const BIO_MODELS = [
     title: 'AlphaFold 3',
     org:   'Google DeepMind',
     body:  'ניתוח קומפלקסים מרובי-מולקולות. חוזה אינטראקציות בין חלבונים, DNA וליגנדים.',
+    key:   'alphafold3',
+    glow:  '#3b82f6',
+    glowSoft: 'rgba(59,130,246,0.55)',
   },
   {
     title: 'GPT-Rosalind',
     org:   'OpenAI · אפריל 2026',
     body:  'מודל חשיבה והסקה עמוקה עבור פארמה. מעבד גנומים ומייעל פיתוח תרופות.',
+    key:   'rosalind',
+    glow:  '#10a37f',
+    glowSoft: 'rgba(16,163,127,0.55)',
   },
   {
     title: 'Evo 2',
     org:   'Arc Institute · NVIDIA',
     body:  'המודל הביולוגי של NVIDIA. הנדסת רצפי DNA ויצירת גנומים חדשים ברזולוציה אדירה.',
+    key:   'evo2',
+    glow:  '#76b900',
+    glowSoft: 'rgba(118,185,0,0.55)',
   },
   {
     title: 'ESM Cambrian',
     org:   'EvolutionaryScale',
     body:  'מודל שפת החלבונים. חיזוי קשרים ביולוגיים ויצירת חלבונים שאינם קיימים בטבע.',
+    key:   'esm',
+    glow:  '#a78bfa',
+    glowSoft: 'rgba(167,139,250,0.55)',
   },
 ];
 
@@ -1566,15 +1655,30 @@ const bioCards = [];
 if (bioOrbit) {
   BIO_MODELS.forEach((m, i) => {
     const card = document.createElement('article');
-    card.className = 'bio-card liquid-glass';
+    card.className = 'bio-card liquid-glass has-deepdive';
     card.dir = 'rtl';
+    card.dataset.bio = m.key;
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', `פתח פרטים על ${m.title}`);
+    // Forward per-card glow for the overlay's chrome accent.
+    card.style.setProperty('--p-glow', m.glow);
+    card.style.setProperty('--p-soft', m.glowSoft);
     card.innerHTML = `
       <div class="bc-org">${m.org}</div>
       <h3 class="bc-title">${m.title}</h3>
       <p class="bc-body">${m.body}</p>
+      <div class="bc-cta">לחץ להעמקה</div>
     `;
     card.addEventListener('mouseenter', () => bioOrbit.classList.add('is-paused'));
     card.addEventListener('mouseleave', () => bioOrbit.classList.remove('is-paused'));
+    card.addEventListener('click', () => {
+      const key = 'bio-' + m.key;
+      if (PILLAR_DETAILS[key]) openPillarOverlay(key, card);
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+    });
     bioOrbit.appendChild(card);
     bioCards.push(card);
   });
