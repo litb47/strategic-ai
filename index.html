@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=23">
+<link rel="stylesheet" href="tunnel.css?v=24">
 </head>
 <body>
 
@@ -785,9 +785,12 @@ function renderOrrery() {
 const tunnel = document.getElementById('tunnel');
 const scenes = [...document.querySelectorAll('.scene')];
 // Apply each scene's Z position in 3D space at init
+// Global scene scale — shrink each scene uniformly so they read as composed
+// frames rather than wall-to-wall UI. Tune this single value to taste.
+const SCENE_SCALE = 0.82;
 scenes.forEach(s => {
   const z = parseFloat(s.dataset.z);
-  s.dataset.baseTransform = `translateZ(${z}px)`;
+  s.dataset.baseTransform = `translateZ(${z}px) scale(${SCENE_SCALE})`;
   s.style.transform = s.dataset.baseTransform;
 });
 const scrollEl = document.getElementById('tunnel-scroll');

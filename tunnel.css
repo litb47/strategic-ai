@@ -541,6 +541,10 @@ h2.scene-title em {
     opacity 0.4s ease,
     filter 0.4s ease;
   cursor: pointer;
+  /* Empty space inside the 140×140 box doesn't capture clicks — only the
+     SVG icon does (see .world-icon below). Lets clicks fall through to the
+     central Earth when a world's box is in front of it. */
+  pointer-events: none;
   --w-glow: #3b82f6;
   --w-glow-soft: rgba(59,130,246,0.55);
 }
@@ -556,7 +560,8 @@ h2.scene-title em {
     drop-shadow(0 0 16px var(--w-glow-soft))
     drop-shadow(0 0 32px var(--w-glow-soft));
   transition: filter 0.25s ease, transform 0.25s ease;
-  pointer-events: none;
+  /* SVG silhouette IS the clickable shape — matches the visible glow. */
+  pointer-events: auto;
 }
 .world:hover .world-icon {
   transform: scale(1.06);
@@ -2141,13 +2146,19 @@ h2.scene-title em {
   pointer-events: none;
   overflow: hidden;
   z-index: -1;
+  /* Solid backdrop so any letterbox area around the contained video looks
+     intentional rather than transparent. */
+  background: #000;
 }
 .exec-bridge-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* contain: show the entire frame (no crop). The .exec-bridge-fade overlay
+     and the black backdrop above blend any letterbox area in. */
+  object-fit: contain;
+  object-position: center center;
   filter: brightness(1.05) saturate(1.15) contrast(1.05);
 }
 .exec-bridge-fade {
