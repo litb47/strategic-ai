@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=32">
+<link rel="stylesheet" href="tunnel.css?v=33">
 </head>
 <body>
 
@@ -141,7 +141,7 @@
       </p>
 
       <div class="pillars-grid">
-        <article class="pillar" data-color="violet" style="--p-glow:#a78bfa;--p-soft:rgba(167,139,250,0.55);--p-deep:rgba(76,29,149,0.5)" tabindex="0">
+        <article class="pillar" data-color="violet" data-pillar="agents" style="--p-glow:#a78bfa;--p-soft:rgba(167,139,250,0.55);--p-deep:rgba(76,29,149,0.5)" tabindex="0">
           <div class="pillar-media">
             <video class="pillar-video" autoplay loop muted playsinline preload="auto" data-src="uploads/1.mp4"></video>
             <div class="pillar-fallback pillar-fallback-violet is-visible" aria-hidden="true">
@@ -161,7 +161,7 @@
           </div>
         </article>
 
-        <article class="pillar" data-color="gold" style="--p-glow:#fbbf24;--p-soft:rgba(251,191,36,0.55);--p-deep:rgba(120,53,15,0.55)" tabindex="0">
+        <article class="pillar" data-color="gold" data-pillar="skills" style="--p-glow:#fbbf24;--p-soft:rgba(251,191,36,0.55);--p-deep:rgba(120,53,15,0.55)" tabindex="0">
           <div class="pillar-media">
             <video class="pillar-video" autoplay loop muted playsinline preload="auto" data-src="uploads/2.mp4"></video>
             <div class="pillar-fallback pillar-fallback-gold is-visible" aria-hidden="true">
@@ -181,7 +181,7 @@
           </div>
         </article>
 
-        <article class="pillar" data-color="teal" style="--p-glow:#5eead4;--p-soft:rgba(94,234,212,0.55);--p-deep:rgba(19,78,74,0.55)" tabindex="0">
+        <article class="pillar" data-color="teal" data-pillar="mcp" style="--p-glow:#5eead4;--p-soft:rgba(94,234,212,0.55);--p-deep:rgba(19,78,74,0.55)" tabindex="0">
           <div class="pillar-media">
             <video class="pillar-video" autoplay loop muted playsinline preload="auto" data-src="uploads/3.mp4"></video>
             <div class="pillar-fallback pillar-fallback-teal is-visible" aria-hidden="true">
@@ -293,6 +293,14 @@
         </div>
       </article>
     </div>
+  </div>
+</div>
+
+<!-- Pillar deep-dive overlay (populated dynamically per pillar) -->
+<div class="pillar-overlay" id="pillarOverlay" aria-hidden="true">
+  <div class="pillar-overlay-card" dir="rtl">
+    <button class="pillar-overlay-close" id="pillarOverlayClose" aria-label="סגור">×</button>
+    <div class="pillar-overlay-inner" id="pillarOverlayInner"></div>
   </div>
 </div>
 
@@ -787,7 +795,79 @@ document.querySelector('.viewport').addEventListener('click', (e) => {
 hubClose.addEventListener('click', closeHub);
 hubOverlay.addEventListener('click', (e) => { if (e.target === hubOverlay) closeHub(); });
 
-/* ─── Pillars: click-to-focus, lazy-load video if file exists, else show fallback ─ */
+/* ─── Pillars: click-to-focus + open deep-dive overlay (when content exists) ─── */
+
+// Per-pillar deep-dive content. Keys match data-pillar attribute on each
+// .pillar in the HTML. Pillars without an entry here still toggle is-active
+// for visual focus, but don't open the overlay.
+const PILLAR_DETAILS = {
+  mcp: {
+    eyebrow: '03 / The Engine Room',
+    title: 'פרוטוקול MCP',
+    sub: 'Model Context Protocol — חומרי הגלם של עולם הסוכנים',
+    sections: [
+      {
+        h: 'המרכיבים של MCP',
+        p: 'MCP בנוי משלושה רבדים: <strong>MCP Host</strong> — האפליקציה שדרכה אתה עובד (כמו Claude Desktop או Claude Code). המארח הוא זה שיוזם את הקשר. <strong>MCP Server</strong> — תוכנה קטנה ש"חושפת" מידע או יכולות. למשל: שרת MCP שמחובר לתיקיית הקבצים שלך, או שרת MCP שמחובר ל-Notion. <strong>Resources & Tools</strong> — Resources הם נתונים ש-Claude יכול רק לקרוא (כמו קובץ לוג או תיעוד). Tools הם פעולות ש-Claude יכול לבצע (כמו "שלח הודעה ב-Slack" או "תריץ שאילתת SQL"). אלו למעשה ה-Skills שדיברנו עליהם.'
+      },
+      {
+        h: 'איך זה עובד בתוך Claude Code (עדכון אפריל 2026)',
+        p: 'החודש הושק ה-MCP Marketplace, מה שהופך את השימוש להרבה יותר פשוט. <strong>חיבור דינמי:</strong> במקום להגדיר קבצי JSON מורכבים, אתה יכול פשוט לומר ל-Claude Code: <code>mcp install github</code> והוא מגדיר את השרת והיכולות לבד.'
+      },
+      {
+        h: 'Context Sharing',
+        p: 'ה-MCP מאפשר לכל ה-Agents בצוות שלך (כמו <code>@domain-expert</code>) "לראות" את אותם משאבים. אם סוכן אחד קרא מסמך דרך MCP, המידע זמין לכל הצוות בפרויקט.'
+      },
+      {
+        h: 'Local vs Remote',
+        p: 'ה-MCP יודע היום להבדיל בין כלים שרצים אצלך על המחשב (Local) לבין שירותי ענן, ולנהל את האבטחה ביניהם בצורה אוטונומית.'
+      }
+    ]
+  }
+  // 'agents' and 'skills' will be added when their content is provided.
+};
+
+const pillarOverlay = document.getElementById('pillarOverlay');
+const pillarOverlayInner = document.getElementById('pillarOverlayInner');
+const pillarOverlayClose = document.getElementById('pillarOverlayClose');
+
+function openPillarOverlay(key, pillarEl) {
+  const d = PILLAR_DETAILS[key];
+  if (!d) return;
+  // Pass the pillar's accent color through to the overlay so card chrome
+  // matches the pillar's vibe (violet / gold / teal).
+  const cs = getComputedStyle(pillarEl);
+  pillarOverlay.style.setProperty('--p-glow', cs.getPropertyValue('--p-glow').trim() || '#5eead4');
+  pillarOverlay.style.setProperty('--p-soft', cs.getPropertyValue('--p-soft').trim() || 'rgba(94,234,212,0.55)');
+  pillarOverlayInner.innerHTML = `
+    <div class="po-eyebrow">${d.eyebrow}</div>
+    <h2 class="po-title">${d.title}</h2>
+    ${d.sub ? `<p class="po-sub">${d.sub}</p>` : ''}
+    <div class="po-sections">
+      ${d.sections.map(s => `
+        <section class="po-section">
+          <h3 class="po-section-h">${s.h}</h3>
+          <p class="po-section-p">${s.p}</p>
+        </section>
+      `).join('')}
+    </div>
+  `;
+  pillarOverlay.setAttribute('aria-hidden', 'false');
+  pillarOverlayInner.scrollTop = 0;
+}
+function closePillarOverlay() {
+  pillarOverlay.setAttribute('aria-hidden', 'true');
+}
+pillarOverlayClose.addEventListener('click', closePillarOverlay);
+pillarOverlay.addEventListener('click', (e) => {
+  if (e.target === pillarOverlay) closePillarOverlay();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && pillarOverlay.getAttribute('aria-hidden') === 'false') {
+    closePillarOverlay();
+  }
+});
+
 document.querySelectorAll('.pillar').forEach((pillar) => {
   const video = pillar.querySelector('.pillar-video');
   const fallback = pillar.querySelector('.pillar-fallback');
@@ -806,10 +886,15 @@ document.querySelectorAll('.pillar').forEach((pillar) => {
       })
       .catch(() => { video.style.display = 'none'; });
   }
+  // Mark pillar as having a deep-dive (used by CSS to brighten its CTA).
+  const key = pillar.dataset.pillar;
+  if (PILLAR_DETAILS[key]) pillar.classList.add('has-deepdive');
+
   pillar.addEventListener('click', () => {
     const wasActive = pillar.classList.contains('is-active');
     document.querySelectorAll('.pillar').forEach(p => p.classList.remove('is-active'));
     if (!wasActive) pillar.classList.add('is-active');
+    if (PILLAR_DETAILS[key]) openPillarOverlay(key, pillar);
   });
   pillar.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pillar.click(); }

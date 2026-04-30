@@ -1522,6 +1522,171 @@ button.wp-pill,
   color: #0b0e1a;
   text-shadow: none;
 }
+/* When a pillar has a deep-dive available, brighten its CTA so the user
+   knows it's actually clickable (vs a decorative label). */
+.pillar.has-deepdive .pillar-cta {
+  background: rgba(0,0,0,0.55);
+  border-color: var(--p-glow);
+  color: var(--p-glow);
+  text-shadow: 0 0 14px var(--p-soft);
+}
+
+/* ─── PILLAR DEEP-DIVE OVERLAY ──────────────────────────────────── */
+.pillar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(2,6,23,0.65) 0%,
+    rgba(2,6,23,0.94) 70%);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+  --p-glow: #5eead4;
+  --p-soft: rgba(94,234,212,0.55);
+}
+.pillar-overlay[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+.pillar-overlay-card {
+  position: relative;
+  width: 70vw;
+  max-width: 1120px;
+  height: 78vh;
+  max-height: 920px;
+  padding: 56px 64px 48px;
+  border-radius: 28px;
+  background: linear-gradient(160deg,
+    rgba(8,14,30,0.96) 0%,
+    rgba(2,6,23,0.99) 100%);
+  border: 1px solid var(--p-soft);
+  box-shadow:
+    0 50px 160px rgba(0,0,0,0.9),
+    0 0 180px var(--p-soft),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  transform: scale(0.78);
+  opacity: 0;
+  transition:
+    transform 0.6s cubic-bezier(.22, 1.6, .36, 1),
+    opacity 0.45s ease;
+  display: flex;
+  flex-direction: column;
+}
+.pillar-overlay[aria-hidden="false"] .pillar-overlay-card {
+  transform: scale(1);
+  opacity: 1;
+}
+.pillar-overlay-close {
+  position: absolute;
+  top: 22px;
+  left: 22px; /* RTL: top-left for "close" since we read right-to-left */
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.45);
+  color: rgba(255,255,255,0.85);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+  z-index: 2;
+}
+.pillar-overlay-close:hover,
+.pillar-overlay-close:focus-visible {
+  background: var(--p-soft);
+  border-color: var(--p-glow);
+  color: #0b0e1a;
+  transform: rotate(90deg);
+  outline: none;
+}
+.pillar-overlay-inner {
+  overflow-y: auto;
+  flex: 1;
+  padding-inline-end: 8px; /* breathing room for scrollbar */
+  text-align: right;
+  scrollbar-width: thin;
+  scrollbar-color: var(--p-soft) transparent;
+}
+.pillar-overlay-inner::-webkit-scrollbar { width: 8px; }
+.pillar-overlay-inner::-webkit-scrollbar-thumb {
+  background: var(--p-soft);
+  border-radius: 4px;
+}
+.po-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 0.9vw, 13px);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--p-glow);
+  margin-bottom: 12px;
+  opacity: 0.95;
+}
+.po-title {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  margin: 0 0 14px;
+  letter-spacing: -0.015em;
+}
+.po-sub {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(15px, 1.15vw, 19px);
+  font-weight: 400;
+  color: rgba(245,247,255,0.7);
+  margin: 0 0 36px;
+  line-height: 1.55;
+  max-width: 70ch;
+}
+.po-sections {
+  display: flex;
+  flex-direction: column;
+}
+.po-section {
+  padding: 26px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.po-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+.po-section-h {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(20px, 1.55vw, 26px);
+  font-weight: 700;
+  color: var(--p-glow);
+  margin: 0 0 14px;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+.po-section-p {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(15px, 1.1vw, 18px);
+  font-weight: 400;
+  color: rgba(245,247,255,0.88);
+  line-height: 1.75;
+  margin: 0;
+}
+.po-section-p strong {
+  color: #fff;
+  font-weight: 700;
+}
+.po-section-p code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.92em;
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: var(--p-glow);
+}
 
 /* ─── Animated CSS fallbacks (when video file is missing) ─────────── */
 .pillar-fallback {
