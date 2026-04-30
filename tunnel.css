@@ -203,6 +203,86 @@ html, body {
   border: 1px solid rgba(255,255,255,0.10);
 }
 
+/* Synapse pulse — three concentric rings emanating outward from center,
+   like a neuron firing on a 3.6s loop. Sits inside the portal, behind the
+   glass + title. Subtle: low opacity, blue-violet to match the palette. */
+.portal-pulse {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.portal-pulse span {
+  position: absolute;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(120,160,255,0.55);
+  box-shadow: 0 0 20px rgba(120,160,255,0.35);
+  animation: portal-pulse-emit 3.6s ease-out infinite;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.portal-pulse span:nth-child(2) { animation-delay: 1.2s; }
+.portal-pulse span:nth-child(3) { animation-delay: 2.4s; }
+@keyframes portal-pulse-emit {
+  0%   { transform: scale(0.2);  opacity: 0;    border-width: 2px; }
+  18%  { opacity: 0.85; }
+  100% { transform: scale(7);    opacity: 0;    border-width: 0.4px; }
+}
+
+/* "AI · thinking_" eyebrow inside the portal, above the headline. */
+.portal-thinking {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 1vw, 14px);
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(180,210,255,0.92);
+  text-shadow: 0 0 16px rgba(120,160,255,0.55);
+  margin-bottom: 22px;
+  height: 16px;
+}
+.portal-thinking .pt-prefix { opacity: 0.85; }
+.portal-thinking .pt-divider { opacity: 0.5; transform: translateY(-1px); }
+.portal-thinking .pt-action {
+  display: inline-block;
+  min-width: 7.5em;
+  text-align: left;
+  letter-spacing: 0.24em;
+  color: #fff;
+}
+.portal-thinking .pt-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-inline-start: 1px;
+  background: linear-gradient(180deg, #93c5fd, #60a5fa);
+  box-shadow: 0 0 10px rgba(96,165,250,0.9);
+  vertical-align: -2px;
+  animation: hero-cursor-blink 0.95s steps(1, end) infinite;
+}
+@keyframes hero-cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+/* Title needs to sit above the pulse rings. */
+.portal-glass .hero-title { position: relative; z-index: 2; }
+.hero-portal .portal-pulse { z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .portal-pulse span { animation-duration: 0.001ms; opacity: 0; }
+  .portal-thinking .pt-cursor { animation: none; opacity: 1; }
+}
+
 h1.hero-title {
   font-family: 'Geist', 'Inter Tight', 'Inter', system-ui, sans-serif;
   font-size: 54px;

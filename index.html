@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=40">
+<link rel="stylesheet" href="tunnel.css?v=41">
 </head>
 <body>
 
@@ -52,7 +52,17 @@
       <div class="hero-portal" id="heroPortal">
         <div class="portal-ring-outer"></div>
         <div class="portal-ring-mid"></div>
+        <!-- Synapse pulse rings emanating outward — visualizes AI "thinking" -->
+        <div class="portal-pulse" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
         <div class="portal-glass">
+          <!-- Live "AI is ___ing" typewriter — eyebrow above the headline -->
+          <div class="portal-thinking" aria-hidden="true">
+            <span class="pt-prefix">AI</span>
+            <span class="pt-divider">·</span>
+            <span class="pt-action" id="heroAction">thinking</span><span class="pt-cursor"></span>
+          </div>
           <h1 class="hero-title">
             <span class="line-2" style="color: rgb(3, 3, 3)">The Year Machines</span>
             <span class="line-3">Stopped Answering.</span>
@@ -1973,6 +1983,47 @@ function easeOutBack(x) {
   return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
 }
 requestAnimationFrame(tick);
+
+/* Hero typewriter — cycles through "AI · thinking_" → "AI · planning_" etc.
+   Uses setTimeout chaining (variable per-step delay) instead of setInterval
+   so each character types/erases at a natural cadence. */
+(() => {
+  const action = document.getElementById('heroAction');
+  if (!action) return;
+  const verbs = ['thinking', 'reasoning', 'planning', 'executing', 'learning', 'evolving'];
+  let verbIdx = 0;
+  let charIdx = verbs[0].length;   // start fully typed
+  let phase = 'pausing';
+  function step() {
+    const word = verbs[verbIdx];
+    if (phase === 'typing') {
+      charIdx++;
+      action.textContent = word.slice(0, charIdx);
+      if (charIdx >= word.length) { phase = 'pausing'; setTimeout(step, 1400); }
+      else setTimeout(step, 80);
+    } else if (phase === 'pausing') {
+      phase = 'erasing';
+      setTimeout(step, 80);
+    } else { // erasing
+      charIdx--;
+      action.textContent = word.slice(0, charIdx);
+      if (charIdx <= 0) {
+        verbIdx = (verbIdx + 1) % verbs.length;
+        phase = 'typing';
+        setTimeout(step, 220);
+      } else setTimeout(step, 45);
+    }
+  }
+  // Honor reduced-motion: just rotate verbs every 3s without typewriter effect.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => {
+      verbIdx = (verbIdx + 1) % verbs.length;
+      action.textContent = verbs[verbIdx];
+    }, 3000);
+  } else {
+    setTimeout(step, 1500);
+  }
+})();
 </script>
 
 <!-- Tweaks (author tool) — gated behind ?edit=1 so public visitors don't pay for ~4MB of React+Babel dev bundles. -->
