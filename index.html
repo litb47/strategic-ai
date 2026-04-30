@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=28">
+<link rel="stylesheet" href="tunnel.css?v=29">
 </head>
 <body>
 
@@ -103,14 +103,24 @@
       </p>
 
       <div class="orrery" id="orrery">
-        <!-- Central Earth with neural mesh — clickable Orchestration Hub -->
-        <div class="earth-stage" id="earthHub" role="button" tabindex="0" aria-label="Open Agent Orchestration Hub">
+        <!-- Central Hub — brain icon = "המוח מאחורי המכונה" (the brain behind the machine).
+             Clicking opens the Orchestration Hub overlay (Cowork / OpenClaw / MAS). -->
+        <div class="earth-stage" id="earthHub" role="button" tabindex="0" aria-label="לחץ למרכז הבקרה — Orchestration Hub">
           <div class="earth-halo"></div>
-          <div class="earth">
-            <div class="earth-surface"></div>
-            <div class="earth-mesh"></div>
-            <div class="earth-atmosphere"></div>
-          </div>
+          <svg class="earth-icon" viewBox="0 0 240 240" aria-hidden="true">
+            <!-- Left hemisphere -->
+            <path fill="currentColor" d="M 118 38 Q 92 36 78 50 Q 56 58 54 78 Q 38 86 42 106 Q 28 122 46 138 Q 36 158 56 166 Q 60 184 82 192 Q 100 202 118 200 Z"/>
+            <!-- Right hemisphere -->
+            <path fill="currentColor" d="M 122 38 Q 148 36 162 50 Q 184 58 186 78 Q 202 86 198 106 Q 212 122 194 138 Q 204 158 184 166 Q 180 184 158 192 Q 140 202 122 200 Z"/>
+            <!-- Folds (sulci) for character -->
+            <path fill="none" stroke="rgba(2,6,23,0.45)" stroke-width="3" stroke-linecap="round"
+                  d="M 70 78 Q 84 92 70 104 M 70 120 Q 84 134 70 146 M 90 90 Q 102 100 90 112 M 90 150 Q 102 160 90 172"/>
+            <path fill="none" stroke="rgba(2,6,23,0.45)" stroke-width="3" stroke-linecap="round"
+                  d="M 170 78 Q 156 92 170 104 M 170 120 Q 156 134 170 146 M 150 90 Q 138 100 150 112 M 150 150 Q 138 160 150 172"/>
+            <!-- Central crease -->
+            <path fill="none" stroke="rgba(2,6,23,0.55)" stroke-width="3.5" stroke-linecap="round"
+                  d="M 120 38 L 120 200"/>
+          </svg>
           <div class="earth-hint" dir="rtl">לחץ למרכז הבקרה</div>
         </div>
 

@@ -418,17 +418,15 @@ h2.scene-title em {
   cursor: pointer;
   transition: filter 0.4s ease;
 }
-.earth-stage:hover { filter: brightness(1.15); }
+.earth-stage:hover { filter: brightness(1.18); }
 .earth-stage.is-pulsing .earth-halo {
   animation: earth-mega-pulse 0.9s ease-out;
 }
-.earth-stage.is-pulsing .earth-surface {
-  box-shadow:
-    inset -35px -35px 90px rgba(0,0,0,0.85),
-    inset 22px 18px 60px rgba(120,180,255,0.45),
-    0 0 120px rgba(96,165,250,0.95),
-    0 0 240px rgba(96,165,250,0.7);
-  transition: box-shadow 0.4s ease;
+.earth-stage.is-pulsing .earth-icon {
+  filter:
+    drop-shadow(0 0 18px rgba(96,165,250,1))
+    drop-shadow(0 0 48px rgba(96,165,250,0.8))
+    drop-shadow(0 0 96px rgba(96,165,250,0.6));
 }
 @keyframes earth-mega-pulse {
   0%   { transform: scale(1);   opacity: 0.9; }
@@ -445,77 +443,59 @@ h2.scene-title em {
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(147,197,253,0.85);
+  color: rgba(147,197,253,0.95);
   white-space: nowrap;
   pointer-events: none;
-  text-shadow: 0 0 12px rgba(59,130,246,0.6);
+  text-shadow: 0 0 12px rgba(59,130,246,0.7);
   animation: hint-blink 2.4s ease-in-out infinite;
 }
 @keyframes hint-blink {
-  0%,100% { opacity: 0.5; }
+  0%,100% { opacity: 0.55; }
   50%     { opacity: 1; }
 }
 .earth-halo {
   position: absolute; inset: -80px;
   border-radius: 50%;
   background: radial-gradient(circle,
-    rgba(59,130,246,0.45) 0%,
-    rgba(59,130,246,0.18) 38%,
+    rgba(59,130,246,0.5) 0%,
+    rgba(59,130,246,0.2) 38%,
     transparent 70%);
   filter: blur(18px);
   animation: earth-pulse 4.2s ease-in-out infinite;
+  pointer-events: none;
 }
 @keyframes earth-pulse {
   0%,100% { opacity: 0.8; transform: scale(1); }
   50%     { opacity: 1;   transform: scale(1.06); }
 }
-.earth {
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  transform-style: preserve-3d;
-  animation: earth-spin 40s linear infinite;
-}
-.earth-surface {
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 30%, #5a9ff5 0%, #1b4e9b 42%, #0a1f46 78%, #05122b 100%),
-    linear-gradient(135deg, #0a1f46 0%, #143877 100%);
-  box-shadow:
-    inset -35px -35px 90px rgba(0,0,0,0.85),
-    inset 22px 18px 60px rgba(120,180,255,0.35),
-    0 0 60px rgba(59,130,246,0.5),
-    0 0 120px rgba(59,130,246,0.3);
-}
-.earth-mesh {
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background-image:
-    repeating-linear-gradient(0deg,
-      transparent 0 19px,
-      rgba(96,165,250,0.55) 19px 20px),
-    repeating-linear-gradient(90deg,
-      transparent 0 19px,
-      rgba(96,165,250,0.55) 19px 20px);
-  mix-blend-mode: screen;
-  opacity: 0.75;
-  filter: drop-shadow(0 0 6px rgba(96,165,250,0.8));
-  mask-image: radial-gradient(circle, black 55%, transparent 85%);
-  -webkit-mask-image: radial-gradient(circle, black 55%, transparent 85%);
-}
-.earth-atmosphere {
-  position: absolute; inset: -6px;
-  border-radius: 50%;
-  background: radial-gradient(circle,
-    transparent 60%,
-    rgba(96,165,250,0.35) 72%,
-    rgba(59,130,246,0.15) 80%,
-    transparent 88%);
+/* Brain icon (replaces the spherical Earth). Same drop-shadow glow pattern
+   as the satellite worlds, just bigger + central blue. */
+.earth-icon {
+  position: absolute;
+  inset: 14px;
+  width: calc(100% - 28px);
+  height: calc(100% - 28px);
+  color: #60a5fa;
+  filter:
+    drop-shadow(0 0 10px rgba(96,165,250,0.95))
+    drop-shadow(0 0 28px rgba(59,130,246,0.7))
+    drop-shadow(0 0 60px rgba(59,130,246,0.45));
+  transition: filter 0.4s ease, transform 0.4s ease;
+  /* Subtle breathing keeps the hub feeling "alive" without the spinning planet. */
+  animation: earth-breathe 6s ease-in-out infinite;
   pointer-events: none;
 }
-@keyframes earth-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+.earth-stage:hover .earth-icon {
+  transform: scale(1.04);
+}
+.earth-stage:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 14px;
+  border-radius: 50%;
+}
+@keyframes earth-breathe {
+  0%,100% { transform: scale(1);    }
+  50%     { transform: scale(1.025); }
 }
 
 /* Orrery scene — true 3D space anchored at Earth's center (0,0,0) */
