@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=34">
+<link rel="stylesheet" href="tunnel.css?v=35">
 </head>
 <body>
 
@@ -518,6 +518,113 @@ const MODEL_DETAILS = {
         p: 'השקת Voxtral — מודל Text-to-Speech חדש שמאפשר לסוכני AI לדבר בקול אישי ומותאם לעסק. שיפורים אדירים ביכולת ה-Reasoning של המודלים הקטנים (Small 4).'
       }
     ]
+  },
+  // ─── Vibe Coding world (02) ─────────────────────────────────────
+  'Cursor': {
+    eyebrow: 'Anysphere',
+    title: 'Cursor 3',
+    sub: 'IDE שעבר שיפוץ סביב סוכני AI מקבילים',
+    sections: [
+      {
+        h: 'Agent Mode — אינטראקטיבי ומקומי',
+        p: 'אתה מתאר משימה בשפה טבעית, הסוכן קורא את ה-codebase, עורך קבצים, מריץ פקודות בטרמינל, מחפש באינטרנט ומתקן שגיאות תוך כדי. מתאים לעבודה ליד המסך — אתה רואה כל שלב ויכול להתערב.'
+      },
+      {
+        h: 'Background Agents — אסינכרוני בענן',
+        p: 'הסוכן משכפל את ה-repo בענן, עובד שם לבד, ובסוף מגיש Pull Request מוכן. ניתן להריץ <strong>עד 8 background agents במקביל</strong>, להמשיך עם דברים אחרים בזמן שהם רצים, ולקבל את הקוד לסקירה כשהם מסיימים.'
+      },
+      {
+        h: 'Cursor 3 + Agents Window (אפריל 2026)',
+        p: 'גרסת <strong>Cursor 3</strong> שיצאה ב-2 באפריל 2026 שינתה את ה-IDE מהיסוד. במקום ה-Composer הישן יש <strong>Agents Window</strong> — מסך מלא לניהול סוכנים מקבילים. אפשר לפצל לחלוניות (tiled), כל אחת עם סוכן משלה, כדי להריץ ולהשוות מספר פתרונות במקביל בלי לקפוץ בין tabs.'
+      }
+    ]
+  },
+  'Claude Code': {
+    eyebrow: 'Anthropic',
+    title: 'Claude Code',
+    sub: 'הסוכן של Anthropic — מתואר בהרחבה בעמודי הארכיטקטורה הבאים',
+    sections: [
+      {
+        h: 'בקצרה',
+        p: 'Claude Code הוא ה-CLI/IDE agent של Anthropic. סוגר tickets מרובי-קבצים בממוצע 6 שעות ללא פיקוח אנושי, תומך ב-Skills, Sub-Agents ו-MCP, ומריץ סוכנים במקביל. <strong>הפירוט המלא — בעמודי הארכיטקטורה הבאים</strong> (Agents, Skills, MCP).'
+      }
+    ]
+  },
+  'Lovable': {
+    eyebrow: 'Stockholm',
+    title: 'Lovable',
+    sub: 'Full-stack vibe coding — מ-prompt לאפליקציה פרוסה',
+    sections: [
+      {
+        h: 'מה זה?',
+        p: 'Lovable לוקח prompt בשפה טבעית ומחזיר אפליקציה שלמה: <strong>frontend, backend, מסד נתונים, authentication ופריסה</strong> — הכל בלחיצה אחת. הקהל היעד: מייסדים ו-vibe coders שלא רוצים לעבור דרך DevOps. מ"רעיון" ל-MVP חי תוך דקות.'
+      },
+      {
+        h: 'Plan Mode + Prompt Queue + Browser Testing (פברואר 2026)',
+        p: 'לפני שה-AI כותב קוד, <strong>Plan Mode</strong> מציג תוכנית מפורטת של מה הוא עומד לבנות — אתה מאשר לפני שזה מתבצע. <strong>Prompt Queue</strong>: אפשר להעמיס עד 50 prompts בתור, ו-Lovable מבצע אחד אחר השני — שימושי לשינויים גורפים על מספר עמודים. <strong>Browser Testing</strong>: סביבת דפדפן וירטואלית שבודקת את האפליקציה אוטומטית ותופסת bugs ויזואליים.'
+      },
+      {
+        h: 'הרחבה מעבר לאפליקציות (מרץ 2026)',
+        p: 'בעדכון ב-19 במרץ 2026, Lovable יצא מעבר לבניית אפליקציות. הפלטפורמה מטפלת כעת גם במשימות כלליות: <strong>ניתוח נתונים, BI, מצגות, תהליכי עבודה שיווקיים</strong>. הופך אותה ל-no-code workhorse כללי, לא רק כלי לאפליקציות.'
+      }
+    ]
+  },
+  'Base 44': {
+    eyebrow: 'תל אביב — נרכשה על ידי Wix',
+    title: 'Base 44',
+    sub: 'הסטארט-אפ הישראלי שנמכר ב-80M$ ארבעה חודשים אחרי השקה',
+    sections: [
+      {
+        h: 'הסיפור',
+        p: '<strong>מאור שלמה (Maor Shlomo)</strong> השיק את Base 44 בפברואר 2025 — אותו חודש בו אנדריי קרפת׳י (Andrej Karpathy) טבע את המונח "vibe coding". 4 חודשים אחר כך, ביוני 2025, <strong>Wix רכשה את החברה ב-80 מיליון דולר במזומן</strong>. הנתונים: 250,000 משתמשים, כ-200K$ רווח חודשי, ו-1.5M$ הכנסות בחודש הראשון להשקה. סולו-פאונדר. אחת ההצלחות החדות בהיסטוריית ה-startups.'
+      },
+      {
+        h: 'הגישה — Batteries Included',
+        p: 'השוני המרכזי של Base 44 הוא <strong>"batteries included"</strong>: הפלטפורמה מטפלת לבד בכל החלקים המורכבים של בניית מערכת — מסד נתונים, authentication, storage, analytics, אינטגרציות חיצוניות. המשתמש כותב בשפה טבעית "אני רוצה אפליקציה שעושה X" והכל זמין מחוץ לקופסה. אין צורך לחבר Supabase או לכתוב route-ים ב-API.'
+      },
+      {
+        h: 'אחרי הרכישה',
+        p: 'מאור שלמה ממשיך לנהל את Base 44 כמוצר עצמאי בתוך Wix. בסופרבול 2026 רץ קמפיין <em>"It\'s App to You"</em> שהציג עובדים בחברות שונות בונים אפליקציות בלי מעורבות של צוות פיתוח — סימן ברור לאן השוק הולך.'
+      }
+    ]
+  },
+  'Codex': {
+    eyebrow: 'OpenAI',
+    title: 'Codex',
+    sub: 'הסוכן המקצועי של OpenAI — CLI + cloud sandbox + 3M מפתחים שבועיים',
+    sections: [
+      {
+        h: 'Codex CLI — לוקאלי, ב-Rust, פתוח',
+        p: 'Codex CLI הוא agent שרץ אצלך בטרמינל. קורא ועורך קבצים בתיקייה הנבחרת, מריץ קוד מקומית, ובודק תוצאות. <strong>open source, כתוב ב-Rust</strong> לאופטימיזציה ויעילות. עובד עם GPT-5.5/5.4 בליבה ותומך ב-<strong>MCP מובנה</strong> לחיבור לכלים חיצוניים.'
+      },
+      {
+        h: 'Cloud Tasks + Multi-Agent',
+        p: 'כל משימה רצה ב-<strong>cloud sandbox משלה</strong> שטעון מראש עם ה-repository שלך. מאפשר <strong>multi-agent parallel execution</strong>: שולחים sub-agents שעובדים במקביל. תכונות נוספות: <strong>Skills</strong> (workflows שמחזיקים על עצמם), <strong>Automations</strong> (משימות מתוזמנות ברקע), <strong>Codex Security</strong> (זיהוי פגיעויות ב-AI), ו-code review של agent על agent לפני commit.'
+      },
+      {
+        h: 'אימוץ — מ-1.6M ל-3M מפתחים בחודשיים',
+        p: 'באפריל 2026, OpenAI דיווחה על <strong>למעלה מ-3 מיליון מפתחים פעילים שבועית</strong> ב-Codex — כמעט הכפלה ביחס ל-1.6 מיליון בתחילת מרץ. הקצב הזה מציב את Codex בין הסוכנים המאומצים ביותר בעולם.'
+      }
+    ]
+  },
+  'AntiGravity': {
+    eyebrow: 'Google — מרץ 2026',
+    title: 'Google Antigravity',
+    sub: 'Multi-agent IDE — תכנון, קוד, בדיקות ו-UI במקביל',
+    sections: [
+      {
+        h: 'מה זה?',
+        p: '<strong>Sundar Pichai הכריז ב-20 במרץ 2026</strong> על Antigravity — פלטפורמת פיתוח agentic של Google, משולבת ב-Google AI Studio. הרעיון המרכזי: <strong>Multi-Agent Architecture</strong>. במקום צ׳אט עם עוזר אחד, אתה שולח כמה סוכנים במקביל — אחד מתכנן ארכיטקטורה, שני כותב קוד, שלישי מריץ tests, רביעי גולש באפליקציה הרצה ובודק UI.'
+      },
+      {
+        h: 'Firebase + Full-Stack',
+        p: 'אינטגרציה מובנית עם <strong>Firebase</strong> נותנת backend מאובטח בלחיצה: storage, authentication, מסד נתונים. אפשר לבנות אפליקציות מולטי-משתמשים, להוסיף DB ולהתחבר לשירותים חיצוניים בלי להגדיר תשתית ידנית.'
+      },
+      {
+        h: 'Model Optionality + Public Preview',
+        p: 'Antigravity לא נעול ל-Gemini בלבד. תומך ב-<strong>Gemini 3 Pro</strong> (ברירת מחדל), <strong>Claude Sonnet 4.5</strong> של Anthropic, ו-<strong>GPT-OSS</strong> של OpenAI. <strong>Public preview, חינם ליחידים</strong>, רץ ב-macOS, Windows ו-Linux.'
+      }
+    ]
   }
 };
 
@@ -717,6 +824,7 @@ function renderModelDetail(modelName) {
     <div class="wp-detail">
       <div class="wp-detail-eyebrow">${d.eyebrow}</div>
       <h3 class="wp-detail-title">${d.title}</h3>
+      ${d.sub ? `<p class="wp-detail-sub">${d.sub}</p>` : ''}
       ${d.sections.map(s => `
         <section class="wp-section">
           <h4 class="wp-section-h">${s.h}</h4>
