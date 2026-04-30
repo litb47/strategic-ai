@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=33">
+<link rel="stylesheet" href="tunnel.css?v=34">
 </head>
 <body>
 
@@ -801,6 +801,52 @@ hubOverlay.addEventListener('click', (e) => { if (e.target === hubOverlay) close
 // .pillar in the HTML. Pillars without an entry here still toggle is-active
 // for visual focus, but don't open the overlay.
 const PILLAR_DETAILS = {
+  agents: {
+    eyebrow: '01 / The Engine Room',
+    title: 'הסוכנים — AI Agents',
+    sub: 'השף במטבח — הישות האוטונומית שמתכננת, מבצעת ובודקת את עצמה',
+    sections: [
+      {
+        h: 'מה זה Agent?',
+        p: 'סוכן AI הוא לא צ׳אט. זוהי מערכת אוטונומית שמקבלת יעד עסקי או טכני, מנתחת את מצב הסביבה, מתכננת רצף פעולות, מפעילה כלים, בודקת את הפלט של עצמה — וחוזרת על המעגל הזה עד שהמשימה מושלמת. המפתח בודק את התוצר הסופי בלבד, לא את כל שלבי הביניים.'
+      },
+      {
+        h: 'האנטומיה של סוכן (4 רבדים)',
+        p: '<strong>מוח</strong> — LLM שמקבל החלטות (Claude Opus/Sonnet, GPT-5.5, Gemini 3). <strong>זיכרון</strong> — Persistent Memory ששומר context בין session-ים, פרויקטים ומשימות. <strong>כלים</strong> — Tools/Skills שהסוכן יכול לקרוא להם (קריאת קבצים, הרצת קוד, פעולות API חיצוניות). <strong>יעד</strong> — הגדרה ברורה של מה נחשב "הצלחה", שמאפשרת לסוכן להחליט לבד מתי לעצור.'
+      },
+      {
+        h: 'Sub-Agents — סוכנים מומחים בתוך צוות',
+        p: 'במקום סוכן יחיד שמנסה לעשות הכל, ניתן לחלק את העבודה ל-<strong>Sub-Agents</strong> — סוכנים מומחים שכל אחד אחראי לתחום צר. למשל <code>@domain-expert</code> שמכיר עולם תוכן ספציפי, <code>@code-reviewer</code> שבודק PR-ים לפי סטנדרטים של הארגון, או <code>@security-privacy</code> שסורק אחרי דליפות מידע. <strong>Parallel Dispatch</strong>: הסוכן הראשי שולח 3-5 sub-agents לעבוד במקביל ואז ממזג את התוצרים — מה שמקצר משימות מרובות-קבצים מ-6 שעות ל-30 דקות.'
+      },
+      {
+        h: 'עדכון אפריל 2026 — Durable Autonomy',
+        p: 'החזית של 2026 כבר לא "מי עונה הכי חכם" אלא "מי עובד הכי הרבה זמן בלי טעות". <strong>Claude Code</strong> סוגר tickets מרובי-קבצים בממוצע 6 שעות ללא פיקוח אנושי. <strong>Cursor</strong> ו-<strong>Lovable</strong> מפיקים אפליקציות מלאות מ-prompt בודד. <strong>AntiGravity</strong> רץ 24/7 ברקע ומנטר את הקוד שלך לרגרסיות. הקריטריון להצלחה השתנה — לא דיוק התשובה, אלא יציבות הפעולה לאורך זמן.'
+      }
+    ]
+  },
+  skills: {
+    eyebrow: '02 / The Engine Room',
+    title: 'הכישורים — Agent Skills',
+    sub: 'ספר המתכונים — קבצי הנחיות שהופכים סוכן גנרי למומחה ארגוני',
+    sections: [
+      {
+        h: 'מה זה Skill?',
+        p: 'Skill הוא קובץ הנחיות (Markdown) שמלמד סוכן איך לבצע משימה ספציפית לפי הסטנדרטים של הארגון. במקום לכתוב פרומפט ארוך בכל שיחה, אתה כותב פעם אחת בקובץ מסודר — והסוכן "יודע" אוטומטית מתי להפעיל את ה-Skill הנכון. זה הופך את ההבדל בין "סוכן גנרי שצריך להסביר לו הכל" ל"סוכן שמכיר את העסק שלך מהיום הראשון".'
+      },
+      {
+        h: 'המבנה של Skill (SKILL.md)',
+        p: 'קובץ Skill בנוי משני חלקים. <strong>Frontmatter</strong> בראש הקובץ עם <code>name</code> ו-<code>description</code> ברורים — אלה השדות שהסוכן "רואה" בכל שיחה כדי להחליט אם ה-Skill רלוונטי למשימה הנוכחית. <strong>גוף ה-Markdown</strong> מתחתיו מכיל את ההוראות המלאות, דוגמאות קוד, ומצביעים לקבצי <code>scripts/</code> ו-<code>references/</code> צמודים. הסוכן טוען את הגוף רק כשהוא מחליט להפעיל את ה-Skill הזה — לא בכל שיחה.'
+      },
+      {
+        h: 'איך הסוכן מגלה Skill?',
+        p: 'כשמשימה חדשה נכנסת, הסוכן סורק את כל ה-skills הזמינים ובודק את ה-<code>description</code> של כל אחד. אם המשימה מתאימה (למשל "compress these videos" מתאים ל-Skill בשם <code>web-media-optimizer</code>), הסוכן טוען רק את אותו Skill. כך ארגון יכול להחזיק עשרות או מאות skills בלי להעמיס על ה-context window של הסוכן בכל שיחה.'
+      },
+      {
+        h: 'עדכון אפריל 2026 — Skill Marketplaces',
+        p: 'הושק <strong>Claude Skills Marketplace</strong> שבו אפשר להתקין skills מוכנים בלחיצה אחת — מ-PDF parsing ועד יצירת מצגות PowerPoint ברמה מקצועית. <strong>Anthropic Skills</strong> הרשמיים כוללים <code>docx</code>, <code>xlsx</code>, <code>pptx</code>, <code>pdf</code>. ארגונים בונים skills פרטיים על גבי המבנה הזה ומשתפים ביניהם בלבד — מה שיוצר ספריית ידע ארגונית חיה שמתעדכנת בלי לאמן מחדש את המודל.'
+      }
+    ]
+  },
   mcp: {
     eyebrow: '03 / The Engine Room',
     title: 'פרוטוקול MCP',
