@@ -186,6 +186,35 @@ html, body {
   background: radial-gradient(ellipse at center, rgba(255,255,255,0.14), transparent 70%);
   filter: blur(12px);
   pointer-events: none;
+  z-index: 2;
+}
+/* Looping background video inside the portal — sits underneath the title.
+   Slightly dimmed + saturated so the metallic title gradient still pops. */
+.portal-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  z-index: 0;
+  filter: brightness(0.62) saturate(1.18) contrast(1.04);
+  pointer-events: none;
+}
+/* Soft dark scrim — radial gradient that's deepest where the title sits.
+   Keeps the metallic gradient on the title legible regardless of the
+   video's current frame. */
+.portal-bg-scrim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(2,6,23,0.65) 0%,
+      rgba(2,6,23,0.35) 55%,
+      rgba(2,6,23,0.5) 100%);
 }
 .portal-ring-outer,
 .portal-ring-mid {
