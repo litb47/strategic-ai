@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=25">
+<link rel="stylesheet" href="tunnel.css?v=26">
 </head>
 <body>
 
@@ -436,6 +436,9 @@ let selectedIdx  = null;
 // shallow shared tilt (~16°) so worlds travel mostly horizontally,
 // per-orbit Y-rotation jitter so concentric rings don't visually stack,
 // per-orbit speed multiplier so outer worlds drift slower (Kepler-ish).
+//
+// Base radii are for desktop. They are scaled by getOrbitFactor() at init
+// and on resize so the outermost ring doesn't overflow narrow viewports.
 const ORBIT_CONFIGS = [
   { rx: 260, rz: 260, tiltX: 14, tiltY:  0, speed: 1.00 },
   { rx: 320, rz: 320, tiltX: 17, tiltY: -6, speed: 0.78 },
@@ -444,6 +447,19 @@ const ORBIT_CONFIGS = [
   { rx: 500, rz: 500, tiltX: 16, tiltY:  7, speed: 0.42 },
   { rx: 560, rz: 560, tiltX: 19, tiltY: -5, speed: 0.36 },
 ];
+// Stash the desktop baseline so we can re-scale on resize without drift.
+ORBIT_CONFIGS.forEach(c => { c.baseRx = c.rx; c.baseRz = c.rz; });
+function getOrbitFactor() {
+  const w = window.innerWidth;
+  if (w <= 720)  return 0.50;   // phone
+  if (w <= 1024) return 0.72;   // tablet
+  return 1.00;                  // desktop
+}
+function applyOrbitScale() {
+  const f = getOrbitFactor();
+  ORBIT_CONFIGS.forEach(c => { c.rx = c.baseRx * f; c.rz = c.baseRz * f; });
+}
+applyOrbitScale();
 
 const worlds = [];
 CATEGORIES.forEach((cat, i) => {
@@ -489,6 +505,20 @@ CATEGORIES.forEach((cat, i) => {
 
   worlds.push({ el: world, path, cat, cfg });
 });
+
+// Re-scale orbits on resize (debounced) so phone/tablet/desktop transitions
+// don't leave the outermost ring overflowing the viewport.
+let __orbitResizeT = 0;
+window.addEventListener('resize', () => {
+  clearTimeout(__orbitResizeT);
+  __orbitResizeT = setTimeout(() => {
+    applyOrbitScale();
+    worlds.forEach(w => {
+      w.path.style.width  = (w.cfg.rx * 2) + 'px';
+      w.path.style.height = (w.cfg.rz * 2) + 'px';
+    });
+  }, 150);
+}, { passive: true });
 
 /* Click a world: fly to center, scale up, slide right-side panel in */
 function openWorldPanel(i) {
@@ -724,12 +754,13 @@ function renderOrrery() {
   const boostRPS = scrollBoost * 0.35;         // scroll adds rotation speed
   orbitClock += (baseRPS + boostRPS) * dt * Math.PI * 2;
 
-  // Scroll progress still picks the "focus" world for chromatic-aberration cue
+  // Scroll progress still picks the "focus" world for chromatic-aberration cue.
+  // Window is centered on the actual Nexus scene (data-z=-3800) instead of the
+  // hardcoded 0.50–0.90 (which was Pillars/Bio territory — bug fix).
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
   const progress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
-  const nexusStart = 0.50;
-  const nexusEnd   = 0.90;
-  const local = Math.max(0, Math.min(1, (progress - nexusStart) / (nexusEnd - nexusStart)));
+  const local = Math.max(0, Math.min(1,
+    (progress - NEXUS_FOCUS_START) / (NEXUS_FOCUS_END - NEXUS_FOCUS_START)));
   const focusIdx = Math.round(local * CATEGORIES.length) % CATEGORIES.length;
 
   worlds.forEach((w, i) => {
@@ -807,6 +838,14 @@ const scrollEl = document.getElementById('tunnel-scroll');
 
 // Total Z distance traveled through tunnel (px in 3D space)
 const TOTAL_Z = 11000;
+
+// Nexus focus window — derived from the actual scene's data-z so future
+// scene-Z changes don't drift this off. ±FOCUS_HALF on each side of center.
+const NEXUS_SCENE_Z = parseFloat(document.querySelector('.nexus-scene').dataset.z);
+const NEXUS_PROGRESS = -NEXUS_SCENE_Z / TOTAL_Z;
+const FOCUS_HALF = 0.07;
+const NEXUS_FOCUS_START = NEXUS_PROGRESS - FOCUS_HALF;
+const NEXUS_FOCUS_END   = NEXUS_PROGRESS + FOCUS_HALF;
 
 // Spring-smoothed scroll progress (damped, with tiny overshoot)
 let targetZ = 0;     // current raw scroll target
