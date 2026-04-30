@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=35">
+<link rel="stylesheet" href="tunnel.css?v=36">
 </head>
 <body>
 
@@ -623,6 +623,314 @@ const MODEL_DETAILS = {
       {
         h: 'Model Optionality + Public Preview',
         p: 'Antigravity לא נעול ל-Gemini בלבד. תומך ב-<strong>Gemini 3 Pro</strong> (ברירת מחדל), <strong>Claude Sonnet 4.5</strong> של Anthropic, ו-<strong>GPT-OSS</strong> של OpenAI. <strong>Public preview, חינם ליחידים</strong>, רץ ב-macOS, Windows ו-Linux.'
+      }
+    ]
+  },
+  // ─── Image generation world (03) ─────────────────────────────────
+  'FLUX.2': {
+    eyebrow: 'Black Forest Labs',
+    title: 'FLUX.2',
+    sub: 'מודל החזית הוויזואלית — טקסט קריא, ארבע גרסאות לכל use case',
+    sections: [
+      {
+        h: 'טקסט קריא — סוף סוף',
+        p: 'FLUX.2 פתר את הבעיה הגדולה ביותר של מודלי תמונה: <strong>טקסט באיכות גרפית</strong>. דיוק של ~60% בניסיון הראשון לטיפוגרפיה מורכבת, כולל סקריפטים מורכבים — CJK (סינית/יפנית/קוריאנית), ערבית, דבנגרי. נכון גם בגדלי פונט קטנים. סוף עידן ה"תמונה יפה אבל הכיתוב מטושטש".'
+      },
+      {
+        h: 'יכולות הליבה',
+        p: 'תמונות פוטוריאליסטיות עד <strong>4MP</strong>, תמיכה ב-<strong>עד 10 תמונות-רפרנס במקביל</strong> לעקביות של דמויות, מוצרים וסגנון. שיפור משמעותי ב-prompt adherence ובהבנת היגיון מרחבי ותאורה. הארכיטקטורה: latent flow matching שמאחד יצירה ועריכה במודל אחד, על בסיס Mistral-3 24B.'
+      },
+      {
+        h: '4 גרסאות לכל use case',
+        p: '<strong>FLUX.2 [max]</strong> — frontier, 4MP photoreal עם multi-reference. <strong>[pro]</strong> — production, איזון בין איכות-מחיר-מהירות. <strong>[flex]</strong> — מותאם use cases יצירתיים. <strong>[klein]</strong> — sub-second inference לאפליקציות real-time ואינטראקטיביות.'
+      }
+    ]
+  },
+  'Midjourney v7': {
+    eyebrow: 'Midjourney',
+    title: 'Midjourney V7',
+    sub: 'V7 ברירת מחדל מאז יוני 2025 — V8.1 Alpha באפריל 2026',
+    sections: [
+      {
+        h: 'V7 — מה השתנה מ-V6',
+        p: '<strong>V7 שוחרר ב-3 באפריל 2025</strong> והפך לברירת מחדל ב-17 ביוני. שיפור משמעותי בעיבוד טקסט+תמונה כ-prompt משולב, איכות תמונה עשירה יותר במיוחד בידיים, גופים ופרטים. הוספו <strong>Voice Prompting</strong> ו-<strong>Omni Reference</strong>.'
+      },
+      {
+        h: 'Draft Mode — חצי מחיר, פי 10 מהירות',
+        p: 'Draft Mode הוא הפיצ׳ר שמקדם הכי הרבה את העבודה היומיומית: <strong>חצי מחיר ופי 10 מהירות</strong>. כל כך מהיר שה-prompt bar משתנה ל"מצב שיחה" — אומרים "תחליף את החתול בינשוף" או "תהפוך לתאורת לילה" והוא משנה את ה-prompt וטוען מחדש בו ברגע.'
+      },
+      {
+        h: 'V8.1 Alpha (14 באפריל 2026)',
+        p: 'ב-<strong>14 באפריל 2026</strong> הושק V8.1 Alpha בכתובת <code>alpha.midjourney.com</code>. עדיין לא זמין באתר הראשי או ב-Discord, ויצירות מ-V8.1 Alpha לא מופיעות בגלריה הציבורית. בקרוב גם <strong>character/object reference</strong> מורחב ל-V7.'
+      }
+    ]
+  },
+  'GPT Image': {
+    eyebrow: 'OpenAI',
+    title: 'GPT Image 2',
+    sub: 'הראשון עם native reasoning — שוחרר ב-21 באפריל 2026',
+    sections: [
+      {
+        h: 'Native Reasoning — חידוש אדריכלי',
+        p: '<strong>שוחרר ב-21 באפריל 2026</strong> ב-API כ-<code>gpt-image-2</code>. <strong>המודל הראשון של OpenAI עם reasoning מובנה לתוך הארכיטקטורה</strong>. במקום לטפל ביצירת תמונה כמודול נפרד, הוא משתמש באותו pipeline של ChatGPT — חושב על מה שאתה רוצה, מחפש באינטרנט אם צריך רפרנס, ובודק את הפלט של עצמו לפני שהוא מציג אותו.'
+      },
+      {
+        h: 'טקסט רב-לשוני + 16 רפרנסים',
+        p: 'מייצר ועורך תמונות ב-<strong>1K, 2K ו-4K</strong>, מקבל עד <strong>16 תמונות-רפרנס</strong>, ומציג טקסט רב-לשוני בתוך התמונה — כולל סינית, יפנית וקוריאנית — ברמת דיוק כמעט מושלמת. תומך ב-aspect ratios מ-3:1 (ultra-wide) עד 1:3 (ultra-tall).'
+      },
+      {
+        h: 'Production-Ready',
+        p: 'אחד החזקים ב-<strong>שמירה על דמויות אחידות</strong> — עד 8 תמונות עקביות מ-prompt בודד. עומד יפה גם באתגרי ה-classics: טקסט קטן, אייקונים, UI elements, קומפוזיציות צפופות, ורמזים סטיליסטיים דקים — הכל באיכות 2K.'
+      }
+    ]
+  },
+  'Ideogram V3': {
+    eyebrow: 'Ideogram',
+    title: 'Ideogram V3',
+    sub: 'המוביל החד-משמעי בטקסט בתוך תמונה — דיוק 90-95%',
+    sections: [
+      {
+        h: 'טקסט בתוך תמונה — מי שצריך, חוזר לפה',
+        p: 'Ideogram V3 שוחרר ב-<strong>26 במרץ 2025</strong> ולמרות שעבר זמן, הוא עדיין <strong>המוביל הברור בטקסט בתוך תמונה</strong>: דיוק 90-95%. אם אתה צריך תוויות מוצרים, שלטי דרכים, פוסטרים, או social media עם copy על-תמונה — Ideogram V3 הוא הבחירה המקצועית.'
+      },
+      {
+        h: 'Style Codes + 4.3B שילובי סגנון',
+        p: '<strong>Style Reference</strong>: עד 3 תמונות שמכוונות אסתטיקה. <strong>Random Style</strong>: 4.3 מיליארד שילובים. <strong>Style Codes</strong>: שמירה ושימוש חוזר בסגנון בדיוק — חיוני למיתוג עקבי. <strong>Color Palette Control</strong>: הגדרת פלטה. ב-Canvas יש Magic Fill ו-Extend לעריכה של תמונות שהעלית.'
+      },
+      {
+        h: 'איכות פוטוריאליסטית',
+        p: 'מעבר לטקסט: גוני עור טבעיים, השתקפויות נכונות, פיזיקת תאורה, קומפוזיציה מרחבית, פרטים סביבתיים — איכות שעומדת ברזולוציה מלאה.'
+      }
+    ]
+  },
+  // ─── Music generation world (04) ─────────────────────────────────
+  'suno v4': {
+    eyebrow: 'Suno',
+    title: 'Suno v5.5',
+    sub: 'מ-v4 ל-v5.5 — ה-DAW הראשון שנולד AI-native',
+    sections: [
+      {
+        h: 'קו הזמן: v4 → v5.5',
+        p: '<strong>v4</strong> (סוף 2024) הביא שירים של 4 דקות ועקביות לירית טובה. <strong>v4.5</strong> (מאי 2025): 8 דקות, 1,200+ תגי ז׳אנר. <strong>v5</strong>: 44.1 kHz, שכבות עשירות יותר. <strong>v5.5 (מרץ 2026)</strong>: <strong>Voices</strong> (לשיר את שיריך עם הקול שלך משוכפל), <strong>Custom Models</strong> (fine-tune על שירים מקוריים שלך), <strong>My Taste</strong> (ה-AI לומד את ההעדפות שלך לאורך זמן).'
+      },
+      {
+        h: 'Suno Studio — DAW ראשון מסוגו',
+        p: '<strong>Suno Studio הוא ה-DAW הראשון שנולד AI-native</strong>. עריכת timeline, שכבות מפורטות, ייצוא MIDI, ויצירה מיידית של ווקאל, תופים וסינתים שמתערבבים עם האודיו הקיים. <strong>עדכון פברואר 2026</strong>: warp markers לתיקון תזמון, Remove FX להסרת אפקטים, alternate take lanes, ותמיכה בחתימות קצב מעבר ל-4/4. עד <strong>12 stems נפרדים</strong> לכל שיר.'
+      },
+      {
+        h: 'MILO-1080 (מרץ 2026)',
+        p: 'במרץ 2026 הושק <strong>MILO-1080</strong> (Model-Integrated Loop Orchestrator) — סטפ-סקוונסר בן 16 ערוצים ומעצב סינתים, מכוון למפיקים מקצועיים ולביטמייקרים שעובדים electronic.'
+      }
+    ]
+  },
+  'Lyria 3': {
+    eyebrow: 'Google DeepMind',
+    title: 'Lyria 3 / Lyria 3 Pro',
+    sub: '30 שניות → 3 דקות — קופץ דרגה במרץ 2026',
+    sections: [
+      {
+        h: 'Lyria 3 (פברואר 2026)',
+        p: 'Lyria 3 הוא המודל המוזיקלי המתקדם של Google. מייצר <strong>שירים של 30 שניות</strong> מ-prompt בשפה טבעית או מתמונה — אפשר להעלות תמונה ולהפוך אותה לטראק high-fidelity. תומך בז׳אנרים מ-pop ו-funk עד Motown, וב-vocals במספר שפות.'
+      },
+      {
+        h: 'Lyria 3 Pro (25 במרץ 2026)',
+        p: '<strong>חודש אחרי המודל הרגיל, Google שחררה Pro</strong> שדוחף את התקרה ל-<strong>3 דקות לטראק</strong>. אפשר לפרט מבנה מוזיקלי בתוך ה-prompt: intro, verse, chorus, bridge — המודל מבין מבנה ולא רק טמפו וז׳אנר. שליטה יצירתית והתאמה אישית מורחבות.'
+      },
+      {
+        h: 'זמינות + SynthID',
+        p: 'Lyria 3 Pro זמין ב-<strong>Vertex AI, Google AI Studio, Gemini API, Google Vids, Gemini app, ProducerAI</strong>. כל טראק שמופק מסומן ב-<strong>SynthID</strong> — חתימה דיגיטלית בלתי נראית שמסמנת שהשיר נוצר ב-AI.'
+      }
+    ]
+  },
+  'Udio': {
+    eyebrow: 'Udio',
+    title: 'Udio',
+    sub: 'חתם הסכם רישוי מלא עם UMG — מ-AI אפור ל-legal-by-design',
+    sections: [
+      {
+        h: 'השינוי הגדול — הסכם UMG',
+        p: '<strong>Udio ו-Universal Music Group סגרו הסכם רישוי שמסיים את הסכסוך המשפטי</strong>. תוצאה: שירות AI מוזיקלי <strong>מותר רישומית במלואו</strong>, מתוזמן להשקה ציבורית באמצע 2026. המודל החדש מאומן על קטלוג Universal — שינוי גדול מגישת ה-open-data של 2024 — ומבטיח תוצאות בטוחות חוקית וגם מדויקות סגנונית יותר.'
+      },
+      {
+        h: 'איכות אודיו 48kHz',
+        p: 'Udio מפיק ב-<strong>48kHz</strong> ומיקסים עקביים מהנקיים בשוק. <strong>הפרדת כלי נגינה ברורה במיוחד</strong> — כל כלי יושב בתוך המיקס ברמת דיוק שמתקרבת ל-mastering מקצועי.'
+      },
+      {
+        h: 'שליטה יצירתית — segment-by-segment',
+        p: 'Udio נותן יותר שליטה יצירתית מרוב הכלים: ספריית סגנונות אוצרת, <strong>style blending</strong>, ויצירה מבוססת-segments — בונים שיר חתיכה אחר חתיכה במקום ליצור הכל בבת אחת.'
+      }
+    ]
+  },
+  'ElevenLabs': {
+    eyebrow: 'ElevenLabs',
+    title: 'Eleven v3',
+    sub: 'הקול שמתפרק לרגשות — 70+ שפות, audio tags, dialogue mode',
+    sections: [
+      {
+        h: 'Eleven v3 — נבנה מחדש לאקספרסיביות',
+        p: '<strong>Eleven v3</strong> הוא המודל המוביל. נבנה <strong>מהיסוד</strong> לאקספרסיביות, לא רק עבור "דיבור טבעי". מאפשר לקול ללחוש, לצחוק, להיאנח, או לשנות טון באמצע משפט. <strong>תומך ב-70+ שפות</strong> עם control של רגש, כיוון ומספר דוברים. ה-API הציבורי כבר זמין.'
+      },
+      {
+        h: 'Audio Tags + Text to Dialogue',
+        p: '<strong>Audio Tags</strong>: שליטה רגשית מובנית בתוך הטקסט. <strong>Text to Dialogue API</strong>: שזירה של מספר קולות לשיחה אחת רציפה — prosody מסונכרן, רגש מותאם, ותגובה לתגיות אודיו. <strong>Dialogue Mode</strong>: שיחה טבעית בין שני קולות או יותר.'
+      },
+      {
+        h: 'פלטפורמה גלובלית (2026)',
+        p: 'ElevenLabs עברו לארכיטקטורת platform — <strong>שלוש משפחות מודלים, global routing כברירת מחדל</strong> (השרת הקרוב גיאוגרפית נבחר אוטומטית לאופטימיזציית latency). הוסיפו: TTS משופר, custom guardrails, הודעות יוצאות ב-WhatsApp, ו-SDKs מורחבים.'
+      }
+    ]
+  },
+  // ─── Video generation world (05) ─────────────────────────────────
+  'Veo 3': {
+    eyebrow: 'Google DeepMind',
+    title: 'Veo 3 / Veo 3 Ultra / Veo 3.1',
+    sub: 'קליפים של 60+ שניות עם אודיו מסונכרן native',
+    sections: [
+      {
+        h: '8 שניות → 60+ שניות',
+        p: 'Veo 3 הרגיל מייצר קליפים של 8 שניות באיכות פוטוריאליסטית. <strong>Veo 3 Ultra</strong> מאפשר 60+ שניות. <strong>Veo 3.1</strong> מצטיין בסנכרון אודיו: דיאלוג, אפקטים סביבתיים ורעש רקע נוצרים <strong>native</strong> ביחד עם הוויזואל. ב-MovieGenBench, Veo 3.1 ניצח את כל המתחרים על איכות הסנכרון.'
+      },
+      {
+        h: 'Scene Extension',
+        p: 'Scene Extension מאריך את הסרטון: יוצר קליפים חדשים שמתחילים מהשנייה האחרונה של הקודם. <strong>רציפות ויזואלית ואודיו</strong> — מאפשר לבנות סדרות של 60+ שניות מתוך כמה הפקות של 8 שניות.'
+      },
+      {
+        h: 'Frames to Video',
+        p: 'מציינים תמונת התחלה ותמונת סוף, ו-Veo 3.1 מייצר את המעבר ביניהן. <strong>Pixel-perfect transitions</strong> — שומר רציפות בבניית סדרות ארוכות ממספר הפקות עוקבות.'
+      }
+    ]
+  },
+  'KLING 3.0': {
+    eyebrow: 'Kuaishou — סין',
+    title: 'KLING 3.0',
+    sub: 'הסיני שמתחרה בחזית — 4K, 60fps, multi-shot AI Director',
+    sections: [
+      {
+        h: 'שוחרר 5 בפברואר 2026',
+        p: '<strong>Kuaishou הכריזו על KLING 3.0 ב-5 בפברואר 2026</strong>. הסדרה כוללת Video 3.0 + Video 3.0 Omni + Image 3.0 + Image 3.0 Omni. <strong>4K resolution (3840×2160) עד 60fps native</strong>, ארכיטקטורת Diffusion Transformer ששומרת על טקסטורה ברמת פיקסל.'
+      },
+      {
+        h: 'AI Director — 6 חתכים מ-prompt בודד',
+        p: '<strong>Multi-shot storyboarding</strong>: סדרות של עד <strong>6 חתכי מצלמה</strong> ביצירה אחת. ה-AI Director קובע אוטומטית קומפוזיציה, זוויות מצלמה ומעברים — תוך שמירה על דמויות, תאורה וסביבה לאורך כל החתכים. תוצאה: "במאי" אוטומטי שמייצר רצף סצנות הגיוני.'
+      },
+      {
+        h: 'אודיו native + Reference-based',
+        p: 'סינתזת אודיו native: דיאלוג עם sync שפתיים, sound design מבוסס prompt, voiceover אוטומטי בטון רגשי תואם, ואפקטים סביבתיים שמתאימים לפעולות במסך. <strong>Video 3.0 Omni</strong>: מעלים וידאו רפרנס, ה-AI מחלץ ויזואל ומאפיינים קוליים של דמות ומשכפל בנאמנות לסצנות חדשות.'
+      }
+    ]
+  },
+  'Runway Gen-4.5': {
+    eyebrow: 'Runway',
+    title: 'Runway Gen-4.5',
+    sub: 'המוביל ב-Artificial Analysis Text to Video — 1,247 Elo',
+    sections: [
+      {
+        h: 'המודל המדורג #1',
+        p: 'Gen-4.5 מחזיק כרגע את <strong>המקום הראשון ב-Artificial Analysis Text to Video benchmark עם 1,247 Elo</strong>, מנצח את כל המתחרים. דרגת ה-fidelity הוויזואלית ושליטת התנועה הן unprecedented. text-to-video ו-image-to-video ב-2-10 שניות לכל הפקה.'
+      },
+      {
+        h: 'פיזיקה משופרת',
+        p: 'הבנה מעמיקה יותר של פיזיקה, תנועה אנושית, תנועת מצלמה ושרשרת סיבה-תוצאה. <strong>אובייקטים זזים עם משקל, מומנטום וכוח אמיתיים</strong>. דינמיקת נוזלים, רנדור משטחים, ופרטים עדינים כמו שיער ובד — שומרים על קוהרנטיות לאורך זמן ותנועה.'
+      },
+      {
+        h: 'GWM-1 + Seedance 2.0 (אפריל 2026)',
+        p: '<strong>17 באפריל 2026</strong>: <strong>Seedance 2.0</strong> זמין ב-Runway API — וידאו מ-text/image/video עם keyframe control וייצור אודיו. <strong>GWM-1</strong> — General World Model אינטראקטיבי בזמן אמת ל-Worlds, Avatars ו-Robotics, מאפשר לאמן סוכנים בסביבות וירטואליות.'
+      }
+    ]
+  },
+  'Sora נסגר': {
+    eyebrow: 'OpenAI — נסגר',
+    title: 'Sora — סוף הדרך',
+    sub: 'נסגר ב-26 באפריל 2026 — סיפור אזהרה לעולם ה-AI',
+    sections: [
+      {
+        h: 'לוח זמנים של סגירה',
+        p: '<strong>Sora — אפליקציה ו-web נסגרו ב-26 באפריל 2026</strong>. ה-API ימשיך עד <strong>24 בספטמבר 2026</strong> ואז גם הוא ייסגר. הודעת הסגירה לא נתנה סיבה רשמית, אבל המספרים מספרים את הסיפור.'
+      },
+      {
+        h: 'למה נסגר — הכלכלה לא עבדה',
+        p: '<strong>Sora שרף בערך מיליון דולר ביום על compute</strong>. וידאו generative יקר משמעותית מטקסט או תמונה. <strong>אחרי שיא של מיליון משתמשים פעילים, האפליקציה צנחה לפחות מ-500K</strong> עד הכרזת הסגירה. הרווחים מ-in-app: רק 2.1M$ בכל חיי המוצר. עסקת Disney בשווי 150M$ — נפלה. OpenAI מסיטה compute לכלי קוד ומוצרי enterprise שיש בהם הכנסה צפויה יותר.'
+      },
+      {
+        h: 'המחליף — Spud',
+        p: 'OpenAI סוגרים את Sora לטובת מודל חדש בשם <strong>Spud</strong> — דור הבא של מודלי וידאו של OpenAI. עבור צרכים נוכחיים, האלטרנטיבות המרכזיות הן <strong>Runway, Pika, Synthesia</strong>.'
+      }
+    ]
+  },
+  // ─── Open Source / Open Weights world (06) ───────────────────────
+  'DeepSeek-V4 Pro': {
+    eyebrow: 'DeepSeek — רישיון MIT',
+    title: 'DeepSeek-V4 Pro',
+    sub: '1.6T parameters open weights — 24-27 באפריל 2026',
+    sections: [
+      {
+        h: 'שחרור פתוח — רגע מכונן',
+        p: '<strong>DeepSeek שחררה את משפחת V4 ב-24-27 באפריל 2026</strong> והעלתה את המשקלים ל-Hugging Face תחת <strong>רישיון MIT</strong>. <strong>V4-Pro: 1.6 טריליון פרמטרים סך הכל, 49 מיליארד פעילים</strong> (MoE), עם context window של מיליון טוקנים. גרסת ה-Flash הקטנה תומכת באותו context.'
+      },
+      {
+        h: 'ביצועי חזית במחיר שבר',
+        p: 'V4-Pro מציג ביצועים שמתחרים במודלים הסגורים המובילים בעולם — <strong>פי 4 לפחות יותר זול</strong> מהמתחרים האמריקאים. הסיבה: רץ על צ׳יפים של Huawei במקום Nvidia, ועושה שימוש בשיטת Mixture-of-Experts יעילה.'
+      },
+      {
+        h: 'המשמעות הגיאופוליטית',
+        p: '<strong>1.6 טריליון פרמטרים שנמצאים open</strong> מערערים את ההגנה האסטרטגית של חברות סגורות. ארגונים יכולים לעשות local hosting ולממש digital sovereignty מלאה. השחרור מציב את DeepSeek כשחקן הראשי של ה-open frontier ב-2026.'
+      }
+    ]
+  },
+  'LLaMA 4': {
+    eyebrow: 'Meta',
+    title: 'Llama 4 — Scout / Maverick / Behemoth',
+    sub: 'משפחת ה-open-weight הנפוצה ביותר בעולם',
+    sections: [
+      {
+        h: 'המשפחה — שלושה מודלים',
+        p: '<strong>Llama 4 שוחרר ב-5 באפריל 2025</strong>, ונכון לאפריל 2026 הוא <strong>מערכת המודלים ה-open-weight הנפוצה ביותר בעולם</strong>. <strong>Llama 4 Scout</strong>: natively multimodal עם <strong>10M token context — הגדול בעולם הפתוח</strong>. <strong>Llama 4 Maverick</strong>: ניצח את GPT-4o על coding, reasoning, multilingual ו-image. <strong>Llama 4 Behemoth</strong>: MoE עם 288B פעילים, 16 מומחים, ~2T סך הכל.'
+      },
+      {
+        h: 'Mixture-of-Experts + Native Multimodality',
+        p: 'כל המודלים בנויים <strong>Mixture-of-Experts (MoE)</strong> — מאפשר ל-Meta לסקייל קיבולת מבלי לשלם מחיר מודל-Dense על כל token. <strong>multimodality native</strong>: טקסט + תמונות + מסמכים — first-class. צ׳ארטים, PDFs, screenshots, סריקות — מטופלים במלוא העומק, לא דרך vision encoder מוצמד מאוחר.'
+      },
+      {
+        h: 'Open-Weight (לא Open-Source)',
+        p: 'המשקלים פתוחים, אפס עלות per-token כשמארחים עצמית, אקוסיסטם ענק של fine-tunes (Ollama / vLLM / NVIDIA NIM). <strong>אבל</strong>: "open-weight" שונה מ-"open-source" קלאסי. הרישיון של Meta מאפשר שימוש מסחרי אבל כולל מגבלות ודורש עמידה ב-Acceptable Use Policy.'
+      }
+    ]
+  },
+  'Falcon': {
+    eyebrow: 'TII — איחוד האמירויות',
+    title: 'Falcon — Falcon 3 / H1-Tiny / Perception',
+    sub: 'TII (Abu Dhabi) ממשיכים לדחוף את גבולות ה-OSS',
+    sections: [
+      {
+        h: 'Falcon 3 — multimodal מלא',
+        p: '<strong>Falcon 3</strong> הביא יכולות multimodal מלאות: לא רק טקסט ותמונה, אלא גם <strong>וידאו ואודיו</strong> בפעם הראשונה במשפחה. ניתוח וידאו עד שעה — סיכום תוכן, מענה על שאלות, זיהוי תבניות. אודיו: תמלול, סיכום, זיהוי מוזיקלי וצלילי.'
+      },
+      {
+        h: 'Falcon-H1-Tiny — 15 מודלים זעירים',
+        p: 'TII שחרר <strong>Falcon-H1-Tiny — 15 מודלים זעירים</strong> אבל חזקים: <strong>90M פרמטרים לאנגלית, 100M למולטילינגואל</strong>, מאומנים נפרד לכל תחום: chatbot, coding, function-calling, reasoning. רצים על מחשב נייד, מכשיר edge או embedded — בלי GPU.'
+      },
+      {
+        h: 'רישיון Falcon 2.0 + סוברניות AI',
+        p: 'Falcon 3 משוחרר תחת <strong>Falcon License 2.0</strong>. הקבוצה כוללת Falcon Perception, Falcon-H1-R, Falcon Arabic, Falcon-E, Falcon Mamba 7B, ועוד — סך הכל 14+ מודלים. הסט הוא הצעה אסטרטגית לסוברניות AI מחוץ לציר ה-Big Tech האמריקאי-סיני.'
+      }
+    ]
+  },
+  'Gamma 4': {
+    eyebrow: 'Google DeepMind',
+    title: 'Gemma 4',
+    sub: 'Apache 2.0 — ה-open-weights החזק ביותר של Google, אפריל 2026',
+    sections: [
+      {
+        h: 'שוחרר 2 באפריל 2026',
+        p: '<strong>Gemma 4</strong> שוחרר ב-2 באפריל 2026 תחת <strong>רישיון Apache 2.0</strong> — שינוי משמעותי לעומת Gemma הקודם. נבנה מתוך מחקר Gemini 3, מכוון agentic AI ו-coding. <strong>4 גדלים</strong>: E2B, E4B (קטנים, יעילים), <strong>26B MoE</strong> (מהירות גבוהה, רק 3.8B פעילים), <strong>31B Dense</strong> (איכות maximum).'
+      },
+      {
+        h: 'דירוג Arena AI',
+        p: '<strong>31B Dense מדורג #3 בעולם בקרב מודלים open</strong> ב-Arena AI text leaderboard. ה-26B MoE במקום #6. ארכיטקטורה: <strong>hybrid attention</strong> שמשלב sliding-window מקומי עם global attention — שומר על קלילות זיכרון בלי לאבד יכולת long-context.'
+      },
+      {
+        h: '140+ שפות + reasoning + multimodal',
+        p: '<strong>built-in reasoning mode</strong> שחושב צעד-צעד לפני תשובה. תמיכה ב-<strong>140+ שפות</strong>, function calling native, קלט וידאו ואודיו (במודלים הקטנים). Context: <strong>128K (E2B/E4B), 256K (26B/31B)</strong>. Apache 2.0 = גמישות מקסימלית לארגונים.'
       }
     ]
   }
