@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# The /uploads/ folder contains heavy media used inline by the page —
+# don't bother indexing them as standalone pages.
+Disallow: /uploads/
+Disallow: /debug/
+
+Sitemap: https://strategic-ai-60fa7ccd.netlify.app/sitemap.xml
