@@ -142,7 +142,11 @@ html, body {
 .hero-portal {
   position: relative;
   width: 820px;
-  height: 820px;
+  /* aspect-ratio keeps the portal a true circle even when width is
+     overridden responsively at narrow viewports. */
+  aspect-ratio: 1;
+  max-width: 90vw;
+  max-height: 80vh;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -188,33 +192,46 @@ html, body {
   pointer-events: none;
   z-index: 2;
 }
-/* Looping background video inside the portal — sits underneath the title.
-   Slightly dimmed + saturated so the metallic title gradient still pops. */
+/* Looping background video — fills the portal's circular interior.
+   top:0/left:0 + width/height:100% (rather than `inset:0`) renders
+   correctly across all browsers when nested in a 3D-transformed scene. */
 .portal-bg-video {
   position: absolute;
-  inset: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   border-radius: 50%;
   z-index: 0;
-  filter: brightness(0.62) saturate(1.18) contrast(1.04);
+  filter: brightness(0.5) saturate(1.2) contrast(1.05);
   pointer-events: none;
+  /* Belt-and-braces clip in case parent overflow:hidden gets bypassed
+     by transform-style:preserve-3d in some browsers. */
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 99%, transparent 100%);
+          mask-image: radial-gradient(circle at 50% 50%, #000 99%, transparent 100%);
 }
-/* Soft dark scrim — radial gradient that's deepest where the title sits.
-   Keeps the metallic gradient on the title legible regardless of the
-   video's current frame. */
+/* Strong central scrim — guarantees the metallic title gradient stays
+   legible regardless of which frame of the video is showing. Two layers:
+   • a deep central spotlight for the title area
+   • a softer outer ring so the video's edges still bleed visible */
 .portal-bg-scrim {
   position: absolute;
-  inset: 0;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   border-radius: 50%;
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 50%,
-      rgba(2,6,23,0.65) 0%,
-      rgba(2,6,23,0.35) 55%,
-      rgba(2,6,23,0.5) 100%);
+    radial-gradient(ellipse 65% 38% at 50% 50%,
+      rgba(2,6,23,0.78) 0%,
+      rgba(2,6,23,0.55) 65%,
+      rgba(2,6,23,0.2) 100%),
+    linear-gradient(180deg,
+      rgba(2,6,23,0.25) 0%,
+      rgba(2,6,23,0) 30%,
+      rgba(2,6,23,0) 70%,
+      rgba(2,6,23,0.45) 100%);
 }
 .portal-ring-outer,
 .portal-ring-mid {
@@ -2669,10 +2686,8 @@ button.wp-pill,
   /* Reduce starfield density */
   .starfield .star-layer { opacity: 0.6; }
 
-  /* Hero */
-  .hero-portal {
-    width: 90vw;
-  }
+  /* Hero — width handled by base rule's max-width: 90vw + aspect-ratio:1.
+     Keep .hero-aura responsive though. */
   .hero-aura { width: 80vw; height: 80vw; }
 
   h1, .scene-title, h2.scene-title {
