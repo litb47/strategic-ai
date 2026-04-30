@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=36">
+<link rel="stylesheet" href="tunnel.css?v=37">
 </head>
 <body>
 
@@ -198,6 +198,51 @@
             </p>
             <div class="pillar-cta">לחץ להעמקה</div>
           </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- =========== SCENE 4.5 — CYBERSECURITY FRONTIER (Z=-7400) =========== -->
+    <div class="scene cyber-scene" data-z="-7400" dir="rtl">
+      <div class="cyber-eyebrow">04 / THE SHIELD &amp; SWORD</div>
+      <h2 class="cyber-title">
+        חזית הסייבר:<br><em>הגנה והתקפה ב-AI</em>
+      </h2>
+      <p class="cyber-intro">
+        Anthropic ו-OpenAI הוציאו השנה כלי AI ממוקדי-סייבר שאינם זמינים לציבור הרחב — רק לארגונים מאומתים, צבאות, וגופי ביטחון. הכלים האלה מאתרים פגיעויות עומק שאדם היה מפספס, ומסוגלים גם להתקפה אוטונומית.
+      </p>
+
+      <div class="cyber-grid">
+        <article class="cyber-card" data-cyber="anthropic" tabindex="0" role="button"
+                 style="--cy-glow:#c87b4d;--cy-soft:rgba(200,123,77,0.55)">
+          <div class="cyber-vendor">Anthropic</div>
+          <h3 class="cyber-product">Claude Mythos Preview</h3>
+          <div class="cyber-tag">+ Code Security · Gov · Petri</div>
+          <p class="cyber-summary">
+            מודל החזית שמצא zero-days בכל מערכת הפעלה ודפדפן עיקריים. <strong>לא זמין לציבור</strong> — רק ל-Project Glasswing (AWS, Apple, Cisco, Google, Microsoft, NVIDIA, Palo Alto, JPMorgan, ועוד).
+          </p>
+          <div class="cyber-stats">
+            <div><strong>500+</strong> פגיעויות שגילה Code Security בקוד פתוח</div>
+            <div><strong>27 שנה</strong> — באג ב-OpenBSD שנמצא לראשונה</div>
+            <div><strong>CISA</strong> + מודיעין ארה״ב בודקים את המודל</div>
+          </div>
+          <div class="cyber-cta">לחץ להעמקה</div>
+        </article>
+
+        <article class="cyber-card" data-cyber="openai" tabindex="0" role="button"
+                 style="--cy-glow:#10a37f;--cy-soft:rgba(16,163,127,0.55)">
+          <div class="cyber-vendor">OpenAI</div>
+          <h3 class="cyber-product">GPT-5.4-Cyber</h3>
+          <div class="cyber-tag">+ Trusted Access for Cyber · Codex Security</div>
+          <p class="cyber-summary">
+            גרסה של GPT-5.4 עם <strong>refusal boundary נמוכה יותר לסייבר חוקי</strong>. מבצעת reverse engineering של בינארים, ניתוח malware ללא קוד מקור. גישה רק לחברות מאומתות (TAC).
+          </p>
+          <div class="cyber-stats">
+            <div><strong>$10M</strong> ב-API grants לחברות סייבר</div>
+            <div><strong>10,561</strong> high-severity issues שזוהו ב-30 ימים ע״י Codex Security</div>
+            <div><strong>Five Eyes</strong> בתהליך onboarding</div>
+          </div>
+          <div class="cyber-cta">לחץ להעמקה</div>
         </article>
       </div>
     </div>
@@ -1263,6 +1308,57 @@ const PILLAR_DETAILS = {
       }
     ]
   },
+  // ─── Cybersecurity Frontier overlays (scene 04) ─────────────
+  'cyber-anthropic': {
+    eyebrow: 'Anthropic — אפריל 2026',
+    title: 'Anthropic — חזית הסייבר',
+    sub: 'Claude Mythos / Code Security / Claude Gov / Petri — מערך מלא להגנה והתקפה',
+    sections: [
+      {
+        h: 'Claude Mythos Preview (7 באפריל 2026)',
+        p: 'מודל החזית הכי מתקדם של Anthropic נכון להיום. <strong>במהלך בדיקות פנימיות, גילה ונצל אוטומטית zero-days בכל מערכת הפעלה ובכל דפדפן עיקרי</strong>. בין הממצאים: באג בן 27 שנים ב-OpenBSD, פגם בן 16 שנים ב-FFmpeg, ופגיעות זיכרון ב-VM Monitor "memory-safe". <strong>Anthropic החליטו לא לשחרר את המודל לציבור</strong> — רק לשותפי Project Glasswing.'
+      },
+      {
+        h: 'Project Glasswing — מי בפנים?',
+        p: 'גישה ל-Mythos Preview ניתנת רק ל-<strong>שותפים מאומתים</strong>: AWS, Apple, Broadcom, Cisco, CrowdStrike, Google, JPMorgan Chase, Linux Foundation, Microsoft, NVIDIA, Palo Alto Networks. <strong>CISA והקהילה המודיעינית של ארה״ב</strong> בודקים את המודל בשטח. במבחנים מבוקרים, Mythos הריץ <strong>התקפות רב-שלביות אוטונומיות</strong> על רשתות פגיעות — משימה שלוקחת לאדם ימים.'
+      },
+      {
+        h: 'Claude Code Security (פברואר 2026)',
+        p: 'הגרסה הציבורית של היכולת — סורק פגיעויות מובנה ב-Claude Code על הוויב. <strong>פועל על Claude Opus 4.6</strong>. במקום לחפש דפוסים ידועים, הוא קורא קוד כמו חוקר אבטחה: עוקב אחרי זרימת דאטה, מבין אינטראקציות בין מודולים, ותופס פגיעויות מורכבות ש-rule-based tools מפספסים. <strong>צוות Anthropic מצא איתו 500+ פגיעויות בקוד פתוח</strong> שלא זוהו במשך עשורים.'
+      },
+      {
+        h: 'Claude Gov',
+        p: 'מודלים ייעודיים לצרכי ביטחון לאומי בארה״ב. <strong>זמינים לכל שלוש זרועות הממשלה תמורת $1</strong> (פדרלי, מדינה, מקומי). ביצועים משופרים לתחומים ביטחוניים קריטיים — ניתוח מודיעיני, סייבר, ועיבוד מסמכים מסווגים.'
+      },
+      {
+        h: 'Petri — Open-Source Red Teaming',
+        p: '<strong>Parallel Exploration Tool for Risky Interactions</strong> — כלי קוד פתוח של Anthropic לבדיקת בטיחות AI. סוכן אוטומטי שמשמש כ-red teamer: מנהל מאות שיחות מקבילות עם המודל הנבדק כדי לחשוף התנהגויות מסוכנות. גרסת <strong>Petri 2.0 (2026)</strong>: 70 תרחישים חדשים, מיתון eval-awareness, והערכות למודלי החזית של 2026. זמין ב-<code>github.com/safety-research/petri</code>.'
+      }
+    ]
+  },
+  'cyber-openai': {
+    eyebrow: 'OpenAI — אפריל 2026',
+    title: 'OpenAI — Trusted Access for Cyber',
+    sub: 'GPT-5.4-Cyber / TAC / Codex Security — תשתית סייבר ארגונית וממשלתית',
+    sections: [
+      {
+        h: 'GPT-5.4-Cyber (אפריל 2026)',
+        p: 'גרסת GPT-5.4 ש<strong>מורידה את ה-refusal boundary לעבודת סייבר חוקית</strong>. כוללת יכולת <strong>binary reverse engineering</strong> — אנליסטים יכולים לנתח תוכנה מקומפלת לזיהוי malware, פגיעויות וחזקות אבטחה <strong>בלי גישה לקוד המקור</strong>. מתאים ל-SOC analysts, חוקרי אבטחה ו-penetration testers.'
+      },
+      {
+        h: 'Trusted Access for Cyber (TAC)',
+        p: 'תוכנית לגישה מאומתת בלבד למודלים מתקדמים עם הגבלות מופחתות. <strong>$10 מיליון ב-API grants</strong> לחברות הגנה. <strong>הלקוחות:</strong> Bank of America, BlackRock, BNY, Citi, Cisco, Cloudflare, CrowdStrike, Goldman Sachs, JPMorgan Chase, Microsoft, Morgan Stanley, NVIDIA, Oracle, Palo Alto Networks, US Bank, Zscaler, ועוד. <strong>Five Eyes</strong> (ארה״ב/בריטניה/קנדה/אוסטרליה/ניו זילנד) בתהליך onboarding. גישה גם ל<strong>פדרלי, מדינה ומקומי</strong> בארה״ב.'
+      },
+      {
+        h: 'Codex Security — סוכן אבטחת אפליקציות',
+        p: 'סוכן אבטחה שבונה context עומק על פרויקטים ומזהה פגיעויות שכלים אגנטיים אחרים מפספסים. <strong>מייצר Threat Model ייעודי לכל פרויקט</strong>, מבין מה המערכת עושה, במה היא בוטחת, ואיפה היא חשופה. סורק פגיעויות, מעמיד אותן למבחן ב-<strong>sandbox validation</strong>, ומציע <strong>patches מינימליים</strong> לסקירה אנושית.'
+      },
+      {
+        h: 'Codex Security — מספרים מהשטח',
+        p: 'ב-30 ימים סרק <strong>1.2 מיליון commits</strong> ברפוזיטוריז חיצוניים, וזיהה <strong>10,561 ממצאים בעלי חומרה גבוהה</strong>. <strong>הרעש ירד ב-84%</strong> מאז ההשקה, ושיעור ה-false positives ירד ביותר מ-50% בכל הרפוזיטוריז. <strong>3,000+ פגיעויות critical/high תוקנו</strong> בעקבותיו באקוסיסטם. זמין ב-research preview ל-ChatGPT Pro / Enterprise / Business / Edu.'
+      }
+    ]
+  },
   mcp: {
     eyebrow: '03 / The Engine Room',
     title: 'פרוטוקול MCP',
@@ -1328,6 +1424,23 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && pillarOverlay.getAttribute('aria-hidden') === 'false') {
     closePillarOverlay();
   }
+});
+
+// Cyber-Frontier cards reuse the pillar-overlay infrastructure. Each
+// .cyber-card[data-cyber="X"] opens PILLAR_DETAILS["cyber-X"].
+document.querySelectorAll('.cyber-card').forEach((card) => {
+  const key = 'cyber-' + card.dataset.cyber;
+  if (!PILLAR_DETAILS[key]) return;
+  // Forward the card's accent color into --p-glow / --p-soft so the
+  // overlay re-uses the existing chrome (close button, scrollbar) but
+  // tinted to the vendor's brand.
+  const cs = getComputedStyle(card);
+  card.style.setProperty('--p-glow', cs.getPropertyValue('--cy-glow').trim());
+  card.style.setProperty('--p-soft', cs.getPropertyValue('--cy-soft').trim());
+  card.addEventListener('click', () => openPillarOverlay(key, card));
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+  });
 });
 
 document.querySelectorAll('.pillar').forEach((pillar) => {

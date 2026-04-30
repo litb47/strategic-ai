@@ -1540,6 +1540,162 @@ button.wp-pill,
   text-shadow: 0 0 14px var(--p-soft);
 }
 
+/* ─── CYBERSECURITY FRONTIER (scene 04) ────────────────────────── */
+.cyber-scene {
+  width: 1400px;
+  margin: -380px 0 0 -700px;
+}
+.cyber-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(94,234,212,0.85);
+  text-shadow: 0 0 18px rgba(94,234,212,0.5);
+  margin-bottom: 22px;
+}
+.cyber-title {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(48px, 5.5vw, 88px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin: 0 0 22px;
+}
+.cyber-title em {
+  font-style: italic;
+  font-weight: 600;
+  background: linear-gradient(120deg, #c87b4d 0%, #fbbf24 50%, #10a37f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.cyber-intro {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(15px, 1.15vw, 19px);
+  font-weight: 400;
+  color: rgba(245,247,255,0.78);
+  max-width: 880px;
+  line-height: 1.7;
+  margin: 0 0 56px;
+}
+.cyber-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.cyber-card {
+  position: relative;
+  padding: 40px 36px 32px;
+  border-radius: 22px;
+  background: linear-gradient(160deg,
+    rgba(8,14,30,0.92) 0%,
+    rgba(2,6,23,0.98) 100%);
+  border: 1px solid var(--cy-soft, rgba(255,255,255,0.18));
+  box-shadow:
+    0 36px 80px rgba(0,0,0,0.7),
+    0 0 100px var(--cy-soft, transparent),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition:
+    transform 0.4s var(--ease-out),
+    border-color 0.4s,
+    box-shadow 0.4s;
+}
+.cyber-card:hover,
+.cyber-card:focus-visible {
+  transform: translateY(-6px);
+  border-color: var(--cy-glow);
+  box-shadow:
+    0 50px 110px rgba(0,0,0,0.85),
+    0 0 160px var(--cy-soft),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  outline: none;
+}
+.cyber-vendor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cy-glow);
+  opacity: 0.95;
+}
+.cyber-product {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(28px, 2.4vw, 40px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.cyber-tag {
+  font-family: 'Heebo', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cy-glow);
+  opacity: 0.85;
+  margin-top: -10px;
+}
+.cyber-summary {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 400;
+  color: rgba(245,247,255,0.82);
+  line-height: 1.65;
+  margin: 0;
+}
+.cyber-summary strong { color: #fff; font-weight: 700; }
+.cyber-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.cyber-stats > div {
+  font-family: 'Heebo', sans-serif;
+  font-size: 14px;
+  color: rgba(245,247,255,0.85);
+  line-height: 1.45;
+}
+.cyber-stats strong {
+  color: var(--cy-glow);
+  font-weight: 800;
+  margin-inline-end: 6px;
+}
+.cyber-cta {
+  align-self: flex-start;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cy-glow);
+  padding: 10px 16px;
+  border: 1px solid var(--cy-soft);
+  border-radius: 999px;
+  background: rgba(0,0,0,0.45);
+  text-shadow: 0 0 12px var(--cy-soft);
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  margin-top: 6px;
+}
+.cyber-card:hover .cyber-cta,
+.cyber-card:focus-visible .cyber-cta {
+  background: var(--cy-soft);
+  border-color: var(--cy-glow);
+  color: #0b0e1a;
+  text-shadow: none;
+}
+
 /* ─── PILLAR DEEP-DIVE OVERLAY ──────────────────────────────────── */
 .pillar-overlay {
   position: fixed;
