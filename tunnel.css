@@ -763,6 +763,123 @@ h2.scene-title em {
   text-shadow: 0 1px 4px rgba(0,0,0,0.9);
   line-height: 1;
 }
+/* Clickable variant — gets a chevron cue, hover/focus glow, cursor pointer.
+   Used when MODEL_DETAILS has an entry for that model name. */
+button.wp-pill,
+.wp-pill-clickable {
+  appearance: none;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+.wp-pill-clickable:hover,
+.wp-pill-clickable:focus-visible {
+  background: rgba(255,255,255,0.13);
+  border-color: var(--w-glow, rgba(255,255,255,0.5));
+  box-shadow:
+    0 0 36px var(--w-glow-soft, transparent),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+  transform: translateY(-1px);
+  outline: none;
+}
+.wp-pill-cue {
+  display: inline-block;
+  font-size: 0.85em;
+  font-weight: 400;
+  color: var(--w-glow, #fff);
+  opacity: 0.75;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.wp-pill-clickable:hover .wp-pill-cue,
+.wp-pill-clickable:focus-visible .wp-pill-cue {
+  opacity: 1;
+  transform: translateX(-3px);
+}
+
+/* ─── MODEL DETAIL VIEW (replaces panel content when a pill is clicked) ─── */
+.wp-back {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--w-glow-soft, rgba(255,255,255,0.18));
+  color: var(--w-glow, #fff);
+  font-family: 'Heebo', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 10px 18px 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-bottom: 32px;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+.wp-back:hover,
+.wp-back:focus-visible {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--w-glow, #fff);
+  transform: translateX(3px);
+  outline: none;
+}
+.wp-back-arrow {
+  font-size: 18px;
+  line-height: 1;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+.wp-detail-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 0.9vw, 13px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--w-glow, #fff);
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+.wp-detail-title {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  margin: 0 0 36px;
+  letter-spacing: -0.01em;
+}
+.wp-section {
+  padding: 24px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.wp-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+.wp-section-h {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(18px, 1.4vw, 22px);
+  font-weight: 700;
+  color: var(--w-glow, #fff);
+  margin: 0 0 12px;
+  line-height: 1.35;
+}
+.wp-section-p {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(15px, 1.05vw, 17px);
+  font-weight: 400;
+  color: rgba(245,247,255,0.88);
+  line-height: 1.7;
+  margin: 0;
+}
 
 /* Selected world pops above everything */
 .world.is-selected {

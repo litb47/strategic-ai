@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=30">
+<link rel="stylesheet" href="tunnel.css?v=31">
 </head>
 <body>
 
@@ -393,6 +393,104 @@ const ICON_PATHS = {
   `,
 };
 
+// Per-model deep-dive content. Keys match entries in CATEGORIES[].models.
+// When a model has an entry here, its pill becomes a clickable button that
+// swaps the world-panel into a detail view.
+const MODEL_DETAILS = {
+  'GPT-5.5': {
+    eyebrow: 'OpenAI',
+    title: 'GPT-5.5 — ChatGPT',
+    sections: [
+      {
+        h: '1. הצ׳אט הרגיל (Daily Chat)',
+        p: 'דף חלק לשימוש כללי. הוא "יודע הכל" מהאינטרנט אבל לא מכיר את העסק או הפרויקט הספציפי שלך לעומק אלא אם תסביר לו בכל פעם מחדש. מתאים לשאלות מהירות, כתיבת מייל חד-פעמי, או בדיקת עובדות. משתמש בזיכרון הכללי של החשבון (Memory), אבל כל צ׳אט עומד בפני עצמו.'
+      },
+      {
+        h: '2. ה-GPTs (המומחים הספציפיים)',
+        p: 'סוכני AI קטנים שבנית — או שאחרים בנו — למשימה מוגדרת מאוד. בינה מלאכותית עם "אישיות", הנחיות קבועות וקבצים שטענת מראש. למשל GPT שמומחה רק בכתיבת קוד Python לפי הסטנדרטים שלך. מתאים כשאתה צריך כלי שחוזר על עצמו: מנתח נתונים פיננסיים שאתה פונה אליו כל שבוע עם קובץ אחר. אפשר לשתף עם אחרים או להוריד מה-GPT Store.'
+      },
+      {
+        h: '3. ה-Projects (סביבת העבודה)',
+        p: 'הכלי החדש והחזק ביותר לניהול פרויקטים ארוכי טווח. "תיקייה חכמה" שמרכזת בתוכה הרבה צ׳אטים, קבצים והנחיות שכולם קשורים לאותו נושא. כל הצ׳אטים בתוך הפרויקט "רואים" אחד את השני ואת הקבצים שהעלית — אם סיפרת משהו בצ׳אט א׳, הוא יידע את זה גם בצ׳אט ב׳. לעבודה מורכבת שדורשת המשכיות: תכנון אפליקציה, כתיבת ספר, מחקר שוק שנמשך שבועות. כולל גישה ל-Agent Mode ול-Deep Research ישירות בסביבת העבודה.'
+      }
+    ]
+  },
+  'Gemini 3': {
+    eyebrow: 'Google',
+    title: 'Gemini 3',
+    sections: [
+      {
+        h: '1. Gemini Chat — הכלבו',
+        p: 'המסך הרגיל לשימוש כללי ויומיומי. שיחה פתוחה עם הבינה המלאכותית על כל נושא שבעולם. כשרוצים לשאול שאלה מהירה, לכתוב מייל, לתכנן טיול או לפתור בעיה בקוד. דף חלק לכל מטרה.'
+      },
+      {
+        h: '2. Gems — המומחים',
+        p: 'גרסאות מותאמות אישית של Gemini שאתה בונה לעצמך (זמין למנויי Paid). מגדירים ל-Gemini "אישיות" והנחיות קבועות מראש — למשל: "תהיה מומחה לאבטחת מידע שכותב רק בנקודות". מתאים כשנמאס לכתוב את אותו פרומפט ארוך בכל פעם מחדש. הג׳ם תמיד "זוכר" איך אתה רוצה שהוא יתנהג. ה-Custom GPTs של גוגל.'
+      },
+      {
+        h: '3. NotebookLM — מחברות מחקר',
+        p: 'כל מחברת מתפקדת כקופסה סגורה (Silo). המידע בתוך מחברת אחת לא "יודע" מה קורה במחברת אחרת — הפרדה מוחלטת בין נושאים. בכל מחברת אפשר להכניס עד 50 מקורות (קבצים, קישורים, טקסט חופשי). אפשר לסמן ב-V רק מקורות ספציפיים, וה-AI יענה רק על בסיסם — מסנן מידע בלי להעביר קבצים. כדאי ליצור מחברת חדשה לכל נושא מחקר נפרד: מסמכים רפואיים, מדריכים טכניים, תכנון טיול.'
+      }
+    ]
+  },
+  'Grok': {
+    eyebrow: 'xAI / SpaceX',
+    title: 'Grok',
+    sections: [
+      {
+        h: 'Grok 4.1 — מולטי-מודאלי בזמן אמת',
+        p: 'אחרי ש-SpaceX רכשה רשמית את xAI, גרוק הפך לכלי הרבה יותר מולטי-מודאלי. רץ על מודל Grok 4.1 (או גרסת ה-Heavy למנויים הכבדים). שואב מידע בזמן אמת לא רק מ-X אלא גם מנתונים לוגיסטיים של SpaceX.'
+      },
+      {
+        h: 'Grok Imagine + Voice Think Fast 1.0',
+        p: 'הושק Grok Imagine API ליצירת וידאו ריאליסטי באיכות קולנועית. מצב Voice Think Fast 1.0 הוא שיחה קולית עם אפס שיהוי (Latency) שנשמעת אנושית לגמרי.'
+      }
+    ]
+  },
+  'DeepSeek': {
+    eyebrow: 'המעצמה הסינית',
+    title: 'DeepSeek-V4',
+    sections: [
+      {
+        h: 'V4-Pro — 1.6 טריליון פרמטרים',
+        p: 'סדרת DeepSeek-V4 שוחררה ב-24 באפריל וטלטלה את השוק בגלל המחיר. V4-Pro הוא מפלצת של 1.6 טריליון פרמטרים אבל יעיל בטירוף. פועל בשיטת "חשיבה" (Reasoning) משופרת שיודעת לפתור בעיות תכנות מורכבות בחצי מחיר מהמתחרים.'
+      },
+      {
+        h: 'V4-Flash — הזול ביותר בעולם',
+        p: 'גרסת ה-Flash הפכה למודל המהיר והזול בעולם — 14 סנט למיליון טוקנים. עברו להריץ חלק גדול מהחישובים על צ׳יפים של Huawei במקום Nvidia.'
+      }
+    ]
+  },
+  'Perplexity': {
+    eyebrow: 'מנוע ה-Deep Research',
+    title: 'Perplexity',
+    sections: [
+      {
+        h: 'איחוד Pro + Deep Research',
+        p: 'השינוי הכי משמעותי החודש — איחוד מצבי ה-Pro וה-Deep Research לממשק אחד פשוט. עכשיו משתמש ב-Auto-routing חכם: מחליט לבד מתי לשלוף תשובה מהירה ומתי להפעיל "מחקר עומק" שכותב דוח שלם עם עשרות מקורות.'
+      },
+      {
+        h: 'אינטגרציות חדשות (אפריל)',
+        p: 'שילוב חזק במכשירי Galaxy S26 של סמסונג — חיפוש מערכתי ללא דפדפן. מצב Memory משופר שזוכר את ההעדפות שלך ב-95% מהזמן בלי שתצטרך לחזור עליהן.'
+      }
+    ]
+  },
+  'Mistral': {
+    eyebrow: 'האירופאים',
+    title: 'Mistral',
+    sections: [
+      {
+        h: 'Mistral Medium 3.5 + Vibe Coding',
+        p: 'מיסטרל מתמקדים ב-Vibe Coding ובסוכנים אוטונומיים. המודל המוביל הוא Mistral Medium 3.5, בנוי לעבודה בתוך "סביבות עבודה" (Work mode) שבהן הוא לא רק עונה — אלא ממש מפעיל קוד מרחוק כדי לפתור בעיות.'
+      },
+      {
+        h: 'Voxtral + Reasoning משופר',
+        p: 'השקת Voxtral — מודל Text-to-Speech חדש שמאפשר לסוכני AI לדבר בקול אישי ומותאם לעסק. שיפורים אדירים ביכולת ה-Reasoning של המודלים הקטנים (Small 4).'
+      }
+    ]
+  }
+};
+
 const CATEGORIES = [
   {
     id: 'llm', num: '01', label: 'מודלי שפה',
@@ -555,6 +653,13 @@ function openWorldPanel(i) {
   const cat = CATEGORIES[i];
   worldPanel.style.setProperty('--w-glow', cat.glow);
   worldPanel.style.setProperty('--w-glow-soft', cat.glowSoft);
+  renderWorldPanelMain(cat);
+  orreryEl.classList.add('has-selection');
+  worldPanel.classList.add('is-active');
+  orreryDim.classList.add('is-active');
+  worldPanel.setAttribute('aria-hidden', 'false');
+}
+function renderWorldPanelMain(cat) {
   wpInner.innerHTML = `
     <div class="wp-head">
       <div class="wp-num">${cat.num} / ${cat.tag}</div>
@@ -564,14 +669,48 @@ function openWorldPanel(i) {
     <p class="wp-desc">${cat.desc}</p>
     <div class="wp-models-head">מודלים מובילים</div>
     <div class="wp-models">
-      ${cat.models.map(m => `<div class="wp-pill">${m}</div>`).join('')}
+      ${cat.models.map(m => MODEL_DETAILS[m]
+        ? `<button type="button" class="wp-pill wp-pill-clickable" data-model="${m}" aria-label="פתח פרטים על ${m}">${m}<span class="wp-pill-cue" aria-hidden="true">‹</span></button>`
+        : `<div class="wp-pill">${m}</div>`
+      ).join('')}
     </div>
   `;
-  orreryEl.classList.add('has-selection');
-  worldPanel.classList.add('is-active');
-  orreryDim.classList.add('is-active');
-  worldPanel.setAttribute('aria-hidden', 'false');
 }
+function renderModelDetail(modelName) {
+  const d = MODEL_DETAILS[modelName];
+  if (!d) return;
+  wpInner.innerHTML = `
+    <button type="button" class="wp-back" id="wpBack" aria-label="חזרה לקטגוריה">
+      <span class="wp-back-arrow" aria-hidden="true">›</span>
+      <span>חזרה</span>
+    </button>
+    <div class="wp-detail">
+      <div class="wp-detail-eyebrow">${d.eyebrow}</div>
+      <h3 class="wp-detail-title">${d.title}</h3>
+      ${d.sections.map(s => `
+        <section class="wp-section">
+          <h4 class="wp-section-h">${s.h}</h4>
+          <p class="wp-section-p">${s.p}</p>
+        </section>
+      `).join('')}
+    </div>
+  `;
+  // Scroll the panel back to top so the user starts at the title
+  worldPanel.scrollTop = 0;
+}
+// Single delegated handler — wpInner persists across content swaps,
+// so this one listener covers both the main view's pills and the detail
+// view's back button.
+wpInner.addEventListener('click', (e) => {
+  const pill = e.target.closest('[data-model]');
+  if (pill) {
+    renderModelDetail(pill.dataset.model);
+    return;
+  }
+  if (e.target.closest('#wpBack') && selectedIdx !== null) {
+    renderWorldPanelMain(CATEGORIES[selectedIdx]);
+  }
+});
 function closeWorldPanel() {
   selectedIdx = null;
   orreryEl.classList.remove('has-selection');
