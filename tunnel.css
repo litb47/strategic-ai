@@ -2417,3 +2417,126 @@ h2.scene-title em {
 .exec-scene.is-active .exec-line-1 { transition-delay: 0.05s; }
 .exec-scene.is-active .exec-line-2 { transition-delay: 0.30s; opacity: 0.9; }
 .exec-scene.is-active .exec-line-3 { transition-delay: 0.60s; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — Tablet & Phone
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .viewport { perspective: 900px; }
+  .tunnel-space { perspective: 900px; }
+
+  /* Pillars + Bio scenes */
+  .pillars-scene,
+  .bio-scene {
+    width: 100vw;
+    margin: -45vh 0 0 -50vw;
+    padding: 6vh 6vw;
+    box-sizing: border-box;
+  }
+
+  /* Orrery (Hebrew bento) */
+  .orrery { width: 92vw; height: 60vh; max-height: 540px; }
+
+  /* Hero portal */
+  .hero-aura { width: 70vw; height: 70vw; max-width: 600px; max-height: 600px; }
+
+  /* Bio orbit stage */
+  .bio-stage { height: 60vh; max-height: 460px; }
+}
+
+@media (max-width: 720px) {
+  /* Tunnel — flatter perspective, tighter motion */
+  .viewport { perspective: 700px; }
+  .tunnel-space { perspective: 700px; }
+
+  /* Reduce starfield density */
+  .starfield .star-layer { opacity: 0.6; }
+
+  /* Hero */
+  .hero-portal {
+    width: 90vw;
+  }
+  .hero-aura { width: 80vw; height: 80vw; }
+
+  h1, .scene-title, h2.scene-title {
+    font-size: clamp(34px, 9vw, 52px) !important;
+    max-width: 92vw;
+    padding: 0 16px;
+  }
+
+  /* Scenes — scale layout to viewport, scrollable inside if tall */
+  .scene {
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .pillars-scene,
+  .bio-scene,
+  .nexus-scene,
+  .closing-scene,
+  .summary-scene,
+  .exec-scene {
+    width: 100vw;
+    margin: -45vh 0 0 -50vw;
+    padding: 5vh 5vw;
+    box-sizing: border-box;
+  }
+
+  /* Pillars grid → single column */
+  .pillars-grid { grid-template-columns: 1fr !important; gap: 14px; }
+  .pillar { height: auto; min-height: 360px; padding: 28px 20px; }
+
+  /* Bio orbit — smaller stage; cards shrink */
+  .bio-stage { height: 56vh; max-height: 420px; }
+  .bio-card {
+    width: 220px;
+    height: 200px;
+    margin: -100px 0 0 -110px;
+    padding: 18px 18px 16px;
+  }
+  .bc-title { font-size: 30px; }
+  .bc-body { font-size: 12.5px; line-height: 1.55; }
+  .bc-org { font-size: 10px; }
+
+  /* Bio title block */
+  .bio-title { font-size: clamp(36px, 9vw, 56px); }
+  .bio-intro { font-size: 16px; padding: 0 12px; }
+
+  /* Pillars headline */
+  .pillars-eyebrow,
+  .bio-eyebrow,
+  .nexus-eyebrow,
+  .exec-eyebrow {
+    font-size: 11px; letter-spacing: 0.28em; padding: 6px 12px;
+  }
+
+  /* Exec scene — adjust glass padding */
+  .exec-scene { height: 90vh; padding: 6vh 5vw; }
+  .exec-glass { padding: 36px 24px; border-radius: 22px; }
+  .exec-line-1 { font-size: clamp(20px, 5.4vw, 28px); }
+  .exec-line-2 { font-size: clamp(26px, 7vw, 38px); margin: 18px 0; }
+  .exec-line-3 { font-size: clamp(20px, 5.4vw, 28px); }
+
+  /* Orrery — hide outer ring, scale planets */
+  .orrery { width: 96vw; height: 56vh; max-height: 480px; }
+
+  /* Closing scene — text size */
+  .closing-scene h2,
+  .closing-scene .scene-title { font-size: clamp(34px, 9vw, 52px); }
+  .closing-scene p { font-size: 15px; padding: 0 16px; }
+
+  /* Hub / category cards — single column at small sizes */
+  .hub-grid { grid-template-columns: 1fr !important; }
+  .hub-card { width: 92vw !important; height: auto !important; min-height: 70vh; }
+
+  /* Bento modal — full screen on phone */
+  .bento-modal .modal-content {
+    width: 96vw !important;
+    min-width: 0 !important;
+    max-height: 92vh;
+    transform: translate(-50%, -50%) !important;
+    left: 50% !important; right: auto !important;
+  }
+}

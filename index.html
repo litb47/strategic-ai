@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>AI Evolution 2026 — Model Nexus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=21">
+<link rel="stylesheet" href="tunnel.css?v=22">
 </head>
 <body>
 
@@ -613,7 +613,10 @@ function tickBioOrbit(now) {
   const N = bioCards.length;
   if (N) {
     // Horizontal ellipse hugging the outer hoop trajectory
-    const RX = 460, RZ = 140;
+    const isPhone = window.innerWidth <= 720;
+    const isTablet = window.innerWidth <= 1024;
+    const RX = isPhone ? 150 : isTablet ? 280 : 460;
+    const RZ = isPhone ? 80  : isTablet ? 110 : 140;
     for (let i = 0; i < N; i++) {
       const phase = bioOrbitT + (i / N) * Math.PI * 2;
       const x  = Math.sin(phase) * RX;
