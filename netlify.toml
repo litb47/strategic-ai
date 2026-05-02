@@ -39,11 +39,6 @@
     Cache-Control = "public, max-age=31536000, immutable"
     Accept-Ranges = "bytes"
 
-[[headers]]
-  for = "/debug/*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
 # ─── SECURITY HEADERS (applied to everything) ─────────────────────────
 [[headers]]
   for = "/*"

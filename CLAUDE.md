@@ -40,13 +40,11 @@ overridable live via the on-screen Tweaks panel (`tweaks.jsx`).
 | File | Role |
 |---|---|
 | `index.html` | **Active page.** Tunnel engine, scenes, orrery, hub overlay, world panel. |
-| `AI Evolution 2026 v1.html` | Older snapshot. Not linked from anywhere. Likely deletable — confirm before removing. |
-| `tunnel.css` | Main stylesheet for the active page (linked as `tunnel.css?v=22` — bump the query string when shipping CSS changes to bust cache). |
-| `styles.css` | Older / partial stylesheet, not linked from `index.html`. Verify before deleting. |
+| `tunnel.css` | Main stylesheet for the active page (linked as `tunnel.css?v=45` — bump the query string when shipping CSS changes to bust cache). |
 | `tweaks-panel.jsx` | Reusable Tweaks shell: panel chrome, controls, host protocol (postMessage edit-mode). |
 | `tweaks.jsx` | This page's Tweaks instance — exposes `STIFF`, `DAMP`, ring visibility, grain. Writes to `window.__TUNNEL`. |
-| `uploads/*.mp4` | Scene background videos. **~98 MB total** and contains duplicates (Hebrew-named files === `1.mp4` / `2.mp4` / `3.mp4`). Worth deduping before re-uploading. |
-| `debug/*.png` | Reference / mood images. Not referenced by the active HTML. |
+| `uploads/*.mp4` | Scene background videos (`1.mp4`, `2.mp4`, `3.mp4`, `bio-hoops.mp4`, `hero-portal.mp4`). |
+| `netlify.toml` | Build + headers config (HTML no-cache, CSS/JS/MP4 immutable, security headers). |
 
 ## Working in this codebase
 
@@ -78,18 +76,10 @@ Loads via Babel-in-the-browser. Slow to evaluate but acceptable for an authoring
 tool. **Don't ship Tweaks to a production audience without removing or guarding
 it** — it's an editor surface, not user-facing.
 
-## Known issues / cleanup candidates
+## Notes
 
-- Duplicate videos in `uploads/` (Hebrew-named copies of `1/2/3.mp4`) — ~20 MB
-  of waste shipped on every Netlify deploy.
-- Two HTML files; only one is active. Old one is dead weight.
-- React + Babel from CDN means a runtime compile every page load. For prod,
-  precompile `tweaks*.jsx` once and ship plain JS, or strip Tweaks from the
-  shipped build.
-- No `netlify.toml` — deploy settings live only in the Netlify UI. Adding one
-  pins them to the repo.
-- No `.gitignore` — `debug/`, large mp4s, and `.DS_Store` should probably be
-  reviewed for inclusion / LFS.
+- Tweaks panel uses React + Babel from `unpkg.com`, gated behind `?edit=1` so
+  public visitors don't pay for ~4 MB of dev bundles. Authoring-tool only.
 
 ## Deployment
 
