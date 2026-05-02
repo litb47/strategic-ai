@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=50">
+<link rel="stylesheet" href="tunnel.css?v=54">
 </head>
 <body>
 
@@ -1775,6 +1775,16 @@ let lastFrameTs = performance.now();
 let lastScrollY = window.scrollY;
 let scrollBoost = 0;         // 0..1, decays each frame
 
+// Cached scroll height — recomputed only on resize/load. Reading
+// scrollHeight inside the per-frame RAF loop forces a layout reflow
+// every tick; caching eliminates that hot path.
+let _maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+const _refreshMaxScroll = () => {
+  _maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+};
+window.addEventListener('resize', _refreshMaxScroll, { passive: true });
+window.addEventListener('load', _refreshMaxScroll);
+
 function renderOrrery() {
   const now = performance.now();
   const dt = Math.min(0.05, (now - lastFrameTs) / 1000); // seconds, clamped
@@ -1793,10 +1803,8 @@ function renderOrrery() {
   orbitClock += (baseRPS + boostRPS) * dt * Math.PI * 2;
 
   // Scroll progress still picks the "focus" world for chromatic-aberration cue.
-  // Window is centered on the actual Nexus scene (data-z=-3800) instead of the
-  // hardcoded 0.50–0.90 (which was Pillars/Bio territory — bug fix).
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
+  // Uses cached _maxScroll (refreshed on resize/load) — avoids layout reflow.
+  const progress = Math.max(0, Math.min(1, window.scrollY / _maxScroll));
   const local = Math.max(0, Math.min(1,
     (progress - NEXUS_FOCUS_START) / (NEXUS_FOCUS_END - NEXUS_FOCUS_START)));
   const focusIdx = Math.round(local * CATEGORIES.length) % CATEGORIES.length;
