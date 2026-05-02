@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=49">
+<link rel="stylesheet" href="tunnel.css?v=50">
 </head>
 <body>
 
@@ -54,7 +54,9 @@
         <div class="portal-ring-mid"></div>
         <div class="portal-glass">
           <video class="portal-bg-video" autoplay loop muted playsinline preload="auto"
-                 src="uploads/hero-portal.mp4?v=2" aria-hidden="true"></video>
+                 src="uploads/hero-portal.mp4?v=2"
+                 poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='30%25'%3E%3Cstop offset='0%25' stop-color='%2393c5fd'/%3E%3Cstop offset='40%25' stop-color='%231e40af'/%3E%3Cstop offset='100%25' stop-color='%23080e1e'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='1' height='1' fill='url(%23g)'/%3E%3C/svg%3E"
+                 aria-hidden="true"></video>
         </div>
       </div>
       <p class="hero-sub">
@@ -1883,12 +1885,16 @@ const FOCUS_HALF = 0.07;
 const NEXUS_FOCUS_START = NEXUS_PROGRESS - FOCUS_HALF;
 const NEXUS_FOCUS_END   = NEXUS_PROGRESS + FOCUS_HALF;
 
-// Spring-smoothed scroll progress (damped, with tiny overshoot)
-let targetZ = 0;     // current raw scroll target
-let currentZ = 0;    // spring-smoothed Z
-let velocity = 0;
-const STIFF = 0.085;  // spring stiffness
-const DAMP  = 0.82;   // damping factor — slightly higher = smoother, less overshoot
+// Lerp-based smooth scroll (industry standard — used by Lenis, GSAP).
+// Critically damped, never overshoots, feels buttery without lag.
+// `LERP` is the catch-up rate per frame — higher = more responsive,
+// lower = smoother. 0.12 hits the sweet spot for a 60fps cinematic feel.
+let targetZ = 0;     // raw scroll target (set by onScroll)
+let currentZ = 0;    // smoothed Z (rendered each frame)
+const LERP = 0.12;
+// Legacy STIFF/DAMP kept for the Tweaks panel UI; mapped onto LERP at runtime.
+const STIFF = 0.12;
+const DAMP  = 0;
 
 function onScroll() {
   const max = scrollEl.scrollHeight - window.innerHeight;
@@ -1898,15 +1904,18 @@ function onScroll() {
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-/* Spring physics loop + render */
+/* Smooth-scroll loop + render */
 function tick() {
-  // Damped spring toward target (tweakable)
-  const stiff = (window.__TUNNEL && window.__TUNNEL.STIFF) || STIFF;
-  const damp  = (window.__TUNNEL && window.__TUNNEL.DAMP)  || DAMP;
+  // Lerp current toward target. Snap fully when close to avoid sub-pixel jitter.
+  const lerp = (window.__TUNNEL && typeof window.__TUNNEL.LERP === 'number')
+    ? window.__TUNNEL.LERP
+    : LERP;
   const dz = targetZ - currentZ;
-  velocity += dz * stiff;
-  velocity *= damp;
-  currentZ += velocity;
+  if (Math.abs(dz) < 0.5) {
+    currentZ = targetZ;
+  } else {
+    currentZ += dz * lerp;
+  }
 
   // Clamp currentZ to avoid flicker past the ends
   const MAX_Z = TOTAL_Z + 200;
@@ -1972,9 +1981,28 @@ function easeOutBack(x) {
 requestAnimationFrame(tick);
 
 /* ═══════════════════════════════════════════════════════════════
-   7. KEYBOARD A11Y — ESC closes any open overlay
-   (Lazy-load was removed — existing per-scene handlers above
-   already promote data-src → src with HEAD probe.)
+   7. VIDEO AUTOPLAY UNLOCK
+   Some browsers (iOS Safari low-power, locked-down corp profiles)
+   block muted autoplay until first user interaction. Force-play
+   all paused videos on first scroll/click/touch — the fallback
+   sphere stays visible until then, so the hero never looks empty.
+═══════════════════════════════════════════════════════════════ */
+(function unlockVideoPlayback() {
+  const playAll = () => {
+    document.querySelectorAll('video').forEach(v => {
+      if (v.paused) v.play().catch(() => {});
+    });
+  };
+  // Try once after first paint (most browsers will succeed without input).
+  requestAnimationFrame(() => requestAnimationFrame(playAll));
+  // Belt & braces: any user gesture unlocks playback.
+  ['click', 'touchstart', 'scroll', 'keydown'].forEach(ev => {
+    window.addEventListener(ev, playAll, { once: true, passive: true });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   8. KEYBOARD A11Y — ESC closes any open overlay
 ═══════════════════════════════════════════════════════════════ */
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
@@ -1991,15 +2019,12 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* ═══════════════════════════════════════════════════════════════
-   9. REDUCED MOTION — bypass spring physics for users who prefer it
+   9. REDUCED MOTION — snap scroll instantly for users who prefer it
 ═══════════════════════════════════════════════════════════════ */
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  // Skip the spring smoothing — currentZ snaps directly to target.
-  // The tick() loop above will still run but the spring becomes near-instant.
-  // We achieve this by setting STIFF=1, DAMP=0 on the global override.
+  // LERP=1 means currentZ snaps directly to target each frame.
   window.__TUNNEL = window.__TUNNEL || {};
-  window.__TUNNEL.STIFF = 1;
-  window.__TUNNEL.DAMP = 0;
+  window.__TUNNEL.LERP = 1;
 }
 </script>
 

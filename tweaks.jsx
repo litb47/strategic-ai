@@ -2,8 +2,7 @@
 const { useEffect } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "springStiffness": 85,
-  "springDamping": 78,
+  "scrollLerp": 12,
   "starCount": 120,
   "tunnelRings": true,
   "grain": true
@@ -13,10 +12,9 @@ function TweaksApp() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
 
   useEffect(() => {
-    // Expose spring constants to the tunnel engine
+    // Expose lerp factor to the tunnel engine. 1-30 maps to 0.01-0.30.
     window.__TUNNEL = {
-      STIFF: t.springStiffness / 1000,
-      DAMP: t.springDamping / 100,
+      LERP: t.scrollLerp / 100,
     };
     document.getElementById('rings').style.display = t.tunnelRings ? '' : 'none';
     const vp = document.querySelector('.viewport');
@@ -25,11 +23,9 @@ function TweaksApp() {
 
   return (
     <TweaksPanel title="Tweaks">
-      <TweakSection label="Spring physics" />
-      <TweakSlider label="Stiffness" value={t.springStiffness} min={20} max={200} unit=""
-                   onChange={(v) => setTweak('springStiffness', v)} />
-      <TweakSlider label="Damping" value={t.springDamping} min={50} max={95} unit=""
-                   onChange={(v) => setTweak('springDamping', v)} />
+      <TweakSection label="Scroll smoothness" />
+      <TweakSlider label="Lerp (higher = snappier)" value={t.scrollLerp} min={5} max={30} unit=""
+                   onChange={(v) => setTweak('scrollLerp', v)} />
       <TweakSection label="Environment" />
       <TweakToggle label="Tunnel rings" value={t.tunnelRings}
                    onChange={(v) => setTweak('tunnelRings', v)} />
