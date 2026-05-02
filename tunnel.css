@@ -211,6 +211,48 @@ html, body {
   pointer-events: none;
   z-index: 2;
 }
+/* Conic shimmer for the fallback sphere — only visible when the hero
+   video can't play (.video-failed). When the video plays, this stays at
+   opacity 0 and adds zero compositing cost. */
+.portal-glass::after {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 0deg,
+      rgba(120,180,255,0.00) 0deg,
+      rgba(120,180,255,0.20) 70deg,
+      rgba(167,139,250,0.12) 140deg,
+      rgba(120,180,255,0.00) 220deg,
+      rgba(120,180,255,0.16) 300deg,
+      rgba(120,180,255,0.00) 360deg);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 600ms ease-out;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 60%, transparent 78%);
+          mask-image: radial-gradient(circle at 50% 50%, #000 60%, transparent 78%);
+}
+@keyframes portal-shimmer {
+  to { transform: rotate(360deg); }
+}
+.portal-glass.video-failed::after {
+  opacity: 0.85;
+  animation: portal-shimmer 22s linear infinite;
+}
+.portal-glass.video-failed {
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.10) inset,
+    0 0 90px rgba(120,150,220,0.28) inset,
+    0 0 110px rgba(140,170,235,0.55),
+    0 0 220px rgba(60,90,160,0.55),
+    inset 0 0 80px rgba(0,0,0,0.4);
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal-glass.video-failed::after { animation: none; }
+}
 /* Looping background video — fills the portal's circular interior.
    Light filter only — keep the sphere's color vivid. */
 .portal-bg-video {
@@ -515,6 +557,24 @@ h2.scene-title em {
 }
 
 /* ─── SATELLITE WORLD ─────────────────────────────────────────── */
+/* Off-screen scene gating: when a scene is not currently in the camera's
+   focus zone (added/removed by the IntersectionObserver in index.html), we:
+     1. pause its infinite animations (saves CPU on keyframe interpolation)
+     2. drop its backdrop-filter (saves GPU compositing)
+   Visible scenes are unaffected. */
+.scene.scene-paused,
+.scene.scene-paused *,
+.scene.scene-paused *::before,
+.scene.scene-paused *::after {
+  animation-play-state: paused !important;
+}
+.scene.scene-paused *,
+.scene.scene-paused *::before,
+.scene.scene-paused *::after {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 .world {
   position: absolute;
   top: 0; left: 0;
@@ -530,6 +590,12 @@ h2.scene-title em {
   pointer-events: none;
   --w-glow: #3b82f6;
   --w-glow-soft: rgba(59,130,246,0.55);
+  /* Brightness/blur driven by JS via CSS variables — JS only writes the var
+     (cheap), the browser applies the filter. Blur is snapped to 0/1/2px
+     tiers so the GPU caches rasterizations between frames. */
+  --w-bright: 1;
+  --w-blur: 0px;
+  filter: brightness(var(--w-bright)) blur(var(--w-blur));
 }
 /* Literal SVG icon per category — replaces the old gradient sphere.
    Glow is shaped by the icon's silhouette (drop-shadow), not a circle. */
@@ -634,8 +700,8 @@ h2.scene-title em {
   background: linear-gradient(160deg,
     rgba(2, 6, 23, 0.86) 0%,
     rgba(2, 6, 23, 0.94) 100%);
-  backdrop-filter: blur(30px) saturate(160%);
-  -webkit-backdrop-filter: blur(30px) saturate(160%);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
   border: 1px solid var(--w-glow, rgba(255,255,255,0.15));
   border-radius: 28px;
   box-shadow:
@@ -1233,8 +1299,8 @@ button.wp-pill,
   background: radial-gradient(circle at 50% 50%,
     rgba(2,6,23,0.65) 0%,
     rgba(2,6,23,0.92) 70%);
-  backdrop-filter: blur(24px) saturate(140%);
-  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.45s ease;
@@ -1845,8 +1911,8 @@ button.wp-pill,
   background: radial-gradient(circle at 50% 50%,
     rgba(2,6,23,0.65) 0%,
     rgba(2,6,23,0.94) 70%);
-  backdrop-filter: blur(28px) saturate(140%);
-  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.45s ease;
