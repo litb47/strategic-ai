@@ -1995,10 +1995,25 @@ requestAnimationFrame(tick);
   };
   // Try once after first paint (most browsers will succeed without input).
   requestAnimationFrame(() => requestAnimationFrame(playAll));
-  // Belt & braces: any user gesture unlocks playback.
+  // Any user gesture unlocks playback.
   ['click', 'touchstart', 'scroll', 'keydown'].forEach(ev => {
     window.addEventListener(ev, playAll, { once: true, passive: true });
   });
+  // Tab/window returns to visible → resume any paused videos.
+  // Fixes the "I left the tab and came back, the sphere is broken / stuck on
+  // half a frame" bug — Chrome pauses videos in background tabs and doesn't
+  // always resume cleanly.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') playAll();
+  });
+  // Hero portal specifically: keep nudging it for the first 8 seconds in case
+  // the initial play() promise was blocked by the browser. Cheap (4 calls).
+  const hero = document.querySelector('.portal-bg-video');
+  if (hero) {
+    [500, 1500, 4000, 8000].forEach(ms => setTimeout(() => {
+      if (hero.paused) hero.play().catch(() => {});
+    }, ms));
+  }
 })();
 
 /* ═══════════════════════════════════════════════════════════════

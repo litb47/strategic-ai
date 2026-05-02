@@ -118,7 +118,18 @@ html, body {
   box-shadow: 0 0 60px rgba(59, 130, 246, 0.1) inset;
 }
 
-/* Grid floor and ceiling (for depth cues) */
+/* Grid floor and ceiling — hidden per user request (was creating visual
+   intrusion into the hero sphere area). Background is now stars-only.
+   Also hiding the surrounding hero-aura glow + portal rings — user wanted
+   the Hero stripped down to "just the sphere + stars". */
+.grid-plane,
+.hero-aura,
+.portal-ring-outer,
+.portal-ring-mid,
+#rings,
+#rings .ring {
+  display: none !important;
+}
 .grid-plane {
   position: absolute; top: 50%; left: 50%;
   width: 3000px; height: 6000px;
