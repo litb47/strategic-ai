@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="tunnel.css?v=48">
+<link rel="stylesheet" href="tunnel.css?v=49">
 </head>
 <body>
 
@@ -1972,30 +1972,9 @@ function easeOutBack(x) {
 requestAnimationFrame(tick);
 
 /* ═══════════════════════════════════════════════════════════════
-   7. LAZY LOAD VIDEOS — IntersectionObserver
-   Avoids fetching ~28MB of MP4 on initial page load. Hero video keeps
-   its inline src so it autoplays immediately; everything else loads
-   only as the camera approaches.
-═══════════════════════════════════════════════════════════════ */
-(function lazyLoadVideos() {
-  const videoObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const v = entry.target;
-        if (v.dataset.src) {
-          v.src = v.dataset.src;
-          v.removeAttribute('data-src');
-          v.load();
-        }
-        videoObs.unobserve(v);
-      }
-    });
-  }, { rootMargin: '600px' });
-  document.querySelectorAll('video[data-src]').forEach(v => videoObs.observe(v));
-})();
-
-/* ═══════════════════════════════════════════════════════════════
-   8. KEYBOARD A11Y — ESC closes any open overlay
+   7. KEYBOARD A11Y — ESC closes any open overlay
+   (Lazy-load was removed — existing per-scene handlers above
+   already promote data-src → src with HEAD probe.)
 ═══════════════════════════════════════════════════════════════ */
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;

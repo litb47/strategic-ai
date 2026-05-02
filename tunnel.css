@@ -142,9 +142,9 @@ html, body {
   width: 1200px;
   transform-style: preserve-3d;
   will-change: transform, opacity;
-  /* Containment hints — scope layout/paint to each scene to reduce
-     unnecessary recalcs while distant scenes are invisible. */
-  contain: layout paint;
+  /* NOTE: do NOT add `contain: layout paint;` here — it clips 3D-transformed
+     children that escape the box (e.g., hero portal at scale 2.2) AND blocks
+     pointer hit-testing on 3D descendants (Earth, orbs, pillars, cards). */
 }
 
 /* Hero scene — vertical centering uses vh so the portal isn't clipped at
@@ -235,15 +235,12 @@ html, body {
 }
 .portal-ring-outer {
   inset: -40px;
-  border: 1px solid rgba(120,150,220,0.32);
-  box-shadow:
-    0 0 80px rgba(120,150,220,0.4),
-    inset 0 0 40px rgba(120,150,220,0.12);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 0 120px rgba(120,150,220,0.18);
 }
 .portal-ring-mid {
   inset: -14px;
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: inset 0 0 20px rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
 }
 
 .hero-sub {
@@ -258,52 +255,35 @@ html, body {
 }
 .hero-aura {
   position: absolute; top: 50%; left: 50%;
-  /* Bigger + breathing for stronger ambient presence */
-  width: 1100px; height: 1100px;
+  width: 900px; height: 900px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(circle,
-    rgba(59, 130, 246, 0.5) 0%,
-    rgba(184, 166, 255, 0.22) 35%,
+    rgba(59, 130, 246, 0.45) 0%,
+    rgba(184, 166, 255, 0.2) 35%,
     transparent 70%);
   filter: blur(80px);
   z-index: -1;
   pointer-events: none;
-  animation: hero-aura-pulse 6s ease-in-out infinite;
-}
-@keyframes hero-aura-pulse {
-  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.08); }
 }
 
 .scroll-cue {
   position: absolute; bottom: -140px; left: 50%; transform: translateX(-50%);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(160, 174, 200, 0.75);
-  display: flex; flex-direction: column; align-items: center; gap: 14px;
-  text-shadow: 0 0 12px rgba(120,150,220,0.3);
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-faint);
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
 }
 .scroll-cue .line {
   width: 1px; height: 40px;
-  background: linear-gradient(to bottom, rgba(160,174,200,0.75), transparent);
+  background: linear-gradient(to bottom, var(--ink-faint), transparent);
   animation: scroll-line 2.2s ease-in-out infinite;
-}
-.scroll-cue::after {
-  content: "↓";
-  font-size: 18px;
-  opacity: 0.5;
-  animation: scroll-arrow 1.8s ease-in-out infinite;
 }
 @keyframes scroll-line {
   0% { transform: scaleY(0); transform-origin: top; }
   50% { transform: scaleY(1); transform-origin: top; }
   50.01% { transform-origin: bottom; }
   100% { transform: scaleY(0); transform-origin: bottom; }
-}
-@keyframes scroll-arrow {
-  0%, 100% { transform: translateY(0); opacity: 0.4; }
-  50%      { transform: translateY(6px); opacity: 1; }
 }
 
 /* Summary scene */
@@ -499,15 +479,9 @@ h2.scene-title em {
     drop-shadow(0 0 28px rgba(59,130,246,0.7))
     drop-shadow(0 0 60px rgba(59,130,246,0.45));
   transition: filter 0.4s ease, transform 0.4s ease;
-  /* Combine breathing scale + glow pulse for a more alive central hub. */
-  animation:
-    earth-breathe 6s ease-in-out infinite,
-    earth-glow-pulse 3.6s ease-in-out infinite alternate;
+  /* Subtle breathing keeps the hub feeling "alive" without the spinning planet. */
+  animation: earth-breathe 6s ease-in-out infinite;
   pointer-events: none;
-}
-@keyframes earth-glow-pulse {
-  0%   { filter: drop-shadow(0 0 10px rgba(96,165,250,0.95)) drop-shadow(0 0 28px rgba(59,130,246,0.7)) drop-shadow(0 0 60px rgba(59,130,246,0.45)); }
-  100% { filter: drop-shadow(0 0 18px rgba(96,165,250,1)) drop-shadow(0 0 50px rgba(94,234,212,0.55)) drop-shadow(0 0 90px rgba(59,130,246,0.5)); }
 }
 .earth-stage:hover .earth-icon {
   transform: scale(1.04);
@@ -534,12 +508,10 @@ h2.scene-title em {
 .orbit-path {
   position: absolute;
   top: 50%; left: 50%;
-  /* Slightly more visible — gives true solar-system depth cue */
-  border: 1px dashed rgba(96,165,250,0.18);
+  border: 1px dashed rgba(255,255,255,0.08);
   border-radius: 50%;
   pointer-events: none;
   transform-style: preserve-3d;
-  box-shadow: 0 0 24px rgba(96,165,250,0.05);
 }
 
 /* ─── SATELLITE WORLD ─────────────────────────────────────────── */
@@ -575,11 +547,11 @@ h2.scene-title em {
   pointer-events: auto;
 }
 .world:hover .world-icon {
-  transform: scale(1.12);
+  transform: scale(1.06);
   filter:
-    drop-shadow(0 0 12px var(--w-glow))
-    drop-shadow(0 0 36px var(--w-glow-soft))
-    drop-shadow(0 0 72px var(--w-glow-soft));
+    drop-shadow(0 0 8px var(--w-glow))
+    drop-shadow(0 0 24px var(--w-glow-soft))
+    drop-shadow(0 0 48px var(--w-glow-soft));
 }
 /* Keyboard focus ring — keyboard users only (mouse focus stays clean). */
 .world:focus { outline: none; }
@@ -1066,23 +1038,8 @@ button.wp-pill,
   box-shadow:
     0 24px 60px rgba(0,0,0,0.6),
     inset 0 1px 0 rgba(255,255,255,0.04);
-  /* Stagger entrance — pre-active state */
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s cubic-bezier(.2, 1.05, .4, 1),
-    border-color 0.4s ease,
-    box-shadow 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
 }
-/* Stagger 6 cards as scene becomes active */
-.closing-scene.is-active .outlook-card { opacity: 1; transform: translateY(0); }
-.closing-scene.is-active .outlook-card:nth-child(1) { transition-delay: 0s; }
-.closing-scene.is-active .outlook-card:nth-child(2) { transition-delay: 0.08s; }
-.closing-scene.is-active .outlook-card:nth-child(3) { transition-delay: 0.16s; }
-.closing-scene.is-active .outlook-card:nth-child(4) { transition-delay: 0.24s; }
-.closing-scene.is-active .outlook-card:nth-child(5) { transition-delay: 0.32s; }
-.closing-scene.is-active .outlook-card:nth-child(6) { transition-delay: 0.40s; }
 .outlook-card:hover {
   border-color: var(--ol-glow);
   box-shadow:
@@ -1123,29 +1080,6 @@ button.wp-pill,
   margin: 0 auto 40px;
   max-width: 1000px;
   text-align: center;
-  position: relative;
-  padding: 12px 24px;
-}
-/* Decorative quote marks framing the takeaway. */
-.closing-takeaway::before,
-.closing-takeaway::after {
-  font-family: 'Instrument Serif', serif;
-  font-size: 80px;
-  font-style: italic;
-  color: rgba(167,139,250,0.28);
-  position: absolute;
-  pointer-events: none;
-  line-height: 1;
-}
-.closing-takeaway::before {
-  content: "“";
-  top: -20px;
-  right: -8px;
-}
-.closing-takeaway::after {
-  content: "”";
-  bottom: -50px;
-  left: -8px;
 }
 .closing-takeaway em {
   font-style: italic;
@@ -1558,21 +1492,13 @@ button.wp-pill,
   box-shadow:
     0 30px 80px rgba(0,0,0,0.7),
     inset 0 1px 0 rgba(255,255,255,0.06);
-  /* Pre-active state for stagger entrance */
-  opacity: 0;
-  transform: translateY(40px);
   transition:
-    transform 0.7s cubic-bezier(.2, 1.05, .4, 1),
-    opacity 0.7s ease,
+    transform 0.55s cubic-bezier(.2, 1.25, .4, 1),
     box-shadow 0.55s ease,
     border-color 0.55s ease;
   outline: none;
   isolation: isolate;
 }
-/* Stagger entry — each pillar appears slightly after the previous */
-.pillars-scene.is-active .pillar:nth-child(1) { transition-delay: 0s, 0s, 0s, 0s; transform: translateY(0); opacity: 1; }
-.pillars-scene.is-active .pillar:nth-child(2) { transition-delay: 0.15s, 0.15s, 0s, 0s; transform: translateY(0); opacity: 1; }
-.pillars-scene.is-active .pillar:nth-child(3) { transition-delay: 0.3s, 0.3s, 0s, 0s; transform: translateY(0); opacity: 1; }
 .pillar:hover,
 .pillar:focus-visible,
 .pillar.is-active {
@@ -1597,7 +1523,7 @@ button.wp-pill,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(15px) brightness(0.6) saturate(1.3);
+  filter: blur(25px) brightness(0.55) saturate(1.3);
   transform: scale(1.15);
   transition: filter 0.7s cubic-bezier(.2, .9, .3, 1), transform 0.7s ease;
 }
@@ -1653,16 +1579,12 @@ button.wp-pill,
   position: absolute;
   top: 32px; right: 36px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.3em;
   color: var(--p-glow);
-  text-shadow: 0 0 18px var(--p-soft);
+  text-shadow: 0 0 14px var(--p-soft);
   opacity: 0.95;
-  padding: 4px 10px;
-  background: rgba(0,0,0,0.25);
-  border-radius: 6px;
-  backdrop-filter: blur(6px);
 }
 .pillar-title-text {
   font-family: 'Heebo', 'Inter', sans-serif;
@@ -1818,34 +1740,11 @@ button.wp-pill,
   display: flex;
   flex-direction: column;
   gap: 18px;
-  overflow: hidden;
-  isolation: isolate;
   transition:
     transform 0.4s var(--ease-out),
     border-color 0.4s,
     box-shadow 0.4s;
 }
-/* Vendor watermark — giant initial letter, very subtle. */
-.cyber-card::before {
-  content: "";
-  position: absolute;
-  bottom: -40px;
-  left: 20px;
-  font-family: 'Geist', 'Inter Tight', sans-serif;
-  font-size: 240px;
-  font-weight: 900;
-  line-height: 1;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.06;
-  transition: opacity 0.4s ease;
-}
-.cyber-card[data-cyber="anthropic"]::before { content: "A"; color: rgba(200,123,77,1); }
-.cyber-card[data-cyber="openai"]::before    { content: "O"; color: rgba(16,163,127,1); }
-.cyber-card:hover::before,
-.cyber-card:focus-visible::before { opacity: 0.12; }
-/* Push card content above the watermark */
-.cyber-card > * { position: relative; z-index: 1; }
 .cyber-card:hover,
 .cyber-card:focus-visible {
   transform: translateY(-6px);
@@ -1894,7 +1793,8 @@ button.wp-pill,
 .cyber-stats {
   display: flex;
   flex-direction: column;
-  padding: 8px 18px;
+  gap: 10px;
+  padding: 16px 18px;
   border-radius: 14px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.08);
@@ -1904,18 +1804,11 @@ button.wp-pill,
   font-size: 14px;
   color: rgba(245,247,255,0.85);
   line-height: 1.45;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.cyber-stats > div:last-child {
-  border-bottom: none;
 }
 .cyber-stats strong {
   color: var(--cy-glow);
   font-weight: 800;
-  font-size: 1.15em;
-  margin-inline-end: 8px;
-  text-shadow: 0 0 10px var(--cy-soft);
+  margin-inline-end: 6px;
 }
 .cyber-cta {
   align-self: flex-start;
@@ -2490,15 +2383,13 @@ button.wp-pill,
 .bio-card:hover,
 .bio-card:focus-visible {
   mix-blend-mode: normal;
-  background: rgba(110,231,183,0.06);
+  background: rgba(110,231,183,0.04);
   box-shadow:
     0 36px 90px rgba(0,0,0,0.75),
-    0 0 110px var(--p-soft, rgba(110,231,183,0.55)),
-    inset 0 0 0 1px var(--p-glow, rgba(110,231,183,0.65));
+    0 0 90px var(--p-soft, rgba(110,231,183,0.45)),
+    inset 0 0 0 1px var(--p-glow, rgba(110,231,183,0.6));
   outline: none;
 }
-/* When user hovers any card, pause the orbit ring so they can read it. */
-.bio-stage:hover .bio-orbit { animation-play-state: paused; }
 .bio-card:hover::before,
 .bio-card:focus-visible::before {
   background: linear-gradient(180deg,
@@ -2523,23 +2414,10 @@ button.wp-pill,
   opacity: 0.7;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.bc-cta::after {
-  content: " ←";
-  display: inline-block;
-  margin-left: 4px;
-  opacity: 0;
-  transform: translateX(4px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
 .bio-card:hover .bc-cta,
 .bio-card:focus-visible .bc-cta {
   opacity: 1;
   transform: translateX(-3px);
-}
-.bio-card:hover .bc-cta::after,
-.bio-card:focus-visible .bc-cta::after {
-  opacity: 1;
-  transform: translateX(0);
 }
 .bc-org {
   font-family: 'JetBrains Mono', monospace;
@@ -2607,14 +2485,11 @@ button.wp-pill,
   inset: 0;
   width: 100%;
   height: 100%;
-  /* cover: fill the viewport without letterbox. Soft mask fades top/bottom
-     so cropped edges blend into the surrounding darkness. */
-  object-fit: cover;
+  /* contain: show the entire frame (no crop). The .exec-bridge-fade overlay
+     and the black backdrop above blend any letterbox area in. */
+  object-fit: contain;
   object-position: center center;
-  transform: scale(1.05);
   filter: brightness(1.05) saturate(1.15) contrast(1.05);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 8%, black 92%, transparent 100%);
-          mask-image: linear-gradient(180deg, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 .exec-bridge-fade {
   position: absolute; inset: 0;
@@ -2644,20 +2519,15 @@ button.wp-pill,
   text-shadow: 0 0 16px rgba(110,231,183,0.4);
 }
 
-/* Liquid-glass panel — subtle presence with mask-composite hairline */
+/* Weightless liquid-glass panel — only the mask-composite hairline */
 .exec-glass {
   position: relative;
   max-width: 980px;
   width: 100%;
   padding: 72px 64px;
   border-radius: 28px;
-  /* Light tinted glass — readable but doesn't compete with the video bridge */
-  background: rgba(255,255,255,0.025);
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    0 30px 80px rgba(0,0,0,0.4);
+  /* Override default backdrop so panel feels weightless */
+  background: rgba(255,255,255,0.006);
 }
 .exec-glass::after {
   /* kill the inner highlight from .liquid-glass — keep only the border */
