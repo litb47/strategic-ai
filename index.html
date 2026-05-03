@@ -32,7 +32,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:ital,wght@0,400..900;1,400..900&family=Geist:wght@400;500;600;700;800;900&family=Heebo:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="tunnel.css?v=54">
+  <link rel="stylesheet" href="tunnel.css?v=55">
 </head>
 
 <body>
@@ -395,41 +395,46 @@
         סוכנית.</p>
 
       <div class="hub-grid">
-        <article class="hub-cell" style="--c-glow:#60a5fa;--c-soft:rgba(96,165,250,0.4)">
+        <article class="hub-cell has-deepdive" data-hub="cowork" role="button" tabindex="0"
+          aria-label="פתח פרטים על Claude Cowork"
+          style="--c-glow:#60a5fa;--c-soft:rgba(96,165,250,0.4);--p-glow:#60a5fa;--p-soft:rgba(96,165,250,0.55)">
           <div class="hub-num">01</div>
           <h3 class="hub-h">Claude Cowork</h3>
-          <div class="hub-sub">העמית השולחני</div>
-          <p class="hub-body">סוכן מבוסס Workflows לניהול מסמכים וקבצים בסביבה מאובטחת (Sandbox). דגש על שמישות גבוהה
-            וניהול טקטי תחת פיקוח אנושי.</p>
+          <div class="hub-sub">Anthropic · השף הדיגיטלי השולחני</div>
+          <p class="hub-body">הסוכן הכללי של Anthropic לעבודה משרדית. רץ ב-Sandbox VM על המחשב שלך, נע בין קבצים
+            מקומיים, אפליקציות ותיקיות, ומשלים משימות בלי שתתאם כל צעד.</p>
           <div class="hub-tags">
-            <span>Workflows</span><span>Sandbox</span><span>Human-in-loop</span>
+            <span>Workflows</span><span>Sandbox VM</span><span>Managed Agents</span>
           </div>
+          <div class="hub-cta">לחץ להעמקה</div>
         </article>
 
-        <article class="hub-cell" style="--c-glow:#a78bfa;--c-soft:rgba(167,139,250,0.4)">
+        <article class="hub-cell has-deepdive" data-hub="openclaw" role="button" tabindex="0"
+          aria-label="פתח פרטים על OpenClaw"
+          style="--c-glow:#a78bfa;--c-soft:rgba(167,139,250,0.4);--p-glow:#a78bfa;--p-soft:rgba(167,139,250,0.55)">
           <div class="hub-num">02</div>
           <h3 class="hub-h">OpenClaw</h3>
-          <div class="hub-sub">האוטומציה הסביבתית</div>
-          <p class="hub-body">סוכן שירות הפועל ברקע 24/7. בעל זיכרון מתמשך (Persistent Memory), מסוגל לנטר שרתים, Slack
-            ואירועים באופן פרואקטיבי ללא התערבות אנושית.</p>
+          <div class="hub-sub">Open-Source · האוטומציה הסביבתית</div>
+          <p class="hub-body">Daemon אוטונומי שרץ ברקע 24/7, עם זיכרון מתמשך ב-Markdown מקומי וגישה ל-WhatsApp / Slack /
+            Telegram. ה-repo הכי מכוכב בהיסטוריה של GitHub (347K+ stars).</p>
           <div class="hub-tags">
-            <span>24/7</span><span>Persistent Memory</span><span>Proactive</span>
+            <span>Local-First</span><span>Persistent Memory</span><span>Always-on</span>
           </div>
+          <div class="hub-cta">לחץ להעמקה</div>
         </article>
 
-        <article class="hub-cell" style="--c-glow:#f59e0b;--c-soft:rgba(245,158,11,0.4)">
+        <article class="hub-cell has-deepdive" data-hub="hermes" role="button" tabindex="0"
+          aria-label="פתח פרטים על Hermes Agents"
+          style="--c-glow:#f59e0b;--c-soft:rgba(245,158,11,0.4);--p-glow:#f59e0b;--p-soft:rgba(245,158,11,0.55)">
           <div class="hub-num">03</div>
           <h3 class="hub-h">Hermes Agents</h3>
-          <div class="hub-sub">הסוכן שלומד את עצמו · Nous Research</div>
-          <p class="hub-body">פלטפורמת ה-Agent של Nous Research (היוצרים של Hermes, Nomos ו-Psyche). שוחררה בפברואר 2026
-            וצברה למעלה מ-100 אלף כוכבים ב-GitHub תוך חודשיים. בניגוד ל-LangGraph (שליטה גרפית), CrewAI (תפקידים
-            קבועים) ו-AutoGen (שיחה רב-סוכנית) — Hermes הוא <em>הסוכן היחיד עם learning loop מובנה</em>: בונה לעצמו
-            כישורים תוך כדי עבודה, שומר זיכרון מתמשך לאורך סשנים, ומפעיל <code>execute_code</code> לקריאת כלים
-            פרוגרמטית במקום inference יקר על כל צעד. מריץ sub-agents מבודדים במקביל, MCP-native, גרסה חדשה כל 7-10
-            ימים.</p>
+          <div class="hub-sub">Nous Research · הסוכן שלומד את עצמו</div>
+          <p class="hub-body">פלטפורמת Agent עם <em>learning loop</em> מובנה — בניגוד ל-LangGraph / CrewAI / AutoGen,
+            בונה כישורים מהניסיון, שומר זיכרון בין סשנים ומריץ sub-agents מקבילים.</p>
           <div class="hub-tags">
-            <span>Self-Learning Loop</span><span>Parallel Sub-agents</span><span>MCP Native</span><span>execute_code</span>
+            <span>Self-Learning</span><span>execute_code</span><span>MCP Native</span>
           </div>
+          <div class="hub-cta">לחץ להעמקה</div>
         </article>
       </div>
     </div>
@@ -1552,8 +1557,81 @@
             p: 'ה MCP יודע היום להבדיל בין כלים שרצים אצלך על המחשב (Local) לבין שירותי ענן, ולנהל את האבטחה ביניהם בצורה אוטונומית.'
           }
         ]
+      },
+      // ─── Orchestration Hub overlays (Cowork / OpenClaw / Hermes) ─────
+      'hub-cowork': {
+        eyebrow: 'Anthropic · GA אפריל 2026',
+        title: 'Claude Cowork',
+        sub: 'הסוכן הכללי של Anthropic לעבודה משרדית · רץ בתוך Sandbox VM על המחשב שלך',
+        sections: [
+          {
+            h: 'מה זה Cowork?',
+            p: 'Anthropic הכריזה על <strong>Claude Cowork</strong> בינואר 2026 כ research preview, ושחררה אותו ל GA לכל המנויים בתשלום ב 9 באפריל 2026. <strong>הופך את Claude לעמית עבודה דיגיטלי שולחני</strong>: רץ ב macOS וב Windows, נע בין קבצים מקומיים, אפליקציות ותיקיות, מסנתז מידע ממקורות מרובים, ומשלים משימות בלי שהמשתמש יתאם כל צעד.'
+          },
+          {
+            h: 'Sandbox VM מובנה',
+            p: 'Cowork רץ בתוך <strong>virtual machine מבודד</strong> על השולחני שלך (משתמש ב <code>Apple Virtualization Framework</code> ב macOS). הקבצים שלך מורכבים אל תוך ה container הזה, מה שאומר ש Claude מקבל גישה אמיתית למערכת הקבצים ובו זמנית נשאר מבודד משאר המערכת. אתה לא צריך "להאמין" לסוכן: ה sandbox הוא ה־guarantee.'
+          },
+          {
+            h: 'Managed Agents · ה־Cloud Twin',
+            p: 'במקביל ל Cowork השולחני, Anthropic השיקה את <strong>Claude Managed Agents</strong>: סוויטה של APIs לבנייה ופריסה של סוכנים ענניים בקנה מידה גדול. Anthropic מטפלת ב runtime, scaling ו monitoring, מספקת sandboxes מאובטחים כ containers מבודדים לכל session, ומכלילה כלים מובנים: הרצת קוד, גלישה באינטרנט ופעולות קבצים.'
+          },
+          {
+            h: 'הגישה הטקטית',
+            p: 'Cowork מתוכנן ל <strong>Human-in-the-loop</strong>: הסוכן מציע, המשתמש מאשר. דגש על <em>שמישות גבוהה</em> וניהול טקטי תחת פיקוח אנושי, בניגוד ל OpenClaw שרץ אוטונומי לחלוטין ברקע. תאם לעבודה מסמכים, ניתוח קבצים, אוטומציות מקומיות וסקירת מידע.'
+          }
+        ]
+      },
+      'hub-openclaw': {
+        eyebrow: 'Open-Source · 347K ⭐ GitHub · אפריל 2026',
+        title: 'OpenClaw',
+        sub: 'Daemon אוטונומי שרץ ברקע 24/7 · זיכרון מתמשך + Gateway לכל הכלים שלך',
+        sections: [
+          {
+            h: 'מה זה OpenClaw?',
+            p: '<strong>Self-hosted, local-first runtime</strong> של סוכן AI אוטונומי. בניגוד ל LLMs ענניים שמחכים לפרומפט בטאב דפדפן, OpenClaw רץ כ <strong>daemon רקע מתמשך</strong> במחשב שלך. תמיד פעיל, תמיד מתבונן, תמיד מוכן לפעול ביוזמתו כשתנאים מתקיימים.'
+          },
+          {
+            h: 'Persistent Memory · זיכרון שצומח לאורך זמן',
+            p: 'מאחסן את הזיכרון כ <strong>קבצי Markdown מקומיים</strong>, מה שמאפשר התאמה אישית עמוקה ועריכה ידנית. <code>IDENTITY.md</code> מגדיר את המגבלות ההתנהגותיות, הפרסונה, הכלים המאושרים וכללי escalation. <code>USER.md</code> צובר ידע מובנה עליך: ההעדפות שלך, משימות חוזרות, contexts של פרויקטים, סגנון תקשורת. <strong>אחרי 30 יום של הרצה, OpenClaw מציג התנהגות מותאמת אישית באמת</strong> מבוססת על דפוסים שהוא צפה בהם.'
+          },
+          {
+            h: 'Gateway · מחבר LLMs לאפליקציות הקיימות',
+            p: 'OpenClaw מתפקד כ <strong>Gateway</strong>: process רקע מתמשך שמחבר LLMs (Claude, GPT, Gemini, Llama) לאפליקציות messaging שאתה כבר משתמש בהן: <strong>WhatsApp, Telegram, Slack, Discord</strong>. הוא מנטר את הכלים המחוברים ברציפות ו<strong>פועל לבד כשתנאים מתקיימים</strong> (קביעת פגישה, triage לתיבת inbox, מעקב התראות) בלי שהמשתמש יזם את השיחה.'
+          },
+          {
+            h: 'ההיסטוריה · מ Clawdbot ל repo הכי מכוכב בעולם',
+            p: 'הושק תחילה כ <strong>Clawdbot</strong> בנובמבר 2025 (9K stars). שונה שמו ל <strong>Moltbot</strong> בדצמבר 2025 (35K stars). שונה שוב ל <strong>OpenClaw</strong> בינואר 2026 (100K+ stars). בגרסת <strong>v2026.4.25 (LTS)</strong> באפריל 2026 הגיע ל 247K+ stars. שיא היסטורי: <strong>347K stars</strong> באפריל 2026 — ה repo הכי מכוכב בהיסטוריה של GitHub, תוך שילוח של תכונות אבטחה ברמת production.'
+          }
+        ]
+      },
+      'hub-hermes': {
+        eyebrow: 'Nous Research · v0.1.0 פברואר 2026',
+        title: 'Hermes Agents',
+        sub: 'הסוכן עם learning loop מובנה · יוצר את הכישורים שלו תוך כדי עבודה',
+        sections: [
+          {
+            h: 'מה זה Hermes Agents?',
+            p: '<strong>פלטפורמת agent orchestration open-source</strong> מ <strong>Nous Research</strong> — המעבדה שמאחורי המודלים Hermes, Nomos ו Psyche. שוחרר כ v0.1.0 בפברואר 2026 וצבר <strong>57K+ stars</strong> מההשקה. הקצב: <strong>גרסה מרכזית חדשה כל 7-10 ימים</strong>. תומך כיום ב 16+ פלטפורמות.'
+          },
+          {
+            h: 'ההבדל המרכזי · Self-Learning Loop',
+            p: 'Hermes הוא <strong>הסוכן היחיד עם learning loop מובנה</strong>. הוא <em>יוצר לעצמו skills מהניסיון</em>, משפר אותם תוך כדי שימוש, מפעיל את עצמו לשמר ידע, ובונה מודל מעמיק של מי אתה לאורך הסשנים. בניגוד לסוכנים סטטיים שצריך להגדיר להם מחדש כל יכולת חדשה, Hermes צובר יכולות לבד.'
+          },
+          {
+            h: 'Multi-Agent Orchestration',
+            p: 'Hermes מיישם <strong>פירוק היררכי של משימות</strong>: ה orchestrator (סוכן ראשי) מנתח משימה מורכבת, מזהה את ה work breakdown האופטימלי, ו<strong>מפיק worker agents מומחים</strong> כל אחד עם context מותאם. <strong>Parallel execution הוא first-class</strong>: ה orchestrator יורה כמה worker agents במקביל, עם resource-aware scheduling שמונע over-spawning דרך concurrency limits מוגדרים.'
+          },
+          {
+            h: 'Programmatic Tool Calling · execute_code',
+            p: 'במקום לקרוא לכלי בודד בכל inference (יקר ואיטי), Hermes משתמש ב <code>execute_code</code> שמקפל pipelines רב-שלביים ל <strong>קריאת inference יחידה</strong>. תמיכה מלאה ב web (חיפוש, extract, browse, vision, image generation, TTS) וב <strong>MCP-native</strong> (כל MCP server מתחבר אוטומטית).'
+          },
+          {
+            h: 'ההבדל מ LangGraph / CrewAI / AutoGen',
+            p: '<strong>LangGraph</strong> = שליטה גרפית, המפתח חוטב את control flow ידנית. <strong>CrewAI</strong> = הקצאת תפקידים לסוכנים מוגדרים מראש (researcher, coder, reviewer). <strong>AutoGen</strong> = שיחה בין סוכנים לפתרון בעיה. <strong>Hermes</strong> = self-improving + persistent cross-session memory + isolated subagent processes (zero-context-cost pipelines) + native MCP. שלושת הראשונים דורשים scaffolding מוקפד; Hermes נבנה לבד מהשימוש.'
+          }
+        ]
       }
-      // 'agents' and 'skills' will be added when their content is provided.
     };
 
     const pillarOverlay = document.getElementById('pillarOverlay');
@@ -1608,6 +1686,17 @@
       const cs = getComputedStyle(card);
       card.style.setProperty('--p-glow', cs.getPropertyValue('--cy-glow').trim());
       card.style.setProperty('--p-soft', cs.getPropertyValue('--cy-soft').trim());
+      card.addEventListener('click', () => openPillarOverlay(key, card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+      });
+    });
+
+    // Orchestration Hub cells (Cowork / OpenClaw / Hermes) — same pattern
+    // as the Cyber cards. data-hub="X" opens PILLAR_DETAILS["hub-X"].
+    document.querySelectorAll('.hub-cell[data-hub]').forEach((card) => {
+      const key = 'hub-' + card.dataset.hub;
+      if (!PILLAR_DETAILS[key]) return;
       card.addEventListener('click', () => openPillarOverlay(key, card));
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
