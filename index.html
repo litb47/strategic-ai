@@ -1727,8 +1727,15 @@ if (bioOrbit) {
 /* Orbit clock — synced to hoop RPM, paused on hover */
 let bioOrbitT = 0;
 let bioLast = performance.now();
+const _bioScene = document.querySelector('.bio-scene');
 function tickBioOrbit(now) {
   const dt = Math.min(50, now - bioLast); bioLast = now;
+  // Skip the bio orbit math + DOM writes when the bio scene is invisible
+  // (the cards aren't rendered, so nobody can see them anyway).
+  if (_bioScene && parseFloat(_bioScene.style.opacity || '1') < 0.05) {
+    requestAnimationFrame(tickBioOrbit);
+    return;
+  }
   if (bioOrbit && !bioOrbit.classList.contains('is-paused')) {
     // ~14s per full revolution to match hoop RPM in the video
     bioOrbitT += dt * 0.00045;
@@ -1785,10 +1792,20 @@ const _refreshMaxScroll = () => {
 window.addEventListener('resize', _refreshMaxScroll, { passive: true });
 window.addEventListener('load', _refreshMaxScroll);
 
+// Cached reference to nexus scene — used to skip orrery work when invisible.
+const _nexusScene = document.querySelector('.nexus-scene');
+
 function renderOrrery() {
   const now = performance.now();
   const dt = Math.min(0.05, (now - lastFrameTs) / 1000); // seconds, clamped
   lastFrameTs = now;
+
+  // Skip the entire orrery render when the Nexus scene is far enough off
+  // that nobody can see it. The scene's opacity is set by the tunnel tick
+  // every frame; below ~5% opacity the worlds are imperceptible. Skipping
+  // here avoids 6× trig + 6× DOM mutation + CSS-var writes per frame on
+  // Hero/Exec/Pillars/Bio/Closing scenes.
+  if (_nexusScene && parseFloat(_nexusScene.style.opacity || '1') < 0.05) return;
 
   // Detect scroll velocity → temporarily boost orbit speed
   const dy = Math.abs(window.scrollY - lastScrollY);
