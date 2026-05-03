@@ -1669,8 +1669,6 @@ if (bioOrbit) {
       <p class="bc-body">${m.body}</p>
       <div class="bc-cta">לחץ להעמקה</div>
     `;
-    card.addEventListener('mouseenter', () => bioOrbit.classList.add('is-paused'));
-    card.addEventListener('mouseleave', () => bioOrbit.classList.remove('is-paused'));
     card.addEventListener('click', () => {
       const key = 'bio-' + m.key;
       if (PILLAR_DETAILS[key]) openPillarOverlay(key, card);
@@ -1681,6 +1679,13 @@ if (bioOrbit) {
     bioOrbit.appendChild(card);
     bioCards.push(card);
   });
+  // Pause-on-hover at the orbit container (not per card) so fast mouse
+  // movement between cards can't leave .is-paused stuck on. pointer*
+  // events also cover touch and pen, and pointercancel handles drag/scroll
+  // gestures that would otherwise swallow pointerleave.
+  bioOrbit.addEventListener('pointerenter',  () => bioOrbit.classList.add('is-paused'));
+  bioOrbit.addEventListener('pointerleave',  () => bioOrbit.classList.remove('is-paused'));
+  bioOrbit.addEventListener('pointercancel', () => bioOrbit.classList.remove('is-paused'));
 }
 
 /* Bio bg video — dual-tag custom fade loop for seamless transitions */
@@ -1737,8 +1742,9 @@ function tickBioOrbit(now) {
     return;
   }
   if (bioOrbit && !bioOrbit.classList.contains('is-paused')) {
-    // ~14s per full revolution to match hoop RPM in the video
-    bioOrbitT += dt * 0.00045;
+    // ~5.7s per full revolution. Was 0.00045 (14s) to match the video's
+    // hoop RPM, but that read as static — bumped for clearer motion.
+    bioOrbitT += dt * 0.0011;
   }
   const N = bioCards.length;
   if (N) {
